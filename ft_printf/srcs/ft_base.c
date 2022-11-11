@@ -6,11 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:24:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/10 16:27:48 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:20:49 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 char	*ft_dec(void)
 {

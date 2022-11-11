@@ -6,33 +6,33 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:11:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/10 16:34:22 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:39:49 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
-void	ft_format(const char c, va_list	args)
+void	ft_format(const char c, va_list	args, int *len)
 {
 	if (c == '%')
-		ft_putchar('%');
+		ft_putchar('%', len);
 	else if (c == 'c')
-		ft_putchar(va_arg(args, int));
+		ft_putchar(va_arg(args, int), len);
 	else if (c == 's')
-		ft_putstr(va_arg(args, char *));
+		ft_putstr(va_arg(args, char *), len);
 	else if (c == 'p')
 	{
-		ft_putstr("0x");
-		ft_putunsigned_nb(va_arg(args, unsigned long int), ft_hex(), 16);
+		ft_putstr("0x", len);
+		ft_putunsigned_nb(va_arg(args, unsigned long int), ft_hex(), 16, len);
 	}
 	else if (c == 'u')
-		ft_putunsigned_nb(va_arg(args, unsigned int), ft_dec(), 10);
+		ft_putunsigned_nb(va_arg(args, unsigned int), ft_dec(), 10, len);
 	else if (c == 'i' || c == 'd')
-		ft_putnbr_base(va_arg(args, int), ft_dec());
+		ft_putnbr_base(va_arg(args, int), ft_dec(), len);
 	else if (c == 'x')
-		ft_putnbr_base(va_arg(args, int), ft_hex());
+		ft_putnbr_base(va_arg(args, int), ft_hex(), len);
 	else if (c == 'X')
-		ft_putnbr_base(va_arg(args, int), ft_hex_u());
+		ft_putnbr_base(va_arg(args, int), ft_hex_u(), len);
 }
 
 int	ft_printf(const char *format, ...)
@@ -46,14 +46,11 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			ft_format(*++format, valist);
+			ft_format(*++format, valist, &len);
 			format++;
 		}
 		else
-		{
-			ft_putchar(*format++);
-			len++;
-		}
+			ft_putchar(*format++, &len);
 	}
 	va_end(valist);
 	return (len);

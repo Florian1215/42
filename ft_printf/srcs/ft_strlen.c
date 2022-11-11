@@ -6,11 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:46:36 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/10 15:46:51 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:31:56 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int	ft_strlen(const char *s)
 {
