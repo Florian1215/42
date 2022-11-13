@@ -1,6 +1,7 @@
-# include "includes/libftprintf.h"
+# include "libftprintf.h"
 
 int main()
 {
-	printf("%-10X", 0xFAFAA);
+	ft_printf(" %x \n", -1);
+	printf(" %x \n", -1);
 }

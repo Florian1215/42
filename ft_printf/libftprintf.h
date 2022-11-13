@@ -33,7 +33,7 @@ void	ft_putchar(char c, int *len);
 void	ft_putunsigned_nb(unsigned long int nb,
 			char *base, int n_base, int *len);
 void	ft_putnbr_base(int n, char *base, int *len);
-int		ft_putstr(char *s, int *len);
+void	ft_putstr(char *s, int *len);
 int		ft_strlen(const char *s);
 
 #endif

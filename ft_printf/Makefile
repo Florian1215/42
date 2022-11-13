@@ -6,13 +6,12 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 09:08:09 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/11 10:36:13 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/13 10:00:08 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DIR_SRC		= srcs/
 SRCS		= ft_base.c ft_putchar.c ft_putnb.c ft_putstr.c ft_strlen.c ft_printf.c 
-OBJS_SRC	= $(addprefix ${DIR_SRC}, ${SRCS:.c=.o})
+OBJS_SRC	= $(SRCS:.c=.o)
 BONUS		= *_bonus.c
 OBJS_BONUS	= $(BONUS:.c=.o)
 HEAD		= includes

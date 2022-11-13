@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/13 09:38:02 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/13 10:36:29 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ CC			= gcc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
-.c.o:
-			${CC} ${CFLAGS} -I ${HEAD} -c $< -o ${<:.c=.o}
+%.o: %.c Makefile libft.h
+			${CC} ${CFLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}
 			ar rc ${NAME} ${OBJS_SRC}

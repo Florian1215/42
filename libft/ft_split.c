@@ -53,6 +53,17 @@ char	*ft_wordcpy(const char *src, int n)
 	return (dest);
 }
 
+char	**ft_freeall(char **split, int len)
+{
+	int	i;
+
+	i = 0;
+	while (split[i] && i < len)
+		free(split[i]);
+	free(split);
+	return (0);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**split;
