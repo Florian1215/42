@@ -25,7 +25,7 @@ typedef struct s_list
 }				t_list;
 
 char	*get_next_line(int fd);
-void	ft_lstrm_first(t_list **begin_list);
+t_list	*ft_lstrm_first(t_list *lst);
 t_list	*ft_lstnew(char *buff);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);

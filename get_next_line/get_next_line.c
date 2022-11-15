@@ -38,12 +38,14 @@ char	*ft_add_res(t_list *lst)
 	char	*res;
 	int		i;
 	int		j;
+	int		loop;
 
 	res = malloc(sizeof(char) * (ft_find_nl(lst) + 1));
-	i = 0;
 	if (!res)
 		return (0);
-	while (lst)
+	i = 0;
+	loop = 1;
+	while (loop && lst)
 	{
 		j = 0;
 		while (lst->buff[j])
@@ -51,10 +53,12 @@ char	*ft_add_res(t_list *lst)
 			res[i] = lst->buff[j++];
 			printf("char = '%c'\n", res[i]);
 			if (res[i++] == '\n')
+			{
+				loop = 0;
 				break ;
+			}
 		}
-		ft_lstrm_first(&lst);
-		//lst = lst->next;
+		lst = ft_lstrm_first(lst);
 	}
 	if (!i)
 		return (0);
@@ -89,12 +93,14 @@ char	*get_next_line(int fd)
 		if (!buff)
 			return (0);
 		read_bytes = read(fd, buff, BUFFER_SIZE);
+		printf("AAA");
 		if (read_bytes < 0 || (!lst && !read_bytes))
 		{
 			free(buff);
 			return (0);
 		}
 		buff[read_bytes] = '\0';
+		printf("AAA");
 		ft_lstadd_back(&lst, ft_lstnew(buff));
 		printf("readbyte = %d - find %d - buff %s\n", read_bytes, ft_find_nl(ft_lstlast(lst)), ft_lstlast(lst)->buff);
 		ft_printlst(lst);
