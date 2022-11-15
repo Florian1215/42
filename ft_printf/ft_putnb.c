@@ -25,12 +25,23 @@ int	ft_nblen(unsigned int nb, int n_base)
 	return (len);
 }
 
-void	ft_putunsigned_nb(unsigned long int nb,
+void	ft_putunsigned_long(unsigned long int nb,
 			char *base, int n_base, int *len)
 {
 	if (nb >= (unsigned long)n_base)
 	{
-		ft_putunsigned_nb(nb / n_base, base, n_base, len);
+		ft_putunsigned_long(nb / n_base, base, n_base, len);
+		nb %= n_base;
+	}
+	ft_putchar(base[nb], len);
+}
+
+void	ft_putunsigned(unsigned int nb,
+			char *base, int n_base, int *len)
+{
+	if (nb >= (unsigned)n_base)
+	{
+		ft_putunsigned(nb / n_base, base, n_base, len);
 		nb %= n_base;
 	}
 	ft_putchar(base[nb], len);
@@ -47,5 +58,5 @@ void	ft_putnbr_base(int n, char *base, int *len)
 	}
 	else
 		nb = n;
-	ft_putunsigned_nb(nb, base, ft_strlen(base), len);
+	ft_putunsigned(nb, base, ft_strlen(base), len);
 }

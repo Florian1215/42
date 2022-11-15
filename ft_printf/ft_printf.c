@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:11:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/13 10:10:48 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/15 10:10:26 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	ft_format(const char c, va_list	args, int *len)
 	else if (c == 'p')
 	{
 		ft_putstr("0x", len);
-		ft_putunsigned_nb(va_arg(args, unsigned long int), ft_hex(), 16, len);
+		ft_putunsigned_long(va_arg(args, unsigned long int), ft_hex(), 16, len);
 	}
 	else if (c == 'u')
-		ft_putunsigned_nb(va_arg(args, unsigned int), ft_dec(), 10, len);
+		ft_putunsigned(va_arg(args, unsigned int), ft_dec(), 10, len);
 	else if (c == 'i' || c == 'd')
 		ft_putnbr_base(va_arg(args, int), ft_dec(), len);
 	else if (c == 'x')
-		ft_putunsigned_nb(va_arg(args, int), ft_hex(), 16, len);
+		ft_putunsigned(va_arg(args, int), ft_hex(), 16, len);
 	else if (c == 'X')
-		ft_putunsigned_nb(va_arg(args, int), ft_hex_u(), 16, len);
+		ft_putunsigned(va_arg(args, int), ft_hex_u(), 16, len);
 }
 
 int	ft_printf(const char *format, ...)
