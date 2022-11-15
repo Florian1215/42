@@ -17,3 +17,22 @@ void	ft_putchar(char c, int *len)
 	write(1, &c, 1);
 	*len += 1;
 }
+
+int	ft_strlen(const char *s)
+{
+	int	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
+
+void	ft_putstr(char *s, int *len)
+{
+	if (s == NULL)
+		ft_putstr("(null)", len);
+	else
+		while (*s)
+			ft_putchar(*s++, len);
+}

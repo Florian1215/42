@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/13 10:36:29 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/15 12:02:25 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ OBJS_SRC	= $(SRCS:.c=.o)
 BONUS		= ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
 OBJS_BONUS	= $(BONUS:.c=.o)
 NAME		= libft.a
-HEAD		= ./
+HEAD		= libft.h
 CC			= gcc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 
-%.o: %.c Makefile libft.h
+%.o: %.c Makefile ${HEAD}
 			${CC} ${CFLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/15 10:24:42 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/15 10:24:42 by fguirama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
@@ -7,16 +18,21 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
-#endif
-
-char *get_next_line(int fd);
-
 typedef struct s_list
 {
 	char			*buff;
 	struct s_list	*next;
 }				t_list;
+
+char	*get_next_line(int fd);
+void	ft_lstrm_first(t_list **begin_list);
+t_list	*ft_lstnew(char *buff);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+int		ft_find_nl(t_list *lst);
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 #endif

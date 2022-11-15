@@ -1,4 +1,16 @@
-# include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/15 10:24:31 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/15 10:24:31 by fguirama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
 
 t_list	*ft_lstnew(char *buff)
 {
@@ -21,40 +33,37 @@ t_list	*ft_lstlast(t_list *lst)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*last_ptr;
-
 	if (!*lst)
 		*lst = new;
 	else
-	{
-		last_ptr = ft_lstlast(*lst);
-		last_ptr->next = new;
-	}
+		ft_lstlast(*lst)->next = new;
 }
 
-void	ft_list_remove_if(t_list **begin_list, void
-*data_ref, int (*cmp)(), void (*free_fct)(void *))
+void	ft_lstrm_first(t_list **begin_list)
 {
-	t_list	*l;
+	t_list	*tmp;
 	t_list	*prev;
 	t_list	*next;
+	int		st;
+	int		i;
 
-	l = *begin_list;
-	prev = NULL;
-	while (l)
+	tmp = *begin_list;
+	printf("%d\n", ft_find_nl(tmp));
+	if (ft_find_nl(tmp) == -1)
 	{
-		next = l->next;
-		if (!(*cmp)(l->buff, data_ref))
-		{
-			if (prev)
-				prev->next = l->next;
-			else
-				*begin_list = next;
-			(*free_fct)(l->buff);
-			free(l);
-		}
-		else
-			prev = l;
-		l = next;
+		printf("remove lst  !");
+		*begin_list = tmp->next;
+		free(tmp->buff);
+		free(tmp);
+	}
+	else
+	{
+		//printf("-|%s|-\n", tmp->buff);
+		st = ft_find_nl(tmp) + 1;
+		i = 0;
+		while (tmp->buff[st])
+			tmp->buff[i++] = tmp->buff[st++];
+		tmp->buff[i] = '\0';
+		//printf("-|%s|-\n", tmp->buff);
 	}
 }
