@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/15 12:02:25 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/15 16:45:48 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,11 @@ CFLAGS		= -Wall -Wextra -Werror
 %.o: %.c Makefile ${HEAD}
 			${CC} ${CFLAGS} -I ${HEAD} -c $< -o $@
 
-${NAME}:	${OBJS_SRC}
-			ar rc ${NAME} ${OBJS_SRC}
 
 all:		${NAME}
+
+${NAME}:	${OBJS_SRC}
+			ar rc ${NAME} ${OBJS_SRC}
 
 clean:
 			${RM} ${OBJS_SRC}

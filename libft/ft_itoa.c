@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_nblen(unsigned int nb)
+static int	ft_nblen(unsigned int nb)
 {
 	int	len;
 
