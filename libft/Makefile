@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/15 16:45:48 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/16 11:16:35 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,4 +41,4 @@ re:			fclean all
 bonus:		${NAME} ${OBJS_BONUS}
 			ar rc ${NAME} ${OBJS_BONUS} ${OBJS_SRC}
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re bonus

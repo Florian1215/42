@@ -25,14 +25,19 @@ typedef struct s_list
 }				t_list;
 
 char	*get_next_line(int fd);
-t_list	*ft_lstrm_first(t_list *lst);
+void	ft_lstrm_first(t_list **lst);
 t_list	*ft_lstnew(char *buff);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
-int		ft_find_nl(t_list *lst);
+int		ft_find_nl(t_list *lst, int one_lst);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 20
+# endif
+
+# if BUFFER_SIZE >= 10000000
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 20
 # endif
 
 #endif

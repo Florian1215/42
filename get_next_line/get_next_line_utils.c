@@ -39,31 +39,27 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		ft_lstlast(*lst)->next = new;
 }
 
-t_list	*ft_lstrm_first(t_list *lst)
+void	ft_lstrm_first(t_list **lst)
 {
 	t_list	*tmp;
-	t_list	*prev;
-	t_list	*next;
 	int		st;
 	int		i;
 
-	if (ft_find_nl(tmp) == -1)
+	if (!*lst)
+		return ;
+	st = ft_find_nl(*lst, 1);
+	if (st == -1 || !(*lst)->buff[++st])
 	{
-		tmp = lst->next;
-		printf("remove lst  !");
-		free(lst->buff);
-		free(lst);
-		return (tmp);
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp->buff);
+		free(tmp);
 	}
 	else
 	{
-		//printf("-|%s|-\n", tmp->buff);
-		st = ft_find_nl(lst) + 1;
 		i = 0;
-		while (lst->buff[st])
-			lst->buff[i++] = lst->buff[st++];
-		lst->buff[i] = '\0';
-		return (lst);
-		//printf("-|%s|-\n", tmp->buff);
+		while ((*lst)->buff[st])
+			(*lst)->buff[i++] = (*lst)->buff[st++];
+		(*lst)->buff[i] = '\0';
 	}
 }

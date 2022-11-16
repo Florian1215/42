@@ -55,7 +55,7 @@ static char	*ft_wordcpy(const char *src, int n)
 
 static char	**ft_free_all(char **split, int i)
 {
-	while (i)
+	while (i >= 0)
 		free(split[i--]);
 	free(split);
 	return (0);

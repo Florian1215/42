@@ -12,11 +12,25 @@
 
 #include "get_next_line.h"
 
-int	ft_find_nl(t_list *lst)
+
+char	*ft_calloc()
+{
+	char	*res;
+	int		i;
+
+	res = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!res)
+		return (0);
+	i = 0;
+	while (i < BUFFER_SIZE + 1)
+		res[i++] = '\0';
+	return (res);
+}
+
+int	ft_find_nl(t_list *lst, int one_lst)
 {
 	int	size;
 	int	i;
-	int	nl;
 
 	size = 0;
 	while (lst)
@@ -28,55 +42,40 @@ int	ft_find_nl(t_list *lst)
 				return (size);
 			size++;
 		}
+		if (one_lst)
+			break ;
 		lst = lst->next;
 	}
 	return (-1);
 }
 
-char	*ft_add_res(t_list *lst)
+char	*ft_add_res(t_list **lst)
 {
 	char	*res;
 	int		i;
 	int		j;
 	int		loop;
 
-	res = malloc(sizeof(char) * (ft_find_nl(lst) + 1));
+	res = malloc(sizeof(char) * (ft_find_nl(*lst, 0) + 1));
 	if (!res)
 		return (0);
 	i = 0;
 	loop = 1;
-	while (loop && lst)
+	while (loop && *lst)
 	{
 		j = 0;
-		while (lst->buff[j])
+		while (loop && (*lst)->buff[j])
 		{
-			res[i] = lst->buff[j++];
-			printf("char = '%c'\n", res[i]);
+			res[i] = (*lst)->buff[j++];
+			printf("add char \"%c\"\n", res[i]);
 			if (res[i++] == '\n')
-			{
 				loop = 0;
-				break ;
-			}
 		}
-		lst = ft_lstrm_first(lst);
+		ft_lstrm_first(lst);
 	}
 	if (!i)
 		return (0);
-	res[i] = '\0';
-	return (res);
-}
-
-void	ft_printlst(t_list *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst)
-	{
-		printf("list %d = %s\n", i, lst->buff);
-		i++;
-		lst = lst->next;
-	}
+	return (res[i] = '\0', res);
 }
 
 char	*get_next_line(int fd)
@@ -87,26 +86,24 @@ char	*get_next_line(int fd)
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 		return (0);
-	while (ft_find_nl(ft_lstlast(lst)) == -1 && read_bytes)
+	while (ft_find_nl(ft_lstlast(lst), 1) == -1 && read_bytes)
 	{
-		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		buff = ft_calloc();
 		if (!buff)
 			return (0);
 		read_bytes = read(fd, buff, BUFFER_SIZE);
-		printf("AAA");
 		if (read_bytes < 0 || (!lst && !read_bytes))
 		{
 			free(buff);
 			return (0);
 		}
 		buff[read_bytes] = '\0';
-		printf("AAA");
 		ft_lstadd_back(&lst, ft_lstnew(buff));
-		printf("readbyte = %d - find %d - buff %s\n", read_bytes, ft_find_nl(ft_lstlast(lst)), ft_lstlast(lst)->buff);
-		ft_printlst(lst);
+		printf("read = %d - buff = %s - n = %d\n", read_bytes, buff, ft_find_nl(ft_lstlast(lst), 1));
 	}
-	return (ft_add_res(lst));
+	return (ft_add_res(&lst));
 }
+
 
 int	main(void)
 {
@@ -114,13 +111,13 @@ int	main(void)
 	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("\n\nline = %s", get_next_line(fd));
-	return (0);
+	//printf("LINE = \"%s\"", get_next_line(fd));
+	//return (0);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		printf("line = %s", line);
+		printf("LINE = \"%s\"", line);
 	}
 }
