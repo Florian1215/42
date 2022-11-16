@@ -80,7 +80,7 @@ char	**ft_split(char const *s, char c)
 		n = ft_wordlen(s, c);
 		split[i] = ft_wordcpy(s, n);
 		if (!split[i])
-			return (ft_free_all(split, i));
+			return (ft_free_all(split, i - 1));
 		s += n;
 	}
 	split[size] = 0;
