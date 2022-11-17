@@ -48,7 +48,7 @@ void	ft_lstrm_first(t_list **lst)
 	if (!*lst)
 		return ;
 	st = ft_find_nl(*lst, 1);
-	if (st == -1 || !(*lst)->buff[++st])
+	if (st == -1 || !(*lst)->buff[st + 1])
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
