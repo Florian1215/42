@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:11:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/15 12:34:33 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:53:22 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			ft_format(*++format, valist, &len);
-			format++;
+			if (!*++format)
+				break ;
+			ft_format(*format++, valist, &len);
 		}
 		else
 			ft_putchar(*format++, &len);

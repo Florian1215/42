@@ -15,15 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <unistd.h>
 # include <stdarg.h>
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
 
 char	*ft_dec(void);
 char	*ft_hex(void);
