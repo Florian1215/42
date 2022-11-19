@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:11:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/17 13:53:22 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/19 11:29:13 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void	ft_format(const char c, va_list	args, int *len)
 	{
 		ft_putstr("0x", len);
 		ft_putunsigned(va_arg(args, unsigned long long int),
-			ft_hex(), 16, len);
+			"0123456789abcdef", 16, len);
 	}
 	else if (c == 'u')
-		ft_putunsigned(va_arg(args, unsigned int), ft_dec(), 10, len);
+		ft_putunsigned(va_arg(args, unsigned int), "0123456789", 10, len);
 	else if (c == 'i' || c == 'd')
-		ft_putnbr_base(va_arg(args, int), ft_dec(), len);
+		ft_putnbr_base(va_arg(args, int), "0123456789", len);
 	else if (c == 'x')
-		ft_putunsigned(va_arg(args, unsigned int), ft_hex(), 16, len);
+		ft_putunsigned(va_arg(args, unsigned int), "0123456789abcdef", 16, len);
 	else if (c == 'X')
-		ft_putunsigned(va_arg(args, unsigned int), ft_hex_u(), 16, len);
+		ft_putunsigned(va_arg(args, unsigned int), "0123456789ABCDEF", 16, len);
 }
 
 int	ft_printf(const char *format, ...)
@@ -43,7 +43,7 @@ int	ft_printf(const char *format, ...)
 
 	va_start(valist, format);
 	len = 0;
-	while (*format)
+	while (*format && len != -1)
 	{
 		if (*format == '%')
 		{

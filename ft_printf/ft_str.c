@@ -14,8 +14,13 @@
 
 void	ft_putchar(char c, int *len)
 {
-	write(1, &c, 1);
-	*len += 1;
+	if (len != -1)
+	{
+		if (!write(1, &c, 1))
+			*len = -1;
+		else
+			*len += 1;
+	}
 }
 
 int	ft_strlen(const char *s)

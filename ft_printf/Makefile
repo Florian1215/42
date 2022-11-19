@@ -6,11 +6,11 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 09:08:09 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/15 12:37:18 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/19 11:28:56 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_base.c ft_str.c ft_putnb.c ft_printf.c 
+SRCS		= ft_str.c ft_putnb.c ft_printf.c 
 OBJS_SRC	= $(SRCS:.c=.o)
 HEAD		= libftprintf.h
 NAME		= libftprintf.a
