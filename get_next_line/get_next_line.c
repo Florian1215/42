@@ -12,26 +12,12 @@
 
 #include "get_next_line.h"
 
-char	*ft_calloc(void)
-{
-	char	*res;
-	int		i;
-
-	res = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!res)
-		return (0);
-	i = 0;
-	while (i < BUFFER_SIZE + 1)
-		res[i++] = '\0';
-	return (res);
-}
-
 int	ft_find_nl(t_list *lst, int one_lst)
 {
 	int	size;
 	int	i;
 
-	size = 0 + (lst && lst->buff[0] == '\n');
+	size = 1;
 	while (lst)
 	{
 		i = 0;
@@ -40,7 +26,7 @@ int	ft_find_nl(t_list *lst, int one_lst)
 			i++;
 			size++;
 		}
-		if (lst->buff[i] == '\n')// || (!lst->buff[i] && !lst->next && one_lst))
+		if (lst->buff[i] == '\n' || (!one_lst && !lst->buff[i] && !lst->next))
 			return (size);
 		if (one_lst)
 			break ;
@@ -57,7 +43,6 @@ char	*ft_add_res(t_list **lst)
 	int		loop;
 
 	res = malloc(sizeof(char) * (ft_find_nl(*lst, 0) + 1));
-	//printf("size malloc %d\n", ft_find_nl(*lst, 0) + 1);
 	if (!res)
 		return (0);
 	i = 0;
@@ -73,11 +58,6 @@ char	*ft_add_res(t_list **lst)
 		}
 		ft_lstrm_first(lst);
 	}
-	if (!i)
-	{
-		free(res);
-		return (0);
-	}
 	return (res[i] = '\0', res);
 }
 
@@ -89,14 +69,13 @@ char	*get_next_line(int fd)
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 		return (0);
-	printf("while %d\n", ft_find_nl(ft_lstlast(lst), 1) == -1 && read_bytes);
+	read_bytes = 1;
 	while (ft_find_nl(ft_lstlast(lst), 1) == -1 && read_bytes)
 	{
-		buff = ft_calloc();
+		buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buff)
 			return (0);
 		read_bytes = read(fd, buff, BUFFER_SIZE);
-		printf("read %d\n", read_bytes);
 		if ((!lst && !read_bytes) || read_bytes < 0)
 		{
 			free(buff);
@@ -104,29 +83,6 @@ char	*get_next_line(int fd)
 		}
 		buff[read_bytes] = '\0';
 		ft_lstadd_back(&lst, ft_lstnew(buff));
-		//printf("read = %d - buff = %s - nl = %d - bool %d\n", read_bytes, buff, ft_find_nl(ft_lstlast(lst), 1), ft_find_nl(ft_lstlast(lst), 1) == -1 && read_bytes);
 	}
 	return (ft_add_res(&lst));
 }
-
-///*
-int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("gnlTester/files/multiple_line_no_nl", O_RDONLY);
-	//line = get_next_line(fd);
-	//printf("LINE = \"%s\"", line);
-	//free(line);
-	//return (0);
-	while (1)
-	{
-		line = get_next_line(fd);
-		printf("LINE = \"%s\"\n", line);
-		if (!line)
-			break ;
-		free(line);
-	}
-}
-//*/

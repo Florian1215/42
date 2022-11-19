@@ -31,12 +31,12 @@ t_list	*ft_lstlast(t_list *lst)
 	return (ft_lstlast(lst->next));
 }
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new_lst)
 {
 	if (!*lst)
-		*lst = new;
+		*lst = new_lst;
 	else
-		ft_lstlast(*lst)->next = new;
+		ft_lstlast(*lst)->next = new_lst;
 }
 
 void	ft_lstrm_first(t_list **lst)
@@ -48,7 +48,7 @@ void	ft_lstrm_first(t_list **lst)
 	if (!*lst)
 		return ;
 	st = ft_find_nl(*lst, 1);
-	if (st == -1 || !(*lst)->buff[st + 1])
+	if (st == -1 || !(*lst)->buff[st])
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
