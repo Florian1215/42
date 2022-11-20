@@ -18,7 +18,10 @@ t_list	*ft_lstnew(char *buff)
 
 	new = malloc(sizeof(t_list));
 	if (!new)
+	{
+		free(buff);
 		return (NULL);
+	}
 	new->buff = buff;
 	new->next = NULL;
 	return (new);
