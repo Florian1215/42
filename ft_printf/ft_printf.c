@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 09:11:12 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/19 11:29:13 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:54:32 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_format(const char c, va_list	args, int *len)
 	else if (c == 'u')
 		ft_putunsigned(va_arg(args, unsigned int), "0123456789", 10, len);
 	else if (c == 'i' || c == 'd')
-		ft_putnbr_base(va_arg(args, int), "0123456789", len);
+		ft_putnbr_base(va_arg(args, int), len);
 	else if (c == 'x')
 		ft_putunsigned(va_arg(args, unsigned int), "0123456789abcdef", 16, len);
 	else if (c == 'X')

@@ -12,19 +12,6 @@
 
 #include "libftprintf.h"
 
-int	ft_nblen(unsigned int nb, int n_base)
-{
-	int	len;
-
-	len = 0;
-	while (nb)
-	{
-		nb /= n_base;
-		len++;
-	}
-	return (len);
-}
-
 void	ft_putunsigned(unsigned long long int nb,
 			char *base, int n_base, int *len)
 {
@@ -36,7 +23,7 @@ void	ft_putunsigned(unsigned long long int nb,
 	ft_putchar(base[nb], len);
 }
 
-void	ft_putnbr_base(int n, char *base, int *len)
+void	ft_putnbr_base(int n, int *len)
 {
 	unsigned int	nb;
 
@@ -47,5 +34,5 @@ void	ft_putnbr_base(int n, char *base, int *len)
 	}
 	else
 		nb = n;
-	ft_putunsigned(nb, base, ft_strlen(base), len);
+	ft_putunsigned(nb, "0123456789", 10, len);
 }
