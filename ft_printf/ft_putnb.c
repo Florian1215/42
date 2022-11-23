@@ -16,11 +16,8 @@ void	ft_putunsigned(unsigned long long int nb,
 			char *base, int n_base, int *len)
 {
 	if (nb >= (unsigned long long)n_base)
-	{
 		ft_putunsigned(nb / n_base, base, n_base, len);
-		nb %= n_base;
-	}
-	ft_putchar(base[nb], len);
+	ft_putchar(base[nb % n_base], len);
 }
 
 void	ft_putnbr_base(int n, int *len)

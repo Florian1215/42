@@ -16,7 +16,7 @@ void	ft_putchar(char c, int *len)
 {
 	if (len != -1)
 	{
-		if (!write(1, &c, 1))
+		if (write(1, &c, 1) == -1)
 			*len = -1;
 		else
 			*len += 1;
@@ -26,8 +26,7 @@ void	ft_putchar(char c, int *len)
 void	ft_putstr(char *s, int *len)
 {
 	if (s == NULL)
-		ft_putstr("(null)", len);
-	else
-		while (*s)
-			ft_putchar(*s++, len);
+		s = "(null)";
+	while (*s)
+		ft_putchar(*s++, len);
 }

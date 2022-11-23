@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/23 15:19:53 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/23 13:55:25 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/23 14:20:48 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(char letter, int *stack, int len)
+void	swap(int *stack, int len)
 {
-	printf("Stack = %c [ ", letter);
-	for (int i = 0; i <  len; i++)
-		printf("%d, ", stack[i]);
-	printf(" ]\n");
+	int	tmp;
+
+	if (len > 2)
+	{
+		tmp = stack[0];
+		stack[0] = stack[1];
+		stack[1] = tmp;
+	}
 }
 
-int	main(int ac, char **av)
+void	swap_a(t_stack *stack)
 {
-	t_stack	stack;
+	swap(stack->a, stack->len_a);
+}
 
-	stack = parsing(--ac, ++av);
-	print_stack('a', stack.a, stack.len_a);
-	print_stack('b', stack.b, stack.len_b);
-	printf("PUSH\n");
-	push_b(&stack);
-	print_stack('a', stack.a, stack.len_a);
-	print_stack('b', stack.b, stack.len_b);
+void	swap_b(t_stack *stack)
+{
+	swap(stack->b, stack->len_b);
+}
+
+void	swap_all(t_stack *stack)
+{
+	swap_a(stack);
+	swap_b(stack);
 }

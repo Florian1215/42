@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/23 11:09:59 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:38:28 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,18 @@
 typedef struct s_stack
 {
 	int	*a;
+	int	len_a;
 	int	*b;
+	int	len_b;
 	int	len;
 }				t_stack;
 
 void	ft_putstr_nl(char *str);
 t_stack	parsing(int ac, char **av);
+void	swap_all(t_stack *stack);
+void	swap_a(t_stack *stack);
+void	swap_b(t_stack *stack);
+void	push_a(t_stack *stack);
+void	push_b(t_stack *stack);
 
 #endif

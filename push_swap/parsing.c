@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:57:57 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/23 11:10:24 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:02:56 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_stack	parsing(int ac, char **av)
 		return (stack);
 	}
 	stack.len = ac;
+	stack.len_a = ac;
+	stack.len_b = 0;
 	i = -1;
 	while (++i < ac)
 		ft_atoi(av[i], i, &stack);
