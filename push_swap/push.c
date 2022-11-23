@@ -12,33 +12,23 @@
 
 #include "push_swap.h"
 
-void	push(int *from, int *len_from, int *to, int *len_to)
+static void	push(int *from, int *len_from, int *to, int *len_to)
 {
-	int	i;
-
 	if (*len_from == 0)
 		return ;
-	i = 0;
-	while (++i < *len_to)
-		to[i] = to[i - 1];
-	*len_to += 1;
+	move_down(to, len_to);
 	to[0] = from[0];
-	i = 1;
-	while (i <= *len_from)
-	{
-		printf("len = %d - i = %d - replace : %d to %d\n", *len_from, i, to[*len_from - i], to[*len_from - i + 1]);
-		to[*len_from - i] = to[*len_from - i + 1];
-		i++;
-	}
-	*len_from -= 1;
+	move_up(from, len_from);
 }
 
 void	push_a(t_stack *stack)
 {
 	push(stack->b, &stack->len_b, stack->a, &stack->len_a);
+	ft_putstr_nl("pa");
 }
 
 void	push_b(t_stack *stack)
 {
 	push(stack->a, &stack->len_a, stack->b, &stack->len_b);
+	ft_putstr_nl("pb");
 }

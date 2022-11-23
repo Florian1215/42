@@ -12,12 +12,26 @@
 
 #include "push_swap.h"
 
-void	print_stack(char letter, int *stack, int len)
+void	print_stack(t_stack stack)
 {
-	printf("Stack = %c [ ", letter);
-	for (int i = 0; i <  len; i++)
-		printf("%d, ", stack[i]);
-	printf(" ]\n");
+	int i;
+
+	i = 0;
+	printf("\nA (%d) - B (%d)\n", stack.len_a, stack.len_b);
+	while (i < stack.len_a || i < stack.len_b)
+	{
+		if (i < stack.len_a)
+			printf("%d\t", stack.a[i]);
+		else
+			printf(".\t");
+		if (i < stack.len_b)
+			printf("%d", stack.b[i]);
+		else
+			printf(".");
+		printf("\n");
+		i++;
+	}
+	printf("\n");
 }
 
 int	main(int ac, char **av)
@@ -25,10 +39,6 @@ int	main(int ac, char **av)
 	t_stack	stack;
 
 	stack = parsing(--ac, ++av);
-	print_stack('a', stack.a, stack.len_a);
-	print_stack('b', stack.b, stack.len_b);
-	printf("PUSH\n");
-	push_b(&stack);
-	print_stack('a', stack.a, stack.len_a);
-	print_stack('b', stack.b, stack.len_b);
+	reverse_ab(&stack);
+	print_stack(stack);
 }

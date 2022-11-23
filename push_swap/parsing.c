@@ -36,7 +36,7 @@ static void	ft_atoi(char *nb, int i, t_stack *stack)
 	}
 	while (nb[j] >= '0' && nb[j] <= '9')
 		res = res * 10 + nb[j++] - '0';
-	if (!j || (j == 1 && sign == -1) || res - (sign < 0) > INT32_MAX)
+	if (!j || (j == 1 && sign == -1) || res - (sign < 0) > 2147483647)//INT32_MAX)
 		return (parsing_error(*stack));
 	(*stack).a[i] = (int)res * sign;
 	j = 0;

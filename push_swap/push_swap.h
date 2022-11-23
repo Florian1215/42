@@ -14,7 +14,7 @@
 # define PUSH_SWAP_H
 
 # include <sys/types.h>
-# include <sys/uio.h>
+//# include <sys/uio.h>
 # include <unistd.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -30,12 +30,25 @@ typedef struct s_stack
 	int	len;
 }				t_stack;
 
-void	ft_putstr_nl(char *str);
 t_stack	parsing(int ac, char **av);
-void	swap_all(t_stack *stack);
+void	ft_putstr_nl(char *str);
+
 void	swap_a(t_stack *stack);
 void	swap_b(t_stack *stack);
+void	swap_ab(t_stack *stack);
+
 void	push_a(t_stack *stack);
 void	push_b(t_stack *stack);
+
+void	rotate_ab(t_stack *stack);
+void	rotate_a(t_stack *stack);
+void	rotate_b(t_stack *stack);
+
+void	reverse_ab(t_stack *stack);
+void	reverse_a(t_stack *stack);
+void	reverse_b(t_stack *stack);
+
+void    move_up(int *stack, int *len);
+void    move_down(int *stack, int *len);
 
 #endif

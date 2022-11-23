@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	swap(int *stack, int len)
+static void	swap(int *stack, int len)
 {
 	int	tmp;
 
@@ -27,14 +27,16 @@ void	swap(int *stack, int len)
 void	swap_a(t_stack *stack)
 {
 	swap(stack->a, stack->len_a);
+	ft_putstr_nl("sa");
 }
 
 void	swap_b(t_stack *stack)
 {
 	swap(stack->b, stack->len_b);
+	ft_putstr_nl("sb");
 }
 
-void	swap_all(t_stack *stack)
+void	swap_ab(t_stack *stack)
 {
 	swap_a(stack);
 	swap_b(stack);
