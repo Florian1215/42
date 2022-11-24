@@ -6,11 +6,11 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 09:48:29 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/23 09:51:12 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/24 12:26:00 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_str.c ft_putnb.c ft_printf.c 
+SRCS		= move.c parsing.c push.c push_swap.c reverse.c rotate.c solve.c swap.c
 OBJS_SRC	= $(SRCS:.c=.o)
 HEAD		= push_swap.h
 NAME		= push_swap
@@ -21,10 +21,10 @@ FLAGS		= -Wall -Wextra -Werror
 all:		${NAME}
 
 %.o: %.c Makefile ${HEAD}
-			${CC} ${FLAGS} -I ${HEAD} $< -o $@
+			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}
-			${CC} ${FLAGS} ${OBJS_SRC}
+			${CC} ${FLAGS} ${OBJS_SRC} -o ${NAME}
 
 clean:
 			${RM} ${OBJS_SRC}

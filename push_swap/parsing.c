@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:57:57 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/23 14:02:56 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:17:19 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 static void	parsing_error(t_stack stack)
 {
-	free(stack.a);
-	free(stack.b);
+	free_stack(stack);
 	ft_putstr_nl("Error");
 	exit(-1);
 }
@@ -36,7 +35,7 @@ static void	ft_atoi(char *nb, int i, t_stack *stack)
 	}
 	while (nb[j] >= '0' && nb[j] <= '9')
 		res = res * 10 + nb[j++] - '0';
-	if (!j || (j == 1 && sign == -1) || res - (sign < 0) > 2147483647)//INT32_MAX)
+	if (!j || (j == 1 && sign == -1) || res - (sign < 0) > INT_MAX)
 		return (parsing_error(*stack));
 	(*stack).a[i] = (int)res * sign;
 	j = 0;
