@@ -6,18 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:57:57 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/24 10:17:19 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/26 11:16:50 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	parsing_error(t_stack stack)
-{
-	free_stack(stack);
-	ft_putstr_nl("Error");
-	exit(-1);
-}
 
 static void	ft_atoi(char *nb, int i, t_stack *stack)
 {
@@ -36,12 +29,12 @@ static void	ft_atoi(char *nb, int i, t_stack *stack)
 	while (nb[j] >= '0' && nb[j] <= '9')
 		res = res * 10 + nb[j++] - '0';
 	if (!j || (j == 1 && sign == -1) || res - (sign < 0) > INT_MAX)
-		return (parsing_error(*stack));
+		return (error_(*stack));
 	(*stack).a[i] = (int)res * sign;
 	j = 0;
 	while (j < i)
 		if ((*stack).a[j++] == (*stack).a[i])
-			return (parsing_error(*stack));
+			return (error_(*stack));
 }
 
 t_stack	parsing(int ac, char **av)
@@ -53,7 +46,7 @@ t_stack	parsing(int ac, char **av)
 	stack.b = malloc(ac * sizeof(int));
 	if (!ac)
 	{
-		parsing_error(stack);
+		error_(stack);
 		return (stack);
 	}
 	stack.len = ac;

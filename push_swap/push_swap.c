@@ -6,29 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/24 12:33:54 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/26 13:29:33 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr_nl(char *str)
-{
-	while (*str)
-		ft_putchar(*str++);
-	ft_putchar('\n');
-}
-
-void	free_stack(t_stack stack)
-{
-	free(stack.a);
-	free(stack.b);
-}
 
 void	print_stack(t_stack stack)
 {
@@ -52,13 +34,39 @@ void	print_stack(t_stack stack)
 	printf("\n");
 }
 
+/*
+Selection sort:
+*/
+
+static void	solve(t_stack *stack)
+{
+	int	i;
+	int	min;
+
+	i = -1;
+	if (!(*stack).len_a)
+	{
+		while (++i < (*stack).len)
+			push_a(stack);
+		return ;
+	}
+	while (++i < (*stack).len_a)
+		if (i == 0 || (*stack).a[i] < (*stack).a[min])
+			min = i;
+	i = -1;
+	while (++i < min)
+		rotate_a(stack, 1);
+	push_b(stack);
+	return (solve(stack));
+}
+
 int	main(int ac, char **av)
 {
 	t_stack	stack;
 
-	printf("%d\n", ac);
 	stack = parsing(--ac, ++av);
-	solve(&stack);
-	//print_stack(stack);
+	if (!is_sort(stack))
+		solve(&stack);
+	printf("%d\n", is_sort(stack));
 	free_stack(stack);
 }

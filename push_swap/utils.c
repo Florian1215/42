@@ -1,46 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:55:25 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 12:16:34 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/26 11:28:17 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/26 13:18:31 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(int *stack, int len)
+static void	ft_putchar(char c)
 {
-	int	tmp;
-
-	if (len > 2)
-	{
-		tmp = stack[0];
-		stack[0] = stack[1];
-		stack[1] = tmp;
-	}
+	write(1, &c, 1);
 }
 
-void	swap_a(t_stack *stack, int print)
+void	ft_putstr_nl(char *str)
 {
-	swap(stack->a, stack->len_a);
-	if (print)
-		ft_putstr_nl("sa");
+	while (*str)
+		ft_putchar(*str++);
+	ft_putchar('\n');
 }
 
-void	swap_b(t_stack *stack, int print)
+void	error_(t_stack stack)
 {
-	swap(stack->b, stack->len_b);
-	if (print)
-		ft_putstr_nl("sb");
+	free_stack(stack);
+	ft_putstr_nl("Error");
+	exit(-1);
 }
 
-void	swap_ab(t_stack *stack)
+void	free_stack(t_stack stack)
 {
-	swap_a(stack, 0);
-	swap_b(stack, 0);
-	ft_putstr_nl("ss");
+	free(stack.a);
+	free(stack.b);
+}
+
+int	is_sort(t_stack stack)
+{
+	int	i;
+
+	if (stack.len_b)
+		return (0);
+	i = 0;
+	while (++i < stack.len_a)
+		if (stack.a[i] < stack.a[i - 1])
+			return (0);
+	return (1);
 }

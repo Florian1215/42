@@ -36,7 +36,6 @@ int		ft_find_nl(t_list *lst, int one_lst);
 # endif
 
 # if BUFFER_SIZE >= 10000000
-#  undef BUFFER_SIZE
 #  define BUFFER_SIZE 20
 # endif
 
