@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:28:17 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 13:18:31 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:43:08 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	is_sort(t_stack stack)
 	i = 0;
 	while (++i < stack.len_a)
 		if (stack.a[i] < stack.a[i - 1])
-			return (0);
-	return (1);
+		{
+			printf("%d - %d - %d - %d\n", i, stack.a[i - 1], stack.a[i], stack.a[i + 1]);
+			//return (i);
+		}
+	return (-1);
 }

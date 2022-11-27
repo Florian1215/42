@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 13:16:17 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/26 16:41:28 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int		ft_find_nl(t_list *lst, int one_lst);
 void	print_stack(t_stack stack); // DELETE
 
 // UTILS
+void	solve(t_stack *stack, int index);
+
 void	error_(t_stack stack);
 t_stack	parsing(int ac, char **av);
 void	free_stack(t_stack stack);

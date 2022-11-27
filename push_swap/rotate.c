@@ -14,7 +14,7 @@
 
 static void	rotate(int *stack, int *len)
 {
-	int	tmp;
+	int	tmp;/Users/fguirama/Desktop/42/push_swap/rotate.c
 
 	if (*len <= 1)
 		return ;
