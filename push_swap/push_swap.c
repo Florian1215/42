@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 17:45:19 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/27 11:55:41 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,17 @@ void	print_stack(t_stack stack)
 	printf("\n");
 }
 
-/*
-Selection sort:
-
-
-static void	solve2(t_stack *stack)
-{
-	int	i;
-	int	min;
-
-	i = -1;
-	if (!stack->len_a)
-	{
-		while (++i < stack->len)
-			push_a(stack);
-		return ;
-	}
-	while (++i < stack->len_a)
-		if (i == 0 || stack->a[i] < stack->a[min])
-			min = i;
-	i = -1;
-	while (++i < min)
-		rotate_a(stack, 1);
-	push_b(stack);
-	return (solve2(stack));
-}
-*/
-
 int	main(int ac, char **av)
 {
 	t_stack	stack;
 
 	stack = parsing(--ac, ++av);
-	//if (!is_sort(stack))
-	solve(&stack, 0);
-	print_stack(stack);
-	is_sort(stack);
+	if (!is_sort(stack))
+	{
+		if (stack.len > 5)
+			solve(&stack, 0);
+		else
+			solve_selection_sort(&stack);
+	}
 	free_stack(stack);
 }

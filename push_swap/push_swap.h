@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 16:41:28 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/27 11:43:12 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,20 @@ int		ft_find_nl(t_list *lst, int one_lst);
 
 void	print_stack(t_stack stack); // DELETE
 
-// UTILS
-void	solve(t_stack *stack, int index);
 
+// SOLVE
+void	solve(t_stack *stack, int index);
+void	solve_selection_sort(t_stack *stack);
+
+// UTILS
 void	error_(t_stack stack);
 t_stack	parsing(int ac, char **av);
 void	free_stack(t_stack stack);
 void	ft_putstr_nl(char *str);
 int		is_sort(t_stack stack);
+int		to_binary(int nb);
+int		*convert_to_index(t_stack *stack);
+void	get_index(t_stack *stack);
 
 // INSTRUCTIONS
 void	swap_a(t_stack *stack, int print);

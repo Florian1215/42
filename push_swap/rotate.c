@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:02:27 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 12:16:49 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/27 09:33:19 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	rotate(int *stack, int *len)
 {
-	int	tmp;/Users/fguirama/Desktop/42/push_swap/rotate.c
+	int	tmp;
 
 	if (*len <= 1)
 		return ;
