@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:39:34 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/27 11:45:16 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 12:56:18 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	solve(t_stack *stack, int index)
 		if (!index_nb(stack->a[0], index))
 			push_b(stack);
 		else
-			rotate_a(stack, 1);
+			rotate_a(stack);
 	}
 	i = -1;
 	len = stack->len_b;
@@ -73,7 +73,7 @@ void	solve_selection_sort(t_stack *stack)
 			min = i;
 	i = -1;
 	while (++i < min)
-		rotate_a(stack, 1);
+		rotate_a(stack);
 	push_b(stack);
 	return (solve_selection_sort(stack));
 }

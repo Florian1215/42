@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:28:17 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/27 11:45:04 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:15:41 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,32 @@ void	ft_putstr_nl(char *str)
 	ft_putchar('\n');
 }
 
-void	error_(t_stack stack)
+void	error_(t_stack *stack)
 {
-	free_stack(stack);
+	free_stack(stack, 1, 1);
 	ft_putstr_nl("Error");
 	exit(-1);
 }
 
-void	free_stack(t_stack stack)
+void	*free_stack(t_stack *stack, int free_a, int free_b)
 {
-	free(stack.a);
-	free(stack.b);
+	if (free_a)
+		free(stack->a);
+	if (free_b)
+		free(stack->b);
+	free(stack);
+	return (NULL);
 }
 
-int	is_sort(t_stack stack)
+int	is_sort(t_stack *stack)
 {
 	int	i;
 
-	if (stack.len_b)
+	if (stack->len_b)
 		return (0);
 	i = 0;
-	while (++i < stack.len_a)
-		if (stack.a[i] < stack.a[i - 1])
+	while (++i < stack->len_a)
+		if (stack->a[i] < stack->a[i - 1])
 			return (0);
 	return (1);
 }

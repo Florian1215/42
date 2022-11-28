@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fguirama <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/20 10:37:38 by fguirama          #+#    #+#              #
-#    Updated: 2022/08/21 12:00:47 by fguirama         ###   ########lyon.fr    #
+#    Updated: 2022/11/28 14:40:12 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS		= $(addprefix ${DIR_SRC}, ${SRCS:.c=.o})
 HEAD		= includes
 NAME		= rush-02
 RM			= rm -f
-CC			= gcc
+CC			= cc
 FLAGS		= -Wall -Wextra -Werror
 
 .c.o:

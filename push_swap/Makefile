@@ -6,11 +6,11 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 09:48:29 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/27 12:08:53 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/28 17:21:36 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-INS			= convert_binary.c parsing.c utils.c utils2.c move.c push.c reverse.c rotate.c swap.c
+INS			= convert_binary.c parsing.c split.c utils.c utils2.c push.c reverse.c rotate.c swap.c
 OBJS_INS	= ${INS:.c=.o}
 
 SRCS		= solve.c push_swap.c
@@ -22,15 +22,13 @@ BON			= checker.c get_next_line.c get_next_line_utils.c
 OBJS_BON	= $(BON:.c=.o)
 NAME_BON	= checker
 
-CC			= gcc
+CC			= cc
 RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror
 
-ARGS	= 
+ARGS	= 5 9 8
 
-all:		${NAME} bonus
-			./push_swap ${ARGS} | ./checker ${ARGS}
-			./push_swap ${ARGS} | wc -l
+all:		${NAME}
 
 %.o: %.c Makefile ${HEAD}
 			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
@@ -41,6 +39,10 @@ ${NAME}:	${OBJS_INS} ${OBJS_SRC}
 bonus:		${OBJS_INS} ${OBJS_BON}
 			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_BON} -o ${NAME_BON}
 
+check:		${NAME} bonus
+			./push_swap ${ARGS} | ./checker ${ARGS}
+			./push_swap ${ARGS} | wc -l
+
 clean:
 			${RM} ${OBJS_INS} ${OBJS_SRC} ${OBJS_BON}
 
@@ -49,4 +51,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re bonus
+.PHONY:		all clean fclean re bonus check

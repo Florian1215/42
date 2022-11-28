@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fguirama <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/08/23 14:55:00 by fguirama         ###   ########lyon.fr    #
+#    Updated: 2022/11/28 14:39:40 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS		= main.c solve_map.c read_file.c pars_map.c check_map.c stdin.c func.c fun
 OBJS		= $(addprefix ${DIR_SRC}, ${SRCS:.c=.o})
 HEAD		= includes
 NAME		= bsq
-CC			= gcc
+CC			= cc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 

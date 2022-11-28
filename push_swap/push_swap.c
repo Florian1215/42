@@ -6,13 +6,13 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/27 11:55:41 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:16:52 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_stack(t_stack stack)
+/*void	print_stack(t_stack stack)
 {
 	int	i;
 
@@ -32,19 +32,24 @@ void	print_stack(t_stack stack)
 		i++;
 	}
 	printf("\n");
-}
+}*/
 
 int	main(int ac, char **av)
 {
-	t_stack	stack;
+	t_stack	*stack;
 
+	if (ac == 1)
+		return (0);
 	stack = parsing(--ac, ++av);
-	if (!is_sort(stack))
+	if (stack)
 	{
-		if (stack.len > 5)
-			solve(&stack, 0);
-		else
-			solve_selection_sort(&stack);
+		if (!is_sort(stack))
+		{
+			if (stack->len > 20)
+				solve(stack, 0);
+			else
+				solve_selection_sort(stack);
+		}
+		free_stack(stack, 1, 1);
 	}
-	free_stack(stack);
 }

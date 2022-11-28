@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 09:51:39 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/16 11:16:35 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/28 14:39:30 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ BONUS		= ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lsti
 OBJS_BONUS	= $(BONUS:.c=.o)
 NAME		= libft.a
 HEAD		= libft.h
-CC			= gcc
+CC			= cc
 RM			= rm -f
 CFLAGS		= -Wall -Wextra -Werror
 

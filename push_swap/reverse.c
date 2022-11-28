@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:02:55 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 12:16:56 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 12:57:14 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,20 @@ static void	reverse(int *stack, int *len)
 	stack[0] = tmp;
 }
 
-void	reverse_a(t_stack *stack, int print)
+void	reverse_a(t_stack *stack)
 {
 	reverse(stack->a, &stack->len_a);
-	if (print)
-		ft_putstr_nl("rra");
+	ft_putstr_nl("rra");
 }
 
-void	reverse_b(t_stack *stack, int print)
+void	reverse_b(t_stack *stack)
 {
 	reverse(stack->b, &stack->len_b);
-	if (print)
-		ft_putstr_nl("rrb");
+	ft_putstr_nl("rrb");
 }
 
 void	reverse_ab(t_stack *stack)
 {
-	reverse_a(stack, 0);
-	reverse_b(stack, 0);
-	ft_putstr_nl("rrr");
+	reverse_a(stack);
+	reverse_b(stack);
 }

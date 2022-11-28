@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:55:25 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/26 12:16:34 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 12:56:35 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,20 @@ static void	swap(int *stack, int len)
 	}
 }
 
-void	swap_a(t_stack *stack, int print)
+void	swap_a(t_stack *stack)
 {
 	swap(stack->a, stack->len_a);
-	if (print)
-		ft_putstr_nl("sa");
+	ft_putstr_nl("sa");
 }
 
-void	swap_b(t_stack *stack, int print)
+void	swap_b(t_stack *stack)
 {
 	swap(stack->b, stack->len_b);
-	if (print)
-		ft_putstr_nl("sb");
+	ft_putstr_nl("sb");
 }
 
 void	swap_ab(t_stack *stack)
 {
-	swap_a(stack, 0);
-	swap_b(stack, 0);
-	ft_putstr_nl("ss");
+	swap_a(stack);
+	swap_b(stack);
 }

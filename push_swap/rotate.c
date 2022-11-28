@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 10:02:27 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/27 09:33:19 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/28 12:56:57 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,20 @@ static void	rotate(int *stack, int *len)
 	*len += 1;
 }
 
-void	rotate_a(t_stack *stack, int print)
+void	rotate_a(t_stack *stack)
 {
 	rotate(stack->a, &stack->len_a);
-	if (print)
-		ft_putstr_nl("ra");
+	ft_putstr_nl("ra");
 }
 
-void	rotate_b(t_stack *stack, int print)
+void	rotate_b(t_stack *stack)
 {
 	rotate(stack->b, &stack->len_b);
-	if (print)
-		ft_putstr_nl("rb");
+	ft_putstr_nl("rb");
 }
 
 void	rotate_ab(t_stack *stack)
 {
-	rotate_a(stack, 0);
-	rotate_b(stack, 0);
-	ft_putstr_nl("rr");
+	rotate_a(stack);
+	rotate_b(stack);
 }
