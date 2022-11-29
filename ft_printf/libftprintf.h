@@ -17,9 +17,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-char	*ft_dec(void);
-char	*ft_hex(void);
-char	*ft_hex_u(void);
 int		ft_printf(const char *format, ...);
 void	ft_putchar(char c, int *len);
 void	ft_putunsigned(unsigned long long int nb,

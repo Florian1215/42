@@ -6,59 +6,58 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:21:40 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/29 15:08:11 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/29 16:57:35 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-char	*to_binary(int nb)
+static int	ft_isnumber(char *str)
 {
-	char	*res;
-	int		i;
-
-	res = malloc(sizeof(char) * 9);
-	if (!res)
-		return (NULL);
-	i = 8;
-	while (--i >= 0)
-	{
-		res[i] = nb % 2 + '0';
-		nb /= 2;
-	}
-	res[8] = '\0';
-	return (res);
+	while (*str)
+		if (!(*str >= '0' && *str++ <= '9'))
+			return (0);
+	return (1);
 }
 
-void	client(pid_t pid, char *str)
+static void	received_message(int sig, siginfo_t *sig_info, void *context)
+{
+	(void)sig;
+	(void)sig_info;
+	(void)context;
+	ft_printf("Message received !");
+}
+
+static void	client(pid_t pid, char *str)
 {
 	int		i;
-	char	*binary_char;
 	char	j;
 
 	i = 0;
-	//cehck if char to big
-	// remake convert binary
 	while (!i || str[i - 1])
 	{
-		binary_char = to_binary(str[i]);
-		j = 0;
-		while (j < 8)
+		j = 8;
+		while (--j >= 0)
 		{
-			if (binary_char[j++] == '0')
-				kill(pid, SIGUSR1);
-			else
+			if ((str[i] >> j) & 1)
 				kill(pid, SIGUSR2);
-			usleep(10000);
-			//usleep(200);
+			else
+				kill(pid, SIGUSR1);
+			usleep(300);
 		}
-		printf("%c - %s\n", str[i], binary_char);
 		i++;
-		free(binary_char);
 	}
 }
 
 int	main(int ac, char **av)
 {
-	client(atoi(av[1]), av[2]);
+	struct sigaction	sign;
+
+	sign.sa_flags = SA_SIGINFO;
+	sign.sa_sigaction = received_message;
+	sigaction(SIGUSR1, &sign, NULL);
+	if (ac != 3 || !ft_isnumber(av[1]))
+		ft_printf("./client [pid] [string]\n");
+	else
+		client(atoi(av[1]), av[2]);
 }
