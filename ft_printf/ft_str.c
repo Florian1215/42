@@ -14,7 +14,7 @@
 
 void	ft_putchar(char c, int *len)
 {
-	if (len != -1)
+	if (*len != -1)
 	{
 		if (write(1, &c, 1) == -1)
 			*len = -1;

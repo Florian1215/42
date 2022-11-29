@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 09:48:29 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/28 17:21:36 by fguirama         ###   ########.fr        #
+#    Updated: 2022/11/28 17:48:22 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC			= cc
 RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror
 
-ARGS	= 5 9 8
+ARGS		= 249 -138
 
 all:		${NAME}
 
@@ -39,8 +39,8 @@ ${NAME}:	${OBJS_INS} ${OBJS_SRC}
 bonus:		${OBJS_INS} ${OBJS_BON}
 			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_BON} -o ${NAME_BON}
 
-check:		${NAME} bonus
-			./push_swap ${ARGS} | ./checker ${ARGS}
+check:		${NAME} bonus${ARGS} 
+			./push_swap ${ARGS} | ./checker ${ARGS} 
 			./push_swap ${ARGS} | wc -l
 
 clean:
