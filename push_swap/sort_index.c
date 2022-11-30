@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_binary.c                                   :+:      :+:    :+:   */
+/*   sort_index.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 11:31:08 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/27 11:44:05 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/29 17:24:04 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/29 17:24:06 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	get_index(t_stack *stack)
 	sorted_stack = sort_stack(stack->a, stack->len_a);
 	i = -1;
 	while (++i < stack->len_a)
-		stack->a[i] = to_binary(find_index(sorted_stack, stack->a[i]));
+		stack->a[i] = find_index(sorted_stack, stack->a[i]);
 	free(sorted_stack);
 }

@@ -1,43 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse.c                                          :+:      :+:    :+:   */
+/*   ins_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:02:55 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 12:57:14 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/24 10:02:27 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/29 17:31:42 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	reverse(int *stack, int *len)
+static void	rotate(int *stack, int *len)
 {
 	int	tmp;
 
 	if (*len <= 1)
 		return ;
-	*len -= 1;
-	tmp = stack[*len];
-	move_down(stack, len);
-	stack[0] = tmp;
+	tmp = stack[0];
+	move_up(stack, len);
+	stack[*len] = tmp;
+	*len += 1;
 }
 
-void	reverse_a(t_stack *stack)
+void	rotate_a(t_stack *stack, int print)
 {
-	reverse(stack->a, &stack->len_a);
-	ft_putstr_nl("rra");
+	rotate(stack->a, &stack->len_a);
+	if (print)
+		ft_putstr_nl("ra");
 }
 
-void	reverse_b(t_stack *stack)
+void	rotate_b(t_stack *stack, int print)
 {
-	reverse(stack->b, &stack->len_b);
-	ft_putstr_nl("rrb");
+	rotate(stack->b, &stack->len_b);
+	if (print)
+		ft_putstr_nl("rb");
 }
 
-void	reverse_ab(t_stack *stack)
+void	rotate_ab(t_stack *stack, int print)
 {
-	reverse_a(stack);
-	reverse_b(stack);
+	rotate_a(stack, 0);
+	rotate_b(stack, 0);
+	if (print)
+		ft_putstr_nl("rr");
 }

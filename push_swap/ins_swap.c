@@ -1,43 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   ins_swap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 10:02:27 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 12:56:57 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/23 13:55:25 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/29 17:32:14 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate(int *stack, int *len)
+static void	swap(int *stack, int len)
 {
 	int	tmp;
 
-	if (*len <= 1)
-		return ;
-	tmp = stack[0];
-	move_up(stack, len);
-	stack[*len] = tmp;
-	*len += 1;
+	if (len > 2)
+	{
+		tmp = stack[0];
+		stack[0] = stack[1];
+		stack[1] = tmp;
+	}
 }
 
-void	rotate_a(t_stack *stack)
+void	swap_a(t_stack *stack, int print)
 {
-	rotate(stack->a, &stack->len_a);
-	ft_putstr_nl("ra");
+	swap(stack->a, stack->len_a);
+	if (print)
+		ft_putstr_nl("sa");
 }
 
-void	rotate_b(t_stack *stack)
+void	swap_b(t_stack *stack, int print)
 {
-	rotate(stack->b, &stack->len_b);
-	ft_putstr_nl("rb");
+	swap(stack->b, stack->len_b);
+	if (print)
+		ft_putstr_nl("sb");
 }
 
-void	rotate_ab(t_stack *stack)
+void	swap_ab(t_stack *stack, int print)
 {
-	rotate_a(stack);
-	rotate_b(stack);
+	swap_a(stack, 0);
+	swap_b(stack, 0);
+	if (print)
+		ft_putstr_nl("ss");
 }

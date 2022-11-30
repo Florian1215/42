@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   ins_push.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:55:25 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 12:56:35 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/23 14:27:49 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/29 17:31:13 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	swap(int *stack, int len)
+static void	push(int *from, int *len_from, int *to, int *len_to)
 {
-	int	tmp;
-
-	if (len > 2)
-	{
-		tmp = stack[0];
-		stack[0] = stack[1];
-		stack[1] = tmp;
-	}
+	if (*len_from == 0)
+		return ;
+	move_down(to, len_to);
+	to[0] = from[0];
+	move_up(from, len_from);
 }
 
-void	swap_a(t_stack *stack)
+void	push_a(t_stack *stack, int print)
 {
-	swap(stack->a, stack->len_a);
-	ft_putstr_nl("sa");
+	push(stack->b, &stack->len_b, stack->a, &stack->len_a);
+	if (print)
+		ft_putstr_nl("pa");
 }
 
-void	swap_b(t_stack *stack)
+void	push_b(t_stack *stack, int print)
 {
-	swap(stack->b, stack->len_b);
-	ft_putstr_nl("sb");
-}
-
-void	swap_ab(t_stack *stack)
-{
-	swap_a(stack);
-	swap_b(stack);
+	push(stack->a, &stack->len_a, stack->b, &stack->len_b);
+	if (print)
+		ft_putstr_nl("pb");
 }

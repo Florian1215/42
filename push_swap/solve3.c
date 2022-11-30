@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   solve3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 14:27:49 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 17:16:58 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/29 18:57:51 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/29 19:09:14 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	push(int *from, int *len_from, int *to, int *len_to)
+void	solve3(t_stack *stack)
 {
-	if (*len_from == 0)
-		return ;
-	move_down(to, len_to);
-	to[0] = from[0];
-	move_up(from, len_from);
-}
-
-void	push_a(t_stack *stack)
-{
-	push(stack->b, &stack->len_b, stack->a, &stack->len_a);
-	ft_putstr_nl("pa");
-}
-
-void	push_b(t_stack *stack)
-{
-	push(stack->a, &stack->len_a, stack->b, &stack->len_b);
-	ft_putstr_nl("pb");
+	if (stack->a[0] == 0)
+	{
+		swap_a(stack, 1);
+		rotate_a(stack, 1);
+	}
+	else if (stack->a[2] == 0)
+	{
+		if (stack->a[1] == 1)
+			swap_a(stack, 1);
+		reverse_a(stack, 1);
+	}
+	else if (stack->a[0] == 1)
+		swap_a(stack, 1);
+	else
+		rotate_a(stack, 1);
 }

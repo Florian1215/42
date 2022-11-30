@@ -6,21 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:39:34 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 12:56:18 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/29 17:44:32 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	index_nb(int nb, int index)
-{
-	int	i;
-
-	i = -1;
-	while (++i < index && nb)
-		nb /= 10;
-	return (nb % 10);
-}
 
 static int	rec_exit(t_stack *stack, int index)
 {
@@ -28,7 +18,7 @@ static int	rec_exit(t_stack *stack, int index)
 
 	i = -1;
 	while (++i < stack->len_a)
-		if (index_nb(stack->a[i], index))
+		if (stack->a[i] >> index & 1)
 			return (0);
 	return (1);
 }
@@ -44,15 +34,15 @@ void	solve(t_stack *stack, int index)
 	len = stack->len_a;
 	while (++i < len)
 	{
-		if (!index_nb(stack->a[0], index))
-			push_b(stack);
+		if (stack->a[0] >> index & 1)
+			rotate_a(stack, 1);
 		else
-			rotate_a(stack);
+			push_b(stack, 1);
 	}
 	i = -1;
 	len = stack->len_b;
 	while (++i < len)
-		push_a(stack);
+		push_a(stack, 1);
 	solve(stack, index + 1);
 }
 
@@ -65,7 +55,7 @@ void	solve_selection_sort(t_stack *stack)
 	if (!stack->len_a)
 	{
 		while (++i < stack->len)
-			push_a(stack);
+			push_a(stack, 1);
 		return ;
 	}
 	while (++i < stack->len_a)
@@ -73,7 +63,7 @@ void	solve_selection_sort(t_stack *stack)
 			min = i;
 	i = -1;
 	while (++i < min)
-		rotate_a(stack);
-	push_b(stack);
+		rotate_a(stack, 1);
+	push_b(stack, 1);
 	return (solve_selection_sort(stack));
 }
