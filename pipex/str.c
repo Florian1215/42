@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/02 18:24:13 by fguirama         ###   ########.fr       */
+/*   Created: 2022/11/30 17:10:28 by fguirama          #+#    #+#             */
+/*   Updated: 2022/11/30 17:10:32 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "pipex.h"
 
-int	main(int ac, char **av)
+static int	ft_strlen(const char *s)
 {
-	t_stack	*stack;
+	int	len;
 
-	if (ac == 1)
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*res;
+	int		i;
+	int		j;
+
+	res = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!res)
 		return (0);
-	stack = parsing(--ac, ++av);
-	if (stack)
-	{
-		if (!is_sort(stack, 0))
-		{
-			if (stack->len == 3)
-				solve3(stack);
-			else if (stack->len == 5)
-				solve5(stack);
-			else if (stack->len < 20)
-				solve_selection_sort(stack);
-			else
-				solve(stack, 0);
-		}
-		free_stack(stack, 1, 1);
-	}
+	i = 0;
+	j = 0;
+	while (s1[j])
+		res[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
 }

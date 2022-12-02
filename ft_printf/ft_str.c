@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-void	ft_putchar(char c, int *len)
+void	ft_putchar(int c, int *len)
 {
 	if (*len != -1)
 	{

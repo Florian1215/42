@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/29 19:09:27 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:24:18 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ int		ft_find_nl(t_list *lst, int one_lst);
 
 // SOLVE
 void	solve(t_stack *stack, int index);
-void	solve_selection_sort(t_stack *stack);
 void	solve3(t_stack *stack);
+void	solve5(t_stack *stack);
+void	solve_selection_sort(t_stack *stack);
 
 // UTILS
 void	error_(t_stack *stack);
 t_stack	*parsing(int ac, char **av);
 void	*free_stack(t_stack *stack, int free_a, int free_b);
 void	ft_putstr_nl(char *str);
-int		is_sort(t_stack *stack);
+int		is_sort(t_stack *stack, int sort_b);
 int		*convert_to_index(t_stack *stack);
 void	get_index(t_stack *stack);
 int		ft_strlen(char *str);
@@ -79,9 +80,5 @@ void	reverse_ab(t_stack *stack, int print);
 
 void	move_up(int *stack, int *len);
 void	move_down(int *stack, int *len);
-
-// PRINT 
-# include <stdio.h>
-//void	print_stack(t_stack *stack);
 
 #endif

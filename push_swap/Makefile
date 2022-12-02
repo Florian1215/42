@@ -6,14 +6,14 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 09:48:29 by fguirama          #+#    #+#              #
-#    Updated: 2022/11/29 19:12:59 by fguirama         ###   ########.fr        #
+#    Updated: 2022/12/02 18:04:49 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INS			= ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils.c utils2.c
 OBJS_INS	= $(INS:.c=.o)
 
-SRCS		= push_swap.c solve.c solve3.c
+SRCS		= push_swap.c solve.c
 OBJS_SRC	= $(SRCS:.c=.o)
 HEAD		= push_swap.h
 NAME		= push_swap
@@ -26,11 +26,11 @@ CC			= cc
 RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror
 
-ARGS		= 9 45 -25
+ARGS		= -237 -56 324 264 -18 47 -257 407 472 -223
 
 all:		${NAME}
 
-%.o: %.c Makefile ${HEAD}
+%.o: %.c ${HEAD} Makefile
 			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_INS} ${OBJS_SRC}

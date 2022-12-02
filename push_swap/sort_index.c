@@ -6,42 +6,51 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:24:04 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/29 17:24:06 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/30 23:55:57 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	insert(int *tab, int tmp, int i)
+static void	swap(int *tab, int i, int j)
 {
-	while (1)
+	int	tmp;
+
+	if (i != j)
 	{
-		i--;
-		tab[i + 1] = tab[i];
-		if (i == 0 || tmp >= tab[i - 1])
-		{
-			tab[i] = tmp;
-			return ;
-		}
+		tmp = tab[j];
+		tab[j] = tab[i];
+		tab[i] = tmp;
 	}
 }
 
-static int	*sort_stack(int *stack, int len)
+static int	partition(int *tab, int start, int end)
 {
-	int	*res;
+	int	pivot;
 	int	i;
 
-	res = malloc(sizeof(int) * len);
-	if (!res)
-		return (NULL);
-	i = -1;
-	while (++i < len)
-		res[i] = stack[i];
-	i = -1;
-	while (i++ < len - 1)
-		if (i != 0 && res[i] < res[i - 1])
-			insert(res, res[i], i);
-	return (res);
+	pivot = tab[end];
+	i = start;
+	while (start < end)
+	{
+		if (tab[start] <= pivot)
+			swap(tab, start, i++);
+		start++;
+	}
+	swap(tab, i, end);
+	return (i);
+}
+
+void	quick_sort(int *tab, int start, int end)
+{
+	int	pivot;
+
+	if (start < end)
+	{
+		pivot = partition(tab, start, end);
+		quick_sort(tab, start, pivot - 1);
+		quick_sort(tab, pivot + 1, end);
+	}
 }
 
 static int	find_index(int *sort_stack, int nb)
@@ -59,7 +68,13 @@ void	get_index(t_stack *stack)
 	int	*sorted_stack;
 	int	i;
 
-	sorted_stack = sort_stack(stack->a, stack->len_a);
+	sorted_stack = malloc(sizeof(int) * stack->len_a);
+	if (!sorted_stack)
+		return ;
+	i = -1;
+	while (i++ < stack->len_a)
+		sorted_stack[i] = stack->a[i];
+	quick_sort(sorted_stack, 0, stack->len_a - 1);
 	i = -1;
 	while (++i < stack->len_a)
 		stack->a[i] = find_index(sorted_stack, stack->a[i]);

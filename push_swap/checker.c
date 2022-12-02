@@ -6,33 +6,11 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:33:01 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/29 19:11:31 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:23:44 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_stack *stack)
-{
-	int	i;
-
-	i = 0;
-	printf("\nA (%d) - B (%d)\n", stack->len_a, stack->len_b);
-	while (i < stack->len_a || i < stack->len_b)
-	{
-		if (i < stack->len_a)
-			printf("%d\t", stack->a[i]);
-		else
-			printf(".\t");
-		if (i < stack->len_b)
-			printf("%d", stack->b[i]);
-		else
-			printf(".");
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-}
 
 static int	ft_strcmp(char *s1, char *s2)
 {
@@ -70,7 +48,6 @@ static void	instructions(char *ins, t_stack *stack)
 		reverse_ab(stack, 0);
 	else
 		error_(stack);
-	//print_stack(stack);
 }
 
 int	main(int ac, char **av)
@@ -89,9 +66,9 @@ int	main(int ac, char **av)
 		instructions(line, stack);
 		free(line);
 	}
-	if (is_sort(stack))
+	if (is_sort(stack, 1))
 		ft_putstr_nl("OK");
 	else
 		ft_putstr_nl("KO");
-	free_stack(stack, 0, 0);
+	free_stack(stack, 1, 1);
 }

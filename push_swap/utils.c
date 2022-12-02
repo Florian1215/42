@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 11:28:17 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 17:15:41 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:39:35 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	*free_stack(t_stack *stack, int free_a, int free_b)
 	return (NULL);
 }
 
-int	is_sort(t_stack *stack)
+int	is_sort(t_stack *stack, int sort_b)
 {
 	int	i;
 
-	if (stack->len_b)
+	if (stack->len_b && sort_b)
 		return (0);
 	i = 0;
 	while (++i < stack->len_a)

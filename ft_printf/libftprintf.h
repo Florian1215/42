@@ -18,7 +18,7 @@
 # include <stdarg.h>
 
 int		ft_printf(const char *format, ...);
-void	ft_putchar(char c, int *len);
+void	ft_putchar(int c, int *len);
 void	ft_putunsigned(unsigned long long int nb,
 			char *base, int n_base, int *len);
 void	ft_putnbr_base(int n, int *len);

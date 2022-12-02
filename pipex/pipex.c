@@ -6,42 +6,40 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 13:48:29 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/30 14:40:33 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:03:13 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
-/*
-perror		gestion erreur
-strerror	gestion erreur
-
-access		verifier si le path d'un fichier existe
-
-dup			duplique un object descriptor
-dup2		**
-
-execve		transforme l'appelle du process dans un new process
-exit		quit pgm
-fork		thread pgm
-pipe		pipe read - end
-unlink		suprime le nom du lien par path
-wait
-waitpid
-*/
-
-int	main(int ac, char **av)
+void	cmd(char *cmd, char **env, int *pipe_fd, int n)
 {
-	int		id;
-	char	*tab[] = {"ls", "-a", NULL};
+	char	**args;
+	char	*binary_path;
 
-	printf("%d\n", access("/bin/ls", X_OK));
-	id = fork();
+	close(pipe_fd[n]);
+	dup2(pipe_fd[!n], !n);
+	close(pipe_fd[!n]);
+	args = ft_split(cmd);
+	binary_path = get_binary(args, 0);
+	if (!binary_path)
+		return ;
+	execve(binary_path, args, env);
+	ft_free_split(args, -1);
+}
 
-	if (id)
-		execv("/bin/ls", tab);
-	else
-		wait(&id);
-	printf("salut comment ca va ");
+int	main(int ac, char **av, char **env)
+{
+	int		pid;
+	int		pipe_fd[2];
+	char	buffer[BUFSIZ + 1];
+
+	if (check_args(--ac, ++av) == -1)
+		return (0);
+	if (pipe(pipe_fd) == -1)
+		return (1);
+	pid = fork();
+	if (pid < 0)
+		return (2);
+	cmd(av[1 + (pid == 0)], env, pipe_fd, (pid == 0));
 }
