@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:39:34 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/02 17:45:56 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:18:28 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,20 @@
 void	solve(t_stack *stack, int index)
 {
 	int	i;
-	int	len;
 
 	if (is_sort(stack, 1))
 		return ;
 	i = -1;
-	len = stack->len_a;
-	while (++i < len)
+	while (++i < stack->len)
 	{
 		if (stack->a[0] >> index & 1)
 			rotate_a(stack, 1);
 		else
 			push_b(stack, 1);
 	}
-	i = -1;
-	len = stack->len_b;
-	while (++i < len)
+	while (stack->len_b)
 		push_a(stack, 1);
 	solve(stack, index + 1);
-}
-
-void	solve_selection_sort(t_stack *stack)
-{
-	int	i;
-	int	min;
-
-	i = -1;
-	if (!stack->len_a)
-	{
-		while (++i < stack->len)
-			push_a(stack, 1);
-		return ;
-	}
-	while (++i < stack->len_a)
-		if (i == 0 || stack->a[i] < stack->a[min])
-			min = i;
-	i = -1;
-	while (++i < min)
-		rotate_a(stack, 1);
-	push_b(stack, 1);
-	return (solve_selection_sort(stack));
 }
 
 void	solve3(t_stack *stack)

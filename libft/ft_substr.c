@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 09:17:05 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/13 12:56:46 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:21:56 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	res = malloc((len + 1) * sizeof(char));
 	if (!res)
 		return (0);
-	i = 0;
-	while (i < len && s[i])
-	{
+	i = -1;
+	while (++i < len && s[i])
 		res[i] = s[i + start];
-		i++;
-	}
-	res[i] = '\0';
-	return (res);
+	return (res[i] = '\0', res);
 }

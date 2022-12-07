@@ -6,7 +6,7 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 09:48:29 by fguirama          #+#    #+#              #
-#    Updated: 2022/12/02 18:04:49 by fguirama         ###   ########.fr        #
+#    Updated: 2022/12/06 14:28:48 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ bonus:		${OBJS_INS} ${OBJS_BON}
 			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_BON} -o ${NAME_BON}
 
 check:		${NAME} bonus
-			./push_swap ${ARGS}
 			./push_swap ${ARGS} | ./checker ${ARGS} 
 			./push_swap ${ARGS} | wc -l
 

@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/02 18:24:18 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:18:34 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		ft_find_nl(t_list *lst, int one_lst);
 void	solve(t_stack *stack, int index);
 void	solve3(t_stack *stack);
 void	solve5(t_stack *stack);
-void	solve_selection_sort(t_stack *stack);
 
 // UTILS
 void	error_(t_stack *stack);
@@ -60,6 +59,7 @@ int		*convert_to_index(t_stack *stack);
 void	get_index(t_stack *stack);
 int		ft_strlen(char *str);
 char	**ft_split(char const *s);
+char	**ft_free_split(char **split, int i);
 int		ft_countword(char const *s);
 
 // INSTRUCTIONS

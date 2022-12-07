@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:57:29 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/28 17:19:53 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/02 21:40:52 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,15 @@ static char	*ft_wordcpy(const char *src, int n)
 	return (dest);
 }
 
-static char	**ft_free_all(char **split, int i)
+char	**ft_free_split(char **split, int i)
 {
+	if (i == -1)
+	{
+		i = 0;
+		while (split[i])
+			i++;
+		i--;
+	}
 	while (i >= 0)
 		free(split[i--]);
 	free(split);
@@ -80,7 +87,7 @@ char	**ft_split(char const *s)
 		n = ft_wordlen(s);
 		split[i] = ft_wordcpy(s, n);
 		if (!split[i])
-			return (ft_free_all(split, i - 1));
+			return (ft_free_split(split, i - 1));
 		s += n;
 	}
 	split[size] = 0;

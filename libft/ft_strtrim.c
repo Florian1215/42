@@ -21,8 +21,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (s1[st] && ft_strchr(set, s1[st]))
 		st++;
 	to = ft_strlen((char *)s1) - 1;
-	while (s1[to] && ft_strchr(set, s1[to]))
+	while (s1[to] && ft_strrchr(set, s1[to]))
 		to--;
-	to++;
-	return (ft_substr(s1, st, to - st));
+	return (ft_substr(s1, st, ++to - st));
 }

@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/02 18:24:13 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/06 14:18:44 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	main(int ac, char **av)
 				solve3(stack);
 			else if (stack->len == 5)
 				solve5(stack);
-			else if (stack->len < 20)
-				solve_selection_sort(stack);
 			else
 				solve(stack, 0);
 		}
