@@ -46,6 +46,8 @@ static t_stack	*malloc_pasring(int ac, char **av)
 	ct = 0;
 	while (++i < ac)
 		ct += ft_countword(av[i]);
+	if (!ct)
+		return (error_(NULL), NULL);
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);

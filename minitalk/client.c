@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:21:40 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/02 21:29:40 by fguirama         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:41:49 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	client(char *str)
 			else
 				kill(g_pid, SIGUSR1);
 			sleep = 0;
-			while (sleep++ < 10)
+			while (sleep++ < 6)
 				usleep(10);
 		}
 		i++;

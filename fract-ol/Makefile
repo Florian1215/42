@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= fractol.c utils.c utils_colors.c utils_mlx.c
+# ls *.c | tr "\t\n" " "
+SRCS		= color_set.c fractal.c fractol.c hook.c utils.c utils_colors.c utils_fractal.c utils_mlx.c menu.c
 OBJS_SRC	= $(SRCS:.c=.o)
 
 NAME		= fractol
@@ -18,7 +19,7 @@ HEAD		= fractol.h
 
 CC			= cc
 RM			= rm -f
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -O3
 
 MLX_DIR		= minilibx
 MLX_NAME	= libmlx.a

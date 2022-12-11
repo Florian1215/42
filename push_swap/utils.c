@@ -26,7 +26,8 @@ void	ft_putstr_nl(char *str)
 
 void	error_(t_stack *stack)
 {
-	free_stack(stack, 1, 1);
+	if (stack)
+		free_stack(stack, 1, 1);
 	ft_putstr_nl("Error");
 	exit(-1);
 }
