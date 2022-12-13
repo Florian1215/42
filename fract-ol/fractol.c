@@ -12,18 +12,14 @@
 
 #include "fractol.h"
 
-int	main(int ac, char **av)
+int	main(void)
 {
 	t_mlx	*mlx;
 
-	(void)ac;
-	(void)av;
 	init_mlx(&mlx);
 	if (!mlx)
 		return (1);
 	set_menu(mlx);
-	mlx_key_hook(mlx->win_ptr, key_event, mlx);
-	mlx_hook(mlx->win_ptr, 17, 0L, close, mlx);
-	mlx_hook(mlx->win_ptr, 4, (1L << 2), mouse_event, mlx);
+	set_hook(mlx);
 	mlx_loop(mlx->mlx_ptr);
 }

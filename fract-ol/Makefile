@@ -6,12 +6,11 @@
 #    By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 18:37:01 by fguirama          #+#    #+#              #
-#    Updated: 2022/12/04 11:11:54 by fguirama         ###   ########.fr        #
+#    Updated: 2022/12/12 16:28:10 by fguirama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ls *.c | tr "\t\n" " "
-SRCS		= color_set.c fractal.c fractol.c hook.c utils.c utils_colors.c utils_fractal.c utils_mlx.c menu.c
+SRCS		= fractal.c fractol.c hook.c menu.c set_colors.c set_fractals.c thread.c utils_colors.c utils_fractal.c utils_loop.c utils_menu.c utils_mlx.c
 OBJS_SRC	= $(SRCS:.c=.o)
 
 NAME		= fractol
@@ -27,7 +26,6 @@ MLX_FLAGS	= -framework OpenGL -framework AppKit
 
 all:		mlx ${NAME}
 			./${NAME}
-#			leaks -atExit -- ./${NAME}
 
 %.o: %.c ${HEAD} Makefile
 		${CC} ${FLAGS} -I ${HEAD} -c $< -o $@

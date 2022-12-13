@@ -19,11 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aead8544-7aa1-42e8-ada3-cadf6b6434a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/push_swap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/42_Tester/push_swap.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parsing.c" beforeDir="false" afterPath="$PROJECT_DIR$/parsing.c" afterDir="false" />
-    </list>
+    <list default="true" id="aead8544-7aa1-42e8-ada3-cadf6b6434a6" name="Changes" comment="paring_fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,6 +103,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/42" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -169,8 +166,20 @@
       <workItem from="1670752043283" duration="492000" />
       <workItem from="1670757406142" duration="917000" />
       <workItem from="1670762035736" duration="1000" />
-      <workItem from="1670767816825" duration="805000" />
+      <workItem from="1670767816825" duration="1490000" />
+      <workItem from="1670838720037" duration="1910000" />
+      <workItem from="1670845492039" duration="9000" />
+      <workItem from="1670853934848" duration="195000" />
+      <workItem from="1670950780456" duration="904000" />
     </task>
+    <task id="LOCAL-00001" summary="paring_fix">
+      <created>1670770394208</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670770394208</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,6 +198,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="paring_fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="paring_fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

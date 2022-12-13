@@ -23,39 +23,58 @@ void	move(t_mlx *mlx, enum e_keycode side)
 	int		i;
 
 	i = 1;
-	if (side == RIGHT || side == DOWN)
+	if (side == RIGHT || (side == DOWN && (mlx->fractal.set == MANDELBROT || \
+		mlx->fractal.set == JULIA)) || (side == UP && (mlx->fractal.set \
+		== BURNING_SHIP || mlx->fractal.set == CELTIC)))
 		i = -1;
 	if (side == RIGHT || side == LEFT)
 	{
-		xy = fabs(mlx->zoom.end.x - mlx->zoom.start.x) * 0.02 * i;
-		mlx->zoom.start.x += xy;
-		mlx->zoom.end.x += xy;
+		xy = fabs(mlx->fractal.end.x - mlx->fractal.start.x) * 0.02 * i;
+		mlx->fractal.start.x += xy;
+		mlx->fractal.end.x += xy;
 	}
 	else
 	{
-		xy = fabs(mlx->zoom.end.y - mlx->zoom.start.y) * 0.02 * i;
-		mlx->zoom.start.y += xy;
-		mlx->zoom.end.y += xy;
+		xy = fabs(mlx->fractal.end.y - mlx->fractal.start.y) * 0.02 * i;
+		mlx->fractal.start.y += xy;
+		mlx->fractal.end.y += xy;
 	}
-	fractol(mlx);
+	fractal_render(mlx);
 }
 
 void	zoom(t_mlx *mlx, double scale, t_co co)
 {
-	mlx->zoom.start.x = cross_multi(co.x, mlx->zoom.start.x, scale);
-	mlx->zoom.start.y = cross_multi(co.y, mlx->zoom.start.y, scale);
-	mlx->zoom.end.x = cross_multi(co.x, mlx->zoom.end.x, scale);
-	mlx->zoom.end.y = cross_multi(co.y, mlx->zoom.end.y, scale);
-	fractol(mlx);
+	if (scale < 1)
+		mlx->max_iter += 0.5;
+	else if (scale > 1)
+		mlx->max_iter -= 0.5;
+	mlx->fractal.start.x = cross_multi(co.x, mlx->fractal.start.x, scale);
+	mlx->fractal.start.y = cross_multi(co.y, mlx->fractal.start.y, scale);
+	mlx->fractal.end.x = cross_multi(co.x, mlx->fractal.end.x, scale);
+	mlx->fractal.end.y = cross_multi(co.y, mlx->fractal.end.y, scale);
+	fractal_render(mlx);
 }
 
-void	edit_iter(t_mlx *mlx, int iter)
+void	edit_c(t_mlx *mlx, double j, double *nb)
 {
-	int	res;
+	double	res;
 
-	res = mlx->max_iter + iter;
-	if (res > 500 || res < 10)
+	res = *nb + j;
+	if (res < -2 || res > 2)
 		return ;
-	mlx->max_iter = res;
-	fractol(mlx);
+	*nb = res;
+	fractal_render(mlx);
+}
+
+t_fractal	init_fractal(t_fractals set, t_co start, t_co end, \
+	int (*func)(t_mlx *, t_co), t_colors color)
+{
+	t_fractal	frac;
+
+	frac.set = set;
+	frac.start = start;
+	frac.end = end;
+	frac.func = (int (*)(void *, t_co))func;
+	frac.color = color;
+	return (frac);
 }

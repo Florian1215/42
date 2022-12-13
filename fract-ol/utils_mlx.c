@@ -12,13 +12,20 @@
 
 #include "fractol.h"
 
-void	init_zoom(t_mlx *mlx)
+t_co	init_coor(double x, double y)
 {
-	mlx->zoom.start = init_coor(-2, -2);
-	mlx->zoom.end.x = 2;
-	mlx->zoom.end.y = mlx->zoom.start.y + (mlx->zoom.end.x - mlx->zoom.start.x) * mlx->size.y / mlx->size.x;
-	mlx->zoom.scale = 1.1;
-	mlx->max_iter = 30;
+	t_co	co;
+
+	co.x = x;
+	co.y = y;
+	return (co);
+}
+
+void	init_hover(t_mlx *mlx)
+{
+	mlx->hover.set = -1;
+	mlx->hover.value = 1;
+	mlx->prev_hover = mlx->hover;
 }
 
 void	init_mlx(t_mlx **mlx)
@@ -27,17 +34,32 @@ void	init_mlx(t_mlx **mlx)
 	if (!*mlx)
 		return ;
 	(*mlx)->mlx_ptr = mlx_init();
-	(*mlx)->size = init_coor(700, 700);
-	init_zoom(*mlx);
-	(*mlx)->color_set = GREEN;
+	(*mlx)->size = init_coor(1000, 1000);
 	(*mlx)->in_menu = 1;
-	set_color(*mlx, 0);
-	(*mlx)->win_ptr = mlx_new_window((*mlx)->mlx_ptr, (*mlx)->size.x, (*mlx)->size.y, "Fract-ol");
-	(*mlx)->img.img = mlx_new_image(mlx, (*mlx)->size.x, (*mlx)->size.y);
-	(*mlx)->img.addr = mlx_get_data_addr((*mlx)->img.img, &(*mlx)->img.bits_per_pixel, &(*mlx)->img.line_length, &(*mlx)->img.endian);
+	(*mlx)->render = 0;
+	(*mlx)->launch = 0;
+	(*mlx)->moving = 0;
+	init_hover(*mlx);
+	(*mlx)->win_ptr = mlx_new_window((*mlx)->mlx_ptr, (int)(*mlx)->size.x, \
+		(int)(*mlx)->size.y, "Fract-ol");
+	(*mlx)->img.img = mlx_new_image(mlx, (int)(*mlx)->size.x, \
+		(int)(*mlx)->size.y);
+	(*mlx)->img.addr = mlx_get_data_addr((*mlx)->img.img, &(*mlx)-> \
+		img.bits_per_pixel, &(*mlx)->img.line_length, &(*mlx)->img.endian);
+	set_color(*mlx, GREEN);
 }
 
 void	mlx_put_pixel_img(struct s_img *img, t_co co, int color)
 {
-	*(unsigned int*)(img->addr + ((int)co.y * img->line_length + (int)co.x * (img->bits_per_pixel / 8))) = color;
+	*(unsigned int *)(img->addr + ((int)co.y * img->line_length + (int)co.x * \
+		(img->bits_per_pixel / 8))) = color;
+}
+
+int	close_mlx(t_mlx *mlx)
+{
+	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
+	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	free(mlx->img.addr);
+	free(mlx);
+	exit(0);
 }
