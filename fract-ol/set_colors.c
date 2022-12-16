@@ -12,27 +12,27 @@
 
 #include "fractol.h"
 
-void	set_1(t_mlx *mlx)
+t_color	set_1(void)
 {
-	mlx->color = init_color(0xB9E0A2, 0xA4bE7B, 0x3D663D, GREEN);
+	return (init_color(GREEN, 0xB9E0A2, 0xA4bE7B, 0x3D663D));
 }
 
-void	set_2(t_mlx *mlx)
+t_color	set_2(void)
 {
-	mlx->color = init_color(0xD7572B, 0xDA7B27, 0xFFCA5A, YELLOW);
+	return (init_color(YELLOW, 0xD7572B, 0xDA7B27, 0xFFCA5A));
 }
 
-void	set_3(t_mlx *mlx)
+t_color	set_3(void)
 {
-	mlx->color = init_color(0xA7DDBC, 0x8FC5AA, 0x316764, BLUE);
+	return (init_color(BLUE, 0xA7DDBC, 0x8FC5AA, 0x316764));
 }
 
-void	set_4(t_mlx *mlx)
+t_color	set_4(void)
 {
-	mlx->color = init_color(0xC24844, 0xEB5752, 0xFFD0CC, RED);
+	return (init_color(RED, 0xC24844, 0xEB5752, 0xFFD0CC));
 }
 
-void	set_5(t_mlx *mlx)
+t_color	set_5(void)
 {
-	mlx->color = init_color(0xEEEFE3, 0xBBC7A5, 0x363432, GREY);
+	return (init_color(GREY, 0xEEEFE3, 0xBBC7A5, 0x363432));
 }

@@ -60,6 +60,8 @@ static t_stack	*malloc_pasring(int ac, char **av)
 	stack->len = ct;
 	stack->len_a = ct;
 	stack->len_b = 0;
+	stack->chunck = 1;
+	stack->chunck_size = 10;
 	return (stack);
 }
 

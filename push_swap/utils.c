@@ -12,23 +12,23 @@
 
 #include "push_swap.h"
 
-static void	ft_putchar(char c)
+static void	ft_putchar(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }
 
-void	ft_putstr_nl(char *str)
+void	ft_putstr_nl(char *str, int fd)
 {
 	while (*str)
-		ft_putchar(*str++);
-	ft_putchar('\n');
+		ft_putchar(*str++, fd);
+	ft_putchar('\n', fd);
 }
 
 void	error_(t_stack *stack)
 {
 	if (stack)
 		free_stack(stack, 1, 1);
-	ft_putstr_nl("Error");
+	ft_putstr_nl("Error", 2);
 	exit(-1);
 }
 

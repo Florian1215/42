@@ -71,28 +71,10 @@ static void	fractal_preview(t_preview_thread *t)
 		{
 			res = (double)t->frac.func(t->mlx, \
 				get_coor(t->frac, i, t->mlx)) / (int)t->mlx->max_iter;
-			mlx_put_pixel_img(&t->mlx->img, i, get_color(t->color, res, t->mlx->dark_mode));
+			mlx_put_pixel_img(&t->mlx->img, i, get_color(t->frac.color, res, t->mlx->dark_mode));
 		}
 	}
 }
-
-//static void	fractal_preview(t_mlx *mlx)
-//{
-//	t_co	i;
-//	double	res;
-//
-//	set_color(mlx, mlx->fractal.color);
-//	i.x = mlx->fractal.start.x - 1;
-//	while (++i.x < mlx->fractal.end.x)
-//	{
-//		i.y = mlx->fractal.start.y - 1;
-//		while (++i.y < mlx->fractal.end.y)
-//		{
-//			res = (double)mlx->fractal.func(mlx, get_coor(mlx->fractal, i, mlx)) / (int)mlx->max_iter;
-//			mlx_put_pixel_img(&mlx->img, i, get_color(mlx->color, res, mlx->dark_mode));
-//		}
-//	}
-//}
 
 void	set_menu(t_mlx *mlx)
 {
@@ -109,7 +91,6 @@ void	set_menu(t_mlx *mlx)
 		set_color(mlx, mlx->fractal.color);
 		t[i].mlx = mlx;
 		t[i].frac = mlx->fractal;
-		t[i].color = mlx->color;
 		pthread_create(&t[i].thread, NULL, (void *)fractal_preview, &t[i]);
 	}
 	i = -1;

@@ -87,15 +87,11 @@ static void	set_burning_shipe(t_mlx *mlx)
 
 void	set_fractal(t_mlx *mlx, t_fractals set)
 {
-	void	(*fractals_set[5])(t_mlx *);
+	static void	(*fractals_set[5])(t_mlx *) = {set_mandelbrot, set_julia, set_celtic, set_burning_shipe};
 
-	fractals_set[0] = set_mandelbrot;
-	fractals_set[1] = set_julia;
-	fractals_set[2] = set_celtic;
-	fractals_set[3] = set_burning_shipe;
 	if (!mlx->in_menu)
 		init_hover(mlx);
 	mlx->c = init_coor(0, 0 - (mlx->launch * 2));
-	mlx->max_iter = 40;
+	mlx->max_iter = 50;
 	fractals_set[set](mlx);
 }

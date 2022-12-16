@@ -12,40 +12,29 @@
 
 OBJS_DIR	= OBJ/
 
-INS			= print_stack.c ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils.c utils2.c solve20.c
-OBJS_INS	= $(addprefix ${OBJS_DIR}, $(INS:.c=.o))
-
-SRCS		= push_swap.c solve.c
-OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
-HEAD		= push_swap.h
-NAME		= push_swap
-
-BON			= checker.c get_next_line.c get_next_line_utils.c
-OBJS_BON	= $(addprefix ${OBJS_DIR}, $(BON:.c=.o))
-NAME_BON	= checker
+#ls *.c | tr "\t\n" " "
+SRCS		= parsing.c philosophers.c printf.c
+OBJS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
+NAME		= philosopher
+HEAD		= ${NAME}.h
 
 CC			= cc
 RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror
 
-ARGS		= 6 14 1 15 17 11 16 3 2 12 19 5 7 10 4 18 8 0 13 9
-
 all:		${NAME}
-#			./push_swap ${ARGS}
 
 $(OBJS_DIR)%.o: %.c ${HEAD} Makefile
-			@mkdir -p ${OBJS_DIR}
 			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
-${NAME}:	${OBJS_INS} ${OBJS_SRC}
+${NAME}:	dir ${OBJS}
 			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_SRC} -o ${NAME}
+
+dir:
+			@mkdir -p ${OBJS_DIR}
 
 bonus:		${OBJS_INS} ${OBJS_BON}
 			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_BON} -o ${NAME_BON}
-
-check:		${NAME} bonus
-			./push_swap ${ARGS} | ./checker ${ARGS} 
-			./push_swap ${ARGS} | wc -l
 
 clean:
 			${RM} ${OBJS_DIR}
@@ -55,4 +44,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re bonus check
+.PHONY:		all clean fclean re bonus

@@ -45,9 +45,9 @@ void	move(t_mlx *mlx, enum e_keycode side)
 void	zoom(t_mlx *mlx, double scale, t_co co)
 {
 	if (scale < 1)
-		mlx->max_iter += 0.5;
+		mlx->max_iter += 0.7;
 	else if (scale > 1)
-		mlx->max_iter -= 0.5;
+		mlx->max_iter -= 0.7;
 	mlx->fractal.start.x = cross_multi(co.x, mlx->fractal.start.x, scale);
 	mlx->fractal.start.y = cross_multi(co.y, mlx->fractal.start.y, scale);
 	mlx->fractal.end.x = cross_multi(co.x, mlx->fractal.end.x, scale);

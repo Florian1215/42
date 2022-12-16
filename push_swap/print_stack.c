@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   print_stack                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 09:52:20 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/06 14:18:44 by fguirama         ###   ########.fr       */
+/*   Created: 2022/12/02 18:22:33 by fguirama          #+#    #+#             */
+/*   Updated: 2022/12/02 18:22:35 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "push_swap.h"
 
-int	main(int ac, char **av)
+void	print_stack(t_stack *stack)
 {
-	t_stack	*stack;
+	int	i;
 
-	if (ac == 1)
-		return (0);
-	stack = parsing(--ac, ++av);
-	if (stack)
+	i = 0;
+	printf("\nA (%d) - B (%d)\n", stack->len_a, stack->len_b);
+	while (i < stack->len_a || i < stack->len_b)
 	{
-		if (!is_sort(stack, 0))
-		{
-			if (1)
-				solve20(stack);
-			else if (stack->len == 3)
-				solve3(stack);
-			else if (stack->len == 5)
-				solve5(stack);
-			else
-				solve(stack, 0);
-		}
-		free_stack(stack, 1, 1);
+		if (i < stack->len_a)
+			printf("%d\t", stack->a[i]);
+		else
+			printf(".\t");
+		if (i < stack->len_b)
+			printf("%d", stack->b[i]);
+		else
+			printf(".");
+		printf("\n");
+		i++;
 	}
+	printf("\n");
 }

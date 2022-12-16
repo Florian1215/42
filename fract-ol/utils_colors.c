@@ -12,31 +12,28 @@
 
 #include "fractol.h"
 
-static int	get_gradient(double r, int c1, int c2)
+static int	get_gradient(double r, union u_color c1, union u_color c2)
 {
-	t_co	rgb;
-	int		res;
-	int		i;
+	union u_color	res;
 
-	res = 0;
-	i = -1;
-	while (++i < 3)
-	{
-		rgb = init_coor((c1 >> i * 8) & 255, (c2 >> i * 8) & 255);
-		res |= (int)((rgb.y - rgb.x) * r + rgb.x) << i * 8;
-	}
-	return (res);
+	res.rgb.r = (int)((c2.rgb.r - c1.rgb.r) * r + c1.rgb.r);
+	res.rgb.g = (int)((c2.rgb.g - c1.rgb.g) * r + c1.rgb.g);
+	res.rgb.b = (int)((c2.rgb.b - c1.rgb.b) * r + c1.rgb.b);
+	return (res.color);
 }
 
-int	get_color(t_color color, double r, int dark_mode)
+int	get_color(t_colors set, double r, int dark_mode)
 {
-	int	c1;
-	int	c2;
-	int	fg;
+	static t_color	(*colors_set[5])() = {set_1, set_2, set_3, set_4, set_5};
+	union u_color	c1;
+	union u_color	c2;
+	union u_color	fg;
+	t_color			color;
 
-	fg = 0x222222;
+	color = colors_set[set]();
+	fg.color = 0x222222;
 	if (r >= 1)
-		return (fg);
+		return (fg.color);
 	else if (r >= 0.6)
 	{
 		c1 = color.c2;
@@ -55,28 +52,20 @@ int	get_color(t_color color, double r, int dark_mode)
 
 void	set_color(t_mlx *mlx, t_colors color)
 {
-	void	(*colors_set[5])();
-
-	colors_set[0] = set_1;
-	colors_set[1] = set_2;
-	colors_set[2] = set_3;
-	colors_set[3] = set_4;
-	colors_set[4] = set_5;
 	mlx->fractal.color = color;
 	if (mlx->fractal.color == 5)
 		mlx->fractal.color = 0;
-	colors_set[mlx->fractal.color](mlx);
 	if (!mlx->in_menu)
 		fractal_render(mlx);
 }
 
-t_color	init_color( int c1, int c2, int c3, t_colors set)
+t_color	init_color(t_colors set, int c1, int c2, int c3)
 {
 	t_color	color;
 
-	color.c1 = c1;
-	color.c2 = c2;
-	color.c3 = c3;
+	color.c1.color = c1;
+	color.c2.color = c2;
+	color.c3.color = c3;
 	color.set = set;
 	return (color);
 }

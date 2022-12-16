@@ -26,7 +26,15 @@ typedef struct s_stack
 	int	*b;
 	int	len_b;
 	int	len;
+	int	chunck_size;
+	int	chunck;
 }				t_stack;
+
+enum e_stacks
+{
+	A,
+	B,
+};
 
 // GNL
 typedef struct s_list
@@ -48,6 +56,7 @@ int		ft_find_nl(t_list *lst, int one_lst);
 void	solve(t_stack *stack, int index);
 void	solve3(t_stack *stack);
 void	solve5(t_stack *stack);
+void	solve20(t_stack *stack);
 
 // UTILS
 void	error_(t_stack *stack);
@@ -80,5 +89,8 @@ void	reverse_ab(t_stack *stack, int print);
 
 void	move_up(int *stack, int *len);
 void	move_down(int *stack, int *len);
+
+# include <stdio.h>
+void	print_stack(t_stack *stack);
 
 #endif

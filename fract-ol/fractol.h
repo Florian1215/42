@@ -18,10 +18,7 @@
 # include <math.h>
 # include <pthread.h>
 
-# include <stdio.h>
-
-# define MAX_THREADS 8
-
+//UTILS
 struct	s_img {
 	void	*img;
 	char	*addr;
@@ -36,6 +33,38 @@ typedef struct s_co
 	double	y;
 }				t_co;
 
+// COLOR
+ typedef enum e_colors
+{
+	GREEN,
+	YELLOW,
+	BLUE,
+	RED,
+	GREY,
+}			t_colors;
+
+struct s_rgb
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+};
+
+union u_color
+{
+	unsigned int	color;
+	struct s_rgb	rgb;
+};
+
+typedef struct s_color
+{
+	union u_color	c1;
+	union u_color	c2;
+	union u_color	c3;
+	t_colors		set;
+}				t_color;
+
+// HOOK
 enum e_keycode
 {
 	C = 8,
@@ -60,6 +89,7 @@ enum e_mousecode
 	SCROLL_OUT = 5,
 };
 
+// FRACTAL
 typedef enum e_fractal
 {
 	MANDELBROT,
@@ -67,23 +97,6 @@ typedef enum e_fractal
 	CELTIC,
 	BURNING_SHIP,
 }			t_fractals;
-
-typedef enum e_colors
-{
-	GREEN,
-	YELLOW,
-	BLUE,
-	RED,
-	GREY,
-}			t_colors;
-
-typedef struct s_color
-{
-	int			c1;
-	int			c2;
-	int			c3;
-	t_colors	set;
-}				t_color;
 
 typedef struct s_fractal
 {
@@ -110,7 +123,6 @@ typedef struct s_mlx
 	t_co			size;
 	t_co			c;
 	t_co			prev_pos;
-	t_color			color;
 	struct s_hover	hover;
 	struct s_hover	prev_hover;
 	int				dark_mode;
@@ -120,6 +132,7 @@ typedef struct s_mlx
 	int				render;
 }				t_mlx;
 
+// THREAD
 typedef struct s_thread
 {
 	t_mlx		*mlx;
@@ -132,7 +145,6 @@ typedef struct s_preview_thread
 	t_mlx		*mlx;
 	pthread_t	thread;
 	t_fractal	frac;
-	t_color		color;
 }				t_preview_thread;
 
 // FRACTAL
@@ -168,14 +180,15 @@ void		set_hook(t_mlx *mlx);
 int			loop(t_mlx *mlx);
 
 // COLOR
-int			get_color(t_color color, double r, int dark_mode);
+int			get_color(t_colors set, double r, int dark_mode);
 void		toggle_dark_mode(t_mlx *mlx);
-t_color		init_color(int c1, int c2, int c3, t_colors set);
+t_color		init_color(t_colors set, int c1, int c2, int c3);
 void		set_color(t_mlx *mlx, t_colors color);
-void		set_1(t_mlx *mlx);
-void		set_2(t_mlx *mlx);
-void		set_3(t_mlx *mlx);
-void		set_4(t_mlx *mlx);
-void		set_5(t_mlx *mlx);
+unsigned int	smooth_color(t_colors set, int it, float mod, t_mlx *mlx);
+t_color		set_1(void);
+t_color		set_2(void);
+t_color		set_3(void);
+t_color		set_4(void);
+t_color		set_5(void);
 
 #endif
