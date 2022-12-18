@@ -12,8 +12,11 @@
 
 #include "philosophers.h"
 
-//number_of_philosophers time_to_die time_to_eat time_to_sleep
-// *[number_of_times_each_philosopher_must_eat]
+static void	*free_env(t_env *env)
+{
+	free(env);
+	return (NULL);
+}
 
 static int	ft_strlen(char *str)
 {
@@ -25,7 +28,7 @@ static int	ft_strlen(char *str)
 	return (len);
 }
 
-static void	ft_atoi(char *nb, int *var, int max)
+static int	ft_atoi(char *nb, int *var, int max, int time)
 {
 	unsigned long int	res;
 	int					i;
@@ -34,30 +37,38 @@ static void	ft_atoi(char *nb, int *var, int max)
 	i = 0;
 	while (nb[i] >= '0' && nb[i] <= '9')
 		res = res * 10 + nb[i++] - '0';
-	if (!i || (i == 1 && sign == -1) || ft_strlen(nb) != i)
-		return (error_(stack));
-	if (res > max)
-		return (error_(stack));
-	*var = (int)res * sign;
+	if (!i || ft_strlen(nb) != i)
+		return (1);
+	if (res > (unsigned long)max)
+		return (1);
+	*var = (int)res * time;
+	return (0);
 }
 
-s_env	*parsing(int ac, char **av)
+t_env	*parsing(int ac, char **av)
 {
-	s_env	*env;
+	t_env	*env;
 
 	if (ac != 4 && ac != 5)
 		return (NULL);
-	env = malloc(sizeof(s_env));
+	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	ft_atoi(av[0], &env->nb_philo, MAX_THREAD);
-	ft_atoi(av[1], &env->td, INT_MAX);
-	ft_atoi(av[2], &env->te, INT_MAX);
-	ft_atoi(av[3], &env->ts, INT_MAX);
+	if (ft_atoi(av[0], &env->nb_philo, MAX_THREAD, 1))
+		return (free_env(env));
+	if (ft_atoi(av[1], &env->td, INT_MAX / USEC, USEC))
+		return (free_env(env));
+	if (ft_atoi(av[2], &env->te, INT_MAX / USEC, USEC))
+		return (free_env(env));
+	if (ft_atoi(av[3], &env->ts, INT_MAX / USEC, USEC))
+		return (free_env(env));
 	if (ac == 5)
-		ft_atoi(av[4], &env->must_eat, INT_MAX);
+	{
+		if (ft_atoi(av[4], &env->must_eat, INT_MAX, 1))
+			return (free_env(env));
+	}
 	else
 		env->must_eat = -1;
-	env->start_time = gettimeofday();
+	pthread_mutex_init(&env->mutex_print, NULL);
 	return (env);
 }

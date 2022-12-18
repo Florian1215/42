@@ -17,11 +17,31 @@ static void	ft_putchar(int c)
 	write(1, &c, 1);
 }
 
-static void	ft_putnb(unsigned int nb, int *len)
+static void	ft_putnb(t_time nb)
 {
 	if (nb >= 10)
-		ft_putnb(nb / n_base, len);
-	ft_putchar('0' + nb % 10, len);
+		ft_putnb(nb / 10);
+	ft_putchar('0' + nb % 10);
+}
+
+static void	ft_putstr(char *s)
+{
+	if (s == NULL)
+		s = "(null)";
+	while (*s)
+		ft_putchar(*s++);
+}
+
+static void	ft_format(const char c, va_list	args)
+{
+	if (c == '%')
+		ft_putchar('%');
+	else if (c == 'c')
+		ft_putchar(va_arg(args, int));
+	else if (c == 's')
+		ft_putstr(va_arg(args, char *));
+	else if (c == 'd')
+		ft_putnb(va_arg(args, t_time));
 }
 
 void	ft_printf(const char *format, ...)
@@ -35,8 +55,7 @@ void	ft_printf(const char *format, ...)
 		{
 			if (!*++format)
 				break ;
-			if (*format == 'd')
-				ft_putnb(va_arg(args, unsigned int));
+			ft_format(*format++, args);
 		}
 		else
 			ft_putchar(*format++);
