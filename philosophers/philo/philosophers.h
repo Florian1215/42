@@ -15,51 +15,59 @@
 
 # include <pthread.h>
 # include <unistd.h>
-# include <stdarg.h>
 # include <sys/time.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdio.h>
 
-# define MAX_THREAD 8
-# define USEC	1000
+# define MAX_THREAD 200
 
-typedef enum e_state
+typedef unsigned long long int	t_time;
+typedef enum e_state			t_state;
+typedef enum e_side				t_side;
+typedef struct s_env			t_env;
+typedef struct s_philo			t_philo;
+
+enum e_side
 {
+	LEFT,
+	RIGHT,
+};
+
+enum e_state
+{
+	DIE,
 	EAT,
 	SLEEP,
 	THINK,
 	FORK,
-	DIE,
-}t_state;
+};
 
-typedef unsigned long long int	t_time;
-typedef struct s_env			t_env;
-
-typedef struct s_philo
+struct s_philo
 {
-	int		n;
-	int		eat_count;
-	t_time	eat_last;
-	t_env	*env;
-}t_philo;
+	int				n;
+	int				eat_count;
+	t_time			eat_last;
+	pthread_mutex_t	mutex_forks;
+	pthread_mutex_t	mutex_eat;
+	t_env			*env;
+};
 
 struct s_env
 {
-	int				nb_philo;
-	int				td;
-	int				te;
-	int				ts;
+	int				nb;
+	int				time[3];
 	int				must_eat;
 	pthread_mutex_t	mutex_print;
-	pthread_mutex_t	mutex_forks[MAX_THREAD];
 	t_philo			p[MAX_THREAD];
 	pthread_t		threads[MAX_THREAD];
 };
 
 t_env	*parsing(int ac, char **av);
-void	ft_printf(const char *format, ...);
-void	print_state(t_philo *p, t_state state);
 t_time	get_timedelta(void);
-void	life(t_philo *p);
+t_time	get_timestamp(void);
+void	print_state(t_philo *p, t_state state);
+int		get_fork(t_philo *p, t_side side);
+void	work_usleep(t_time until);
 
 #endif

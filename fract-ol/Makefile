@@ -20,7 +20,7 @@ CC			= cc
 RM			= rm -f
 FLAGS		= -Wall -Wextra -Werror -O3
 
-MLX_DIR		= minilibx
+MLX_DIR		= minilibx/
 MLX_NAME	= libmlx.a
 MLX_FLAGS	= -framework OpenGL -framework AppKit
 
@@ -34,7 +34,7 @@ mlx:
 			make -C ${MLX_DIR}
 
 ${NAME}:	${OBJS_SRC}
-			${CC} ${FLAGS} ${OBJS_SRC} ${MLX_DIR}/${MLX_NAME} ${MLX_FLAGS} -o ${NAME}
+			${CC} ${FLAGS} ${OBJS_SRC} ${MLX_DIR}${MLX_NAME} ${MLX_FLAGS} -o ${NAME}
 
 clean:
 			${RM} ${OBJS_SRC} ${OBJS_BON}

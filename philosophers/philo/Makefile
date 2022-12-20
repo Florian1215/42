@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 OBJS_DIR	= OBJS/
-SRCS		= life.c parsing.c philosophers.c printf.c utils.c
+SRCS		= parsing.c philosophers.c utils.c
 OBJS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
 NAME		= philo
@@ -19,7 +19,7 @@ HEAD		= philosophers.h
 
 CC			= cc
 RM			= rm -rf
-FLAG		= -Wall -Wextra -Werror
+FLAG		= -Wall -Wextra -Werror# -g3 -fsanitize=thread
 
 all:		${NAME}
 

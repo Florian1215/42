@@ -12,12 +12,19 @@
 
 #include "philosophers.h"
 
+int	get_fork(t_philo *p, t_side side)
+{
+	if (side ^ (p->env->nb % 2 ^ p->n % 2))
+		return ((p->n + 1) % p->env->nb);
+	return (p->n);
+}
+
 t_time	get_timestamp(void)
 {
 	struct timeval	timestamp;
 
 	gettimeofday(&timestamp, NULL);
-	return ((timestamp.tv_sec * USEC) + (timestamp.tv_usec / USEC));
+	return ((timestamp.tv_sec * 1000) + (timestamp.tv_usec / 1000));
 }
 
 t_time	get_timedelta(void)
@@ -29,12 +36,19 @@ t_time	get_timedelta(void)
 	return (get_timestamp() - start);
 }
 
+void	work_usleep(t_time until)
+{
+	while (get_timestamp() < until - 10)
+		usleep(10);
+}
+
 void	print_state(t_philo *p, t_state state)
 {
-	static char	*states[5] = {"is eating", "is sleeping", "is thinking", \
-							"has taken a fork", "died"};
+	static char	*states[5] = {"died", "is eating", "is sleeping", \
+								"is thinking", "has taken a fork"};
 
 	pthread_mutex_lock(&p->env->mutex_print);
-	ft_printf("%d %d %s\n", get_timedelta(), p->n, states[state]);
-	pthread_mutex_unlock(&p->env->mutex_print);
+	printf("%llu %d %s\n", get_timedelta(), p->n + 1, states[state]);
+	if (state != DIE)
+		pthread_mutex_unlock(&p->env->mutex_print);
 }

@@ -28,7 +28,7 @@ static int	ft_strlen(char *str)
 	return (len);
 }
 
-static int	ft_atoi(char *nb, int *var, int max, int time)
+static int	ft_atoi(char *nb, int *var)
 {
 	unsigned long int	res;
 	int					i;
@@ -39,9 +39,7 @@ static int	ft_atoi(char *nb, int *var, int max, int time)
 		res = res * 10 + nb[i++] - '0';
 	if (!i || ft_strlen(nb) != i)
 		return (1);
-	if (res > (unsigned long)max)
-		return (1);
-	*var = (int)res * time;
+	*var = (int)res;
 	return (0);
 }
 
@@ -54,21 +52,22 @@ t_env	*parsing(int ac, char **av)
 	env = malloc(sizeof(t_env));
 	if (!env)
 		return (NULL);
-	if (ft_atoi(av[0], &env->nb_philo, MAX_THREAD, 1))
+	if (ft_atoi(av[0], &env->nb) || env->nb > MAX_THREAD)
 		return (free_env(env));
-	if (ft_atoi(av[1], &env->td, INT_MAX / USEC, USEC))
+	if (ft_atoi(av[1], env->time + DIE))
 		return (free_env(env));
-	if (ft_atoi(av[2], &env->te, INT_MAX / USEC, USEC))
+	if (ft_atoi(av[2], env->time + EAT))
 		return (free_env(env));
-	if (ft_atoi(av[3], &env->ts, INT_MAX / USEC, USEC))
+	if (ft_atoi(av[3], env->time + SLEEP))
 		return (free_env(env));
 	if (ac == 5)
 	{
-		if (ft_atoi(av[4], &env->must_eat, INT_MAX, 1))
+		if (ft_atoi(av[4], &env->must_eat))
 			return (free_env(env));
 	}
 	else
 		env->must_eat = -1;
 	pthread_mutex_init(&env->mutex_print, NULL);
+	get_timedelta();
 	return (env);
 }
