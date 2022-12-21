@@ -10,34 +10,38 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= fractal.c fractol.c hook.c menu.c set_colors.c set_fractals.c thread.c utils_colors.c utils_fractal.c utils_loop.c utils_menu.c utils_mlx.c
-OBJS_SRC	= $(SRCS:.c=.o)
+OBJS_DIR	= OBJS/
+SRCS		= fractal.c fractol.c hook.c menu.c set_colors1.c set_colors2.c set_fractals.c thread.c utils_colors.c utils_fractal.c utils_loop.c utils_menu.c utils_mlx.c
+OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
 NAME		= fractol
-HEAD		= fractol.h
+HEAD		= $(NAME).h
 
 CC			= cc
-RM			= rm -f
+RM			= rm -rf
 FLAGS		= -Wall -Wextra -Werror -O3
 
 MLX_DIR		= minilibx/
 MLX_NAME	= libmlx.a
 MLX_FLAGS	= -framework OpenGL -framework AppKit
 
-all:		mlx ${NAME}
+all:		dir mlx ${NAME}
 			./${NAME}
 
-%.o: %.c ${HEAD} Makefile
-		${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
+$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
+			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
+
+dir:
+			mkdir -p $(OBJS_DIR)
 
 mlx:
-			make -C ${MLX_DIR}
+			make -j -C ${MLX_DIR}
 
 ${NAME}:	${OBJS_SRC}
 			${CC} ${FLAGS} ${OBJS_SRC} ${MLX_DIR}${MLX_NAME} ${MLX_FLAGS} -o ${NAME}
 
 clean:
-			${RM} ${OBJS_SRC} ${OBJS_BON}
+			${RM} ${OBJS_DIR}
 			make clean -C ${MLX_DIR}
 
 fclean:		clean
@@ -45,4 +49,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re mlx dir

@@ -39,7 +39,7 @@ void	create_fractal(t_thread	*t)
 {
 	t_co	i;
 	t_co	r;
-	double	res;
+	double	col;
 
 	i.x = t->mlx->size.x / 8 * t->id - 1;
 	r = init_coor(
@@ -50,8 +50,8 @@ void	create_fractal(t_thread	*t)
 		i.y = -1;
 		while (++i.y < t->mlx->size.y)
 		{
-			res = (double)t->mlx->fractal.func(t->mlx, init_coor(t->mlx->fractal.start.x + i.x * r.x, t->mlx->fractal.end.y - i.y * r.y)) / (int)t->mlx->max_iter;
-			mlx_put_pixel_img(&t->mlx->img, i, get_color(t->mlx->fractal.color, res, t->mlx->dark_mode));
+			col = t->mlx->fractal.func(t->mlx, init_coor(t->mlx->fractal.start.x + i.x * r.x, t->mlx->fractal.end.y - i.y * r.y), t->mlx->fractal.color);
+			mlx_put_pixel_img(&t->mlx->img, i, col);
 		}
 	}
 }

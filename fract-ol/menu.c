@@ -60,7 +60,7 @@ static t_co	get_coor(t_fractal frac, t_co i, t_mlx *mlx)
 static void	fractal_preview(t_preview_thread *t)
 {
 	t_co	i;
-	double	res;
+	double	col;
 
 	set_color(t->mlx, t->frac.color);
 	i.x = t->frac.start.x - 1;
@@ -69,9 +69,8 @@ static void	fractal_preview(t_preview_thread *t)
 		i.y = t->frac.start.y - 1;
 		while (++i.y < t->frac.end.y)
 		{
-			res = (double)t->frac.func(t->mlx, \
-				get_coor(t->frac, i, t->mlx)) / (int)t->mlx->max_iter;
-			mlx_put_pixel_img(&t->mlx->img, i, get_color(t->frac.color, res, t->mlx->dark_mode));
+			col = t->frac.func(t->mlx, get_coor(t->frac, i, t->mlx), t->frac.color);
+			mlx_put_pixel_img(&t->mlx->img, i, col);
 		}
 	}
 }

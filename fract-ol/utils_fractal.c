@@ -66,15 +66,26 @@ void	edit_c(t_mlx *mlx, double j, double *nb)
 	fractal_render(mlx);
 }
 
+void	edit_iter(t_mlx *mlx, double j)
+{
+	double	res;
+
+	res = mlx->max_iter + j;
+	if (res < 10 || res > 500)
+		return ;
+	mlx->max_iter = res;
+	fractal_render(mlx);
+}
+
 t_fractal	init_fractal(t_fractals set, t_co start, t_co end, \
-	int (*func)(t_mlx *, t_co), t_colors color)
+	int (*func)(t_mlx *, t_co, t_colors), t_colors color)
 {
 	t_fractal	frac;
 
 	frac.set = set;
 	frac.start = start;
 	frac.end = end;
-	frac.func = (int (*)(void *, t_co))func;
+	frac.func = (int (*)(void *, t_co, t_colors))func;
 	frac.color = color;
 	return (frac);
 }

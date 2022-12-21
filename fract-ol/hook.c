@@ -87,6 +87,10 @@ static int	key_event_press(int k, t_mlx *mlx)
 		edit_c(mlx, 0.1, &mlx->c.y);
 	else if (k == G)
 		edit_c(mlx, -0.1, &mlx->c.y);
+	else if (k == PLUS)
+		edit_iter(mlx, 10);
+	else if (k == MINUS)
+		edit_iter(mlx, -10);
 	else if (k == RIGHT)
 		move(mlx, RIGHT);
 	else if (k == LEFT)

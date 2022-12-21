@@ -12,42 +12,37 @@
 
 #include "fractol.h"
 
-static int	get_gradient(double r, union u_color c1, union u_color c2)
+static int	get_gradient(t_palette pal, double i, int color, int cat)
 {
-	union u_color	res;
+	t_color	col;
 
-	res.rgb.r = (int)((c2.rgb.r - c1.rgb.r) * r + c1.rgb.r);
-	res.rgb.g = (int)((c2.rgb.g - c1.rgb.g) * r + c1.rgb.g);
-	res.rgb.b = (int)((c2.rgb.b - c1.rgb.b) * r + c1.rgb.b);
-	return (res.color);
+	col.rgb.r = pal.colors[color].rgb.r + ((pal.colors[color + 1].rgb.r - pal.colors[color].rgb.r) * ((i - cat * color) / cat));
+	col.rgb.g = pal.colors[color].rgb.g + ((pal.colors[color + 1].rgb.g - pal.colors[color].rgb.g) * ((i - cat * color) / cat));
+	col.rgb.b = pal.colors[color].rgb.b + ((pal.colors[color + 1].rgb.b - pal.colors[color].rgb.b) * ((i - cat * color) / cat));
+	return (col.color);
 }
 
-int	get_color(t_colors set, double r, int dark_mode)
+int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 {
-	static t_color	(*colors_set[5])() = {set_1, set_2, set_3, set_4, set_5};
-	union u_color	c1;
-	union u_color	c2;
-	union u_color	fg;
-	t_color			color;
+	static t_palette	(*colors_set[10])() = {set_1, set_2, set_3, set_4, \
+			set_5, set_6, set_7, set_8, set_9, set_10};
+	double				fact;
+	int					color;
+	int					cat;
 
-	color = colors_set[set]();
-	fg.color = 0x222222;
-	if (r >= 1)
-		return (fg.color);
-	else if (r >= 0.6)
-	{
-		c1 = color.c2;
-		c2 = color.c1;
-	}
-	else
-	{
-		if (dark_mode)
-			c1 = fg;
-		else
-			c1 = color.c3;
-		c2 = color.c2;
-	}
-	return (get_gradient(r, c1, c2));
+	fact = 1 + ((log(log(2)) - log((0.5 * log(sqr)))) / log(2));
+	if (fact > 0.9999)
+		fact = 0.9999;
+	if (fact < 0)
+		fact = 0;
+	fact += i;
+	cat = (mlx->max_iter / 4);
+	if (!cat)
+		cat = 1;
+	color = i / cat;
+	if (color < 0)
+		color = 0;
+	return (get_gradient(colors_set[set](), fact, color, cat));
 }
 
 void	set_color(t_mlx *mlx, t_colors color)
@@ -57,17 +52,6 @@ void	set_color(t_mlx *mlx, t_colors color)
 		mlx->fractal.color = 0;
 	if (!mlx->in_menu)
 		fractal_render(mlx);
-}
-
-t_color	init_color(t_colors set, int c1, int c2, int c3)
-{
-	t_color	color;
-
-	color.c1.color = c1;
-	color.c2.color = c2;
-	color.c3.color = c3;
-	color.set = set;
-	return (color);
 }
 
 void	toggle_dark_mode(t_mlx *mlx)
