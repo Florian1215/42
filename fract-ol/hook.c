@@ -75,10 +75,10 @@ static int	key_event_press(int k, t_mlx *mlx)
 {
 	if (k == D)
 		toggle_dark_mode(mlx);
+	else if (k == C)
+		edit_color(mlx);
 	if (mlx->in_menu)
 		return (0);
-	if (k == C)
-		set_color(mlx, ++mlx->fractal.color);
 	else if (k == R)
 		edit_c(mlx, 0.1, &mlx->c.x);
 	else if (k == F)

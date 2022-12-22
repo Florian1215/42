@@ -46,9 +46,10 @@ void	print_state(t_philo *p, t_state state)
 {
 	static char	*states[5] = {"died", "is eating", "is sleeping", \
 								"is thinking", "has taken a fork"};
+ 	static char	*colors[5] = {"31", "32", "33", "34", "36"};
 
 	pthread_mutex_lock(&p->env->mutex_print);
-	printf("%llu %d %s\n", get_timedelta(), p->n + 1, states[state]);
+	printf("%llu %d \033[1;%sm%s\033[0m\n", get_timedelta(), p->n + 1, colors[state], states[state]);
 	if (state != DIE)
 		pthread_mutex_unlock(&p->env->mutex_print);
 }

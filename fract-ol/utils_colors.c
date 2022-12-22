@@ -45,10 +45,23 @@ int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 	return (get_gradient(colors_set[set](mlx->dark_mode), fact, color, cat));
 }
 
+void	edit_color(t_mlx *mlx)
+{
+	if (mlx->in_menu)
+	{
+		mlx->offset_color++;
+		if (mlx->offset_color > 10)
+			mlx->offset_color = 0;
+		set_menu(mlx);
+	}
+	else
+		set_color(mlx, ++mlx->fractal.color);
+}
+
 void	set_color(t_mlx *mlx, t_colors color)
 {
 	mlx->fractal.color = color;
-	if (mlx->fractal.color == 10)
+	if (mlx->fractal.color >= 10)
 		mlx->fractal.color = 0;
 	if (!mlx->in_menu)
 		fractal_render(mlx);

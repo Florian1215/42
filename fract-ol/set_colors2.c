@@ -16,7 +16,7 @@ t_palette	set_6(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 6\n");
+	//printf("set 6\n");
 	(void)dark_mode;
 	pal.colors[0].color = 0x00748E;
 	pal.colors[1].color = 0xE3DFBB;
@@ -31,7 +31,7 @@ t_palette	set_7(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 7\n");
+	//printf("set 7\n");
 	(void)dark_mode;
 	pal.colors[0].color = 0x7DBEA5;
 	pal.colors[1].color = 0xF1E0B1;
@@ -46,7 +46,7 @@ t_palette	set_8(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 8\n");
+	//printf("set 8\n");
 	(void)dark_mode;
 	pal.colors[0].color = 0x405952;
 	pal.colors[1].color = 0x9C9B7A;
@@ -61,7 +61,7 @@ t_palette	set_9(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 9\n");
+	//printf("set 9\n");
 	(void)dark_mode;
 	pal.colors[0].color = 0xFFE9AA;
 	pal.colors[1].color = 0xE8CB9A;
@@ -76,13 +76,13 @@ t_palette	set_10(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 10\n");
+	//printf("set 10\n");
 	(void)dark_mode;
 	pal.colors[0].color = 0xEEEFE3;
 	pal.colors[1].color = 0xBBC7A5;
 	pal.colors[2].color = 0x363432;
 	pal.colors[3].color = 0x363432;
 	pal.colors[4].color = 0x363432;
-	pal.set = GREY;
+	pal.set = DARK_BLUE;
 	return (pal);
 }

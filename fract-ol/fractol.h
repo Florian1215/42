@@ -50,7 +50,8 @@ void			mlx_put_pixel_img(struct s_img *img, t_co co, int color);
 t_co			init_coor(double x, double y);
 
 // COLOR
-# define FG 0x222222
+# define FG		0x222222
+# define WHITE	0xFFFFFF
 
 enum e_colors
 {
@@ -58,7 +59,7 @@ enum e_colors
 	PURPLE,
 	BLUE,
 	RED,
-	GREY,
+	LIGHT_GREEN,
 	BLUE_RED,
 	KHAKI,
 	YELLOW,
@@ -86,7 +87,7 @@ struct s_palette
 
 int				get_color(t_mlx *mlx, int i, double sqr, t_colors set);
 void			toggle_dark_mode(t_mlx *mlx);
-t_color			init_color(t_colors set, int c1, int c2, int c3);
+void			edit_color(t_mlx *mlx);
 void			set_color(t_mlx *mlx, t_colors color);
 t_palette		set_1(int dark_mode);
 t_palette		set_2(int dark_mode);
@@ -170,6 +171,7 @@ struct s_mlx
 	int				moving;
 	int				render;
 	int				in_menu;
+	int				offset_color;
 };
 
 void			fractal_render(t_mlx *mlx);

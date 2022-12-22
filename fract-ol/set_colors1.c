@@ -42,6 +42,7 @@ t_palette	set_2(int dark_mode)
 	t_palette	pal;
 
 	(void)dark_mode;
+	// GOOD
 	pal.colors[0].color = 0x23254C;
 	pal.colors[1].color = 0xB6696A;
 	pal.colors[2].color = 0xE8ECF4;
@@ -76,11 +77,12 @@ t_palette	set_4(int dark_mode)
 
 	(void)dark_mode;
 		// REVERSE !!
-	pal.colors[4].color = 0x4C6472;
-	pal.colors[3].color = 0x57A4B1;
-	pal.colors[2].color = 0xB0D894;
-	pal.colors[1].color = 0xFADE89;
-	pal.colors[0].color = 0xF95355;
+		// GOOD
+	pal.colors[4].color = 0xA1DBB2;//0x4C6472;
+	pal.colors[3].color = 0xFEE5AD;//0x57A4B1;
+	pal.colors[2].color = 0xFACA66;//0xB0D894;
+	pal.colors[1].color = 0xF7A541;//0xFADE89;
+	pal.colors[0].color = 0xF45D4C;//0xF95355;
 	pal.set = RED;
 	return (pal);
 }
@@ -89,23 +91,16 @@ t_palette	set_5(int dark_mode)
 {
 	t_palette	pal;
 
-	printf("set 5\n");
+	//GOOD
 	(void)dark_mode;
 	pal.colors[0].color = 0xA1DBB2;
 	pal.colors[1].color = 0xFEE5AD;
 	pal.colors[2].color = 0xFACA66;
 	pal.colors[3].color = 0xF7A541;
 	pal.colors[4].color = 0xF45D4C;
-	pal.set = GREY;
+	pal.set = LIGHT_GREEN;
 	return (pal);
 }
-
-// LIGHT_GREEN_ORANGE 4/5
-//
-//
-//
-//
-//
 
 // DARK_GREEN 1/5
 //0x051E21

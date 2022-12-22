@@ -25,6 +25,7 @@ void	init_hover(t_mlx *mlx)
 {
 	mlx->hover.set = -1;
 	mlx->hover.value = 1;
+	mlx->offset_color = 0;
 	mlx->prev_hover = mlx->hover;
 }
 

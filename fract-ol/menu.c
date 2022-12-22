@@ -87,7 +87,7 @@ void	set_menu(t_mlx *mlx)
 	while (++i < 4)
 	{
 		set_fractal(mlx, i);
-		set_color(mlx, mlx->fractal.color);
+		set_color(mlx, mlx->fractal.color + mlx->offset_color);
 		t[i].mlx = mlx;
 		t[i].frac = mlx->fractal;
 		pthread_create(&t[i].thread, NULL, (void *)fractal_preview, &t[i]);
@@ -97,11 +97,11 @@ void	set_menu(t_mlx *mlx)
 		pthread_join(t[i].thread, NULL);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 1, 20), \
-		get_pos(mlx, 1, -3), 0xFFFFFF, "Mandelbrot");
+		get_pos(mlx, 1, -3), WHITE, "Mandelbrot");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 3, 15), \
-		get_pos(mlx, 1, -3), 0xFFFFFF, "Julia");
+		get_pos(mlx, 1, -3), WHITE, "Julia");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 1, 18), \
-		get_pos(mlx, 3, -3), 0xFFFFFF, "Celtic");
+		get_pos(mlx, 3, -3), WHITE, "Celtic");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 3, 36), \
-		get_pos(mlx, 3, -3), 0xFFFFFF, "Burning Ship");
+		get_pos(mlx, 3, -3), WHITE, "Burning Ship");
 }
