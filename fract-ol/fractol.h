@@ -55,10 +55,14 @@ t_co			init_coor(double x, double y);
 enum e_colors
 {
 	GREEN,
-	YELLOW,
+	PURPLE,
 	BLUE,
 	RED,
 	GREY,
+	BLUE_RED,
+	KHAKI,
+	YELLOW,
+	DARK_BLUE,
 };
 
 struct s_rgb
@@ -84,16 +88,16 @@ int				get_color(t_mlx *mlx, int i, double sqr, t_colors set);
 void			toggle_dark_mode(t_mlx *mlx);
 t_color			init_color(t_colors set, int c1, int c2, int c3);
 void			set_color(t_mlx *mlx, t_colors color);
-t_palette		set_1(void);
-t_palette		set_2(void);
-t_palette		set_3(void);
-t_palette		set_4(void);
-t_palette		set_5(void);
-t_palette		set_6(void);
-t_palette		set_7(void);
-t_palette		set_8(void);
-t_palette		set_9(void);
-t_palette		set_10(void);
+t_palette		set_1(int dark_mode);
+t_palette		set_2(int dark_mode);
+t_palette		set_3(int dark_mode);
+t_palette		set_4(int dark_mode);
+t_palette		set_5(int dark_mode);
+t_palette		set_6(int dark_mode);
+t_palette		set_7(int dark_mode);
+t_palette		set_8(int dark_mode);
+t_palette		set_9(int dark_mode);
+t_palette		set_10(int dark_mode);
 
 // HOOK
 enum e_keycode
@@ -202,5 +206,7 @@ void			set_menu(t_mlx *mlx);
 t_fractals		select_fractal(t_mlx *mlx, t_co co);
 void			init_hover(t_mlx *mlx);
 int				mouse_event_motion(int x, int y, t_mlx *mlx);
+
+#include <stdio.h>
 
 #endif

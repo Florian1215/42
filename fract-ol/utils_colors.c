@@ -24,7 +24,7 @@ static int	get_gradient(t_palette pal, double i, int color, int cat)
 
 int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 {
-	static t_palette	(*colors_set[10])() = {set_1, set_2, set_3, set_4, \
+	static t_palette	(*colors_set[10])(int dark_mode) = {set_1, set_2, set_3, set_4, \
 			set_5, set_6, set_7, set_8, set_9, set_10};
 	double				fact;
 	int					color;
@@ -36,19 +36,19 @@ int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 	if (fact < 0)
 		fact = 0;
 	fact += i;
-	cat = (mlx->max_iter / 4);
+	cat = mlx->max_iter / 4;
 	if (!cat)
 		cat = 1;
 	color = i / cat;
 	if (color < 0)
 		color = 0;
-	return (get_gradient(colors_set[set](), fact, color, cat));
+	return (get_gradient(colors_set[set](mlx->dark_mode), fact, color, cat));
 }
 
 void	set_color(t_mlx *mlx, t_colors color)
 {
 	mlx->fractal.color = color;
-	if (mlx->fractal.color == 5)
+	if (mlx->fractal.color == 10)
 		mlx->fractal.color = 0;
 	if (!mlx->in_menu)
 		fractal_render(mlx);

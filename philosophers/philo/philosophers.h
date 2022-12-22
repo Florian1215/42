@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdio.h>
-# include <semaphore.h>
 
 # define MAX_THREAD 200
 

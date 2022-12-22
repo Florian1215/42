@@ -46,7 +46,7 @@ static void	set_julia(t_mlx *mlx)
 		start = init_coor(-2, -2);
 		end = init_coor(2, 2);
 	}
-	mlx->fractal = init_fractal(JULIA, start, end, &julia, YELLOW);
+	mlx->fractal = init_fractal(JULIA, start, end, &julia, PURPLE);
 }
 
 static void	set_celtic(t_mlx *mlx)
