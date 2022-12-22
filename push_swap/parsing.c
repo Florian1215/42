@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	ft_atoi(char *nb, int j, t_stack *stack)
+static void	ft_atoi(char *nb, int k, t_stack *stack)
 {
 	long unsigned int	res;
 	int					sign;
@@ -29,10 +29,10 @@ static void	ft_atoi(char *nb, int j, t_stack *stack)
 		return (error_(stack));
 	if (res - (sign < 0) > INT_MAX)
 		return (error_(stack));
-	stack->a[j] = (int)res * sign;
+	stack->a[k] = (int)res * sign;
 	i = 0;
-	while (i < j)
-		if (stack->a[i++] == stack->a[j])
+	while (i < k)
+		if (stack->a[i++] == stack->a[k])
 			return (error_(stack));
 }
 

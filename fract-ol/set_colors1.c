@@ -12,11 +12,90 @@
 
 #include "fractol.h"
 
-#define C1	0x6E5D54
-#define C2	0xBB937C
-#define C3	0xBBAAA1
-#define C4	0x69BBBA
-#define C5	0x526D6D
+#define C1	0x88F7E2
+#define C2	0x44D492
+#define C3	0xF5EB67
+#define C4	0xFFA15C
+#define C5	0xFA233E
+
+//#define C1	0x88F7E2
+//#define C2	0x44D492
+//#define C3	0xF5EB67
+//#define C4	0xFFA15C
+//#define C5	0xFA233E
+
+//#define C1	0x0540F2
+//#define C2	0x056CF2
+//#define C3	0x0597F2
+//#define C4	0x05C7F2
+//#define C5	0x05F2DB
+
+//
+//#define C1	0xFF9B71
+//#define C2	0xFF6549
+//#define C3	0xFFA755
+//#define C4	0xE8CB9A
+//#define C5	0xFFE9AA
+
+//#define C1	0x023B47
+//#define C2	0x295E52
+//#define C3	0xF2E085
+//#define C4	0xFCAB55
+//#define C5	0xEE7F38
+
+//#define C1	0x596273
+//#define C2	0xF2F0CE
+//#define C3	0xF2EC9B
+//#define C4	0xF2D750
+//#define C5	0xF2AE2E
+
+//#define C1	0x468966
+//#define C2	0xFFF0A5
+//#define C3	0xFFB03B
+//#define C4	0xB64926
+//#define C5	0x8E2800
+
+//#define C1	0x0A7B83
+//#define C2	0x2AA876
+//#define C3	0xFFD265
+//#define C4	0xF19C65
+//#define C5	0xCE4D45
+
+//#define C1	0x5C4B51
+//#define C2	0x8CBEB2
+//#define C3	0xF2EBBF
+//#define C4	0xF3B562
+//#define C5	0xF06060
+
+//#define C1	0xEFC164
+//#define C2	0xF3835D
+//#define C3	0xF35955
+//#define C4	0x286275
+//#define C5	0x00434C
+
+//#define C1	0x2C3E50
+//#define C2	0xF49D1E
+//#define C3	0x1BB89A
+//#define C4	0x27A28A
+//#define C5	0xFFFFFF
+
+//#define C1	0x4C6472
+//#define C2	0x57A4B1
+//#define C3	0xB0D894
+//#define C4	0xFADE89
+//#define C5	0xF95355
+
+//#define C1	0x23254C
+//#define C2	0xB6696A
+//#define C3	0xE8ECF4
+//#define C4	0xE1E2E5
+//#define C5	0xE7CE8C
+
+//#define C1	0xEFC164
+//#define C2	0xF3835D
+//#define C3	0xF35955
+//#define C4	0x286275
+//#define C5	0x00434C
 
 //#define C1	0x051E21
 //#define C2	0x00302D
