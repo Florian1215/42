@@ -25,7 +25,6 @@ void	init_hover(t_mlx *mlx)
 {
 	mlx->hover.set = -1;
 	mlx->hover.value = 1;
-	mlx->offset_color = 0;
 	mlx->prev_hover = mlx->hover;
 }
 
@@ -37,8 +36,9 @@ void	init_mlx(t_mlx **mlx)
 	(*mlx)->mlx_ptr = mlx_init();
 	(*mlx)->size = init_coor(1000, 1000);
 	(*mlx)->in_menu = 1;
-	(*mlx)->render = 0;
 	(*mlx)->launch = 0;
+	(*mlx)->offset_color = 0;
+	(*mlx)->appearance = LIGHT;
 	(*mlx)->moving = 0;
 	init_hover(*mlx);
 	(*mlx)->win_ptr = mlx_new_window((*mlx)->mlx_ptr, (int)(*mlx)->size.x, \
@@ -47,7 +47,6 @@ void	init_mlx(t_mlx **mlx)
 		(int)(*mlx)->size.y);
 	(*mlx)->img.addr = mlx_get_data_addr((*mlx)->img.img, &(*mlx)-> \
 		img.bits_per_pixel, &(*mlx)->img.line_length, &(*mlx)->img.endian);
-	set_color(*mlx, GREEN);
 }
 
 void	mlx_put_pixel_img(struct s_img *img, t_co co, int color)

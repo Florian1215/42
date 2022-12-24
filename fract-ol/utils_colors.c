@@ -10,66 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <printf.h>
 #include "fractol.h"
 
-static int	get_gradient(t_palette pal, double i, int color, int cat)
+static unsigned int	get_gradient(t_color *pal, int color, double op, int cat)
 {
-	t_color	col;
+	t_color			col;
 
-	col.rgb.r = pal.colors[color].rgb.r + ((pal.colors[color + 1].rgb.r - pal.colors[color].rgb.r) * ((i - cat * color) / cat));
-	col.rgb.g = pal.colors[color].rgb.g + ((pal.colors[color + 1].rgb.g - pal.colors[color].rgb.g) * ((i - cat * color) / cat));
-	col.rgb.b = pal.colors[color].rgb.b + ((pal.colors[color + 1].rgb.b - pal.colors[color].rgb.b) * ((i - cat * color) / cat));
+	col.rgb.r = pal[color].rgb.r + ((pal[color + 1].rgb.r - pal[color].rgb.r) * ((op - cat * color) / cat));
+	col.rgb.g = pal[color].rgb.g + ((pal[color + 1].rgb.g - pal[color].rgb.g) * ((op - cat * color) / cat));
+	col.rgb.b = pal[color].rgb.b + ((pal[color + 1].rgb.b - pal[color].rgb.b) * ((op - cat * color) / cat));
 	return (col.color);
 }
 
 int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 {
-	static t_palette	(*colors_set[10])(int dark_mode) = {set_1, set_2, set_3, set_4, \
-			set_5, set_6, set_7, set_8, set_9, set_10};
-	double				fact;
-	int					color;
-	int					cat;
+	static t_color	*(*colors_set[7])(t_appearance app) = {set_1, set_2, set_3, \
+		set_4, set_5, set_6};
+	double			op;
+	int				color;
+	int				cat;
 
-	fact = 1 + ((log(log(2)) - log((0.5 * log(sqr)))) / log(2));
-	if (fact > 0.9999)
-		fact = 0.9999;
-	if (fact < 0)
-		fact = 0;
-	fact += i;
+	op = 1 + ((log(log(2)) - log((0.5 * log(sqr)))) / log(2));
+	if (op > 0.9999)
+		op = 0.9999;
+	if (op < 0)
+		op = 0;
+	op += i;
 	cat = mlx->max_iter / 4;
 	if (!cat)
 		cat = 1;
 	color = i / cat;
 	if (color < 0)
 		color = 0;
-	return (get_gradient(colors_set[set](mlx->dark_mode), fact, color, cat));
+	return (get_gradient(colors_set[set](mlx->appearance), color, op, cat));
 }
 
 void	edit_color(t_mlx *mlx)
 {
 	if (mlx->in_menu)
 	{
-		mlx->offset_color++;
-		if (mlx->offset_color > 10)
-			mlx->offset_color = 0;
+		mlx->offset_color = (mlx->offset_color + 1) % 6;
 		set_menu(mlx);
 	}
 	else
-		set_color(mlx, ++mlx->fractal.color);
+	{
+		printf("click color %d\n", mlx->offset_color);
+		printf("offset = %d - color %d\n", mlx->offset_color, mlx->fractal.color);
+		mlx->offset_color = (mlx->offset_color + 1) % 6;
+		set_color(mlx, mlx->fractal.color);
+	}
 }
 
 void	set_color(t_mlx *mlx, t_colors color)
 {
-	mlx->fractal.color = color;
-	if (mlx->fractal.color >= 10)
-		mlx->fractal.color = 0;
+	mlx->fractal.color = (color + mlx->offset_color) % 6;
 	if (!mlx->in_menu)
 		fractal_render(mlx);
 }
 
-void	toggle_dark_mode(t_mlx *mlx)
+void	toggle_appearance(t_mlx *mlx)
 {
-	mlx->dark_mode = !mlx->dark_mode;
+	mlx->appearance = !mlx->appearance;
 	if (mlx->in_menu)
 		set_menu(mlx);
 	else

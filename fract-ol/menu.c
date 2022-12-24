@@ -12,11 +12,6 @@
 
 #include "fractol.h"
 
-static int	get_pos(t_mlx *mlx, int pos, int diff)
-{
-	return ((int)(mlx->size.x / 4) * pos - diff);
-}
-
 static t_co	get_coor(t_fractal frac, t_co i, t_mlx *mlx)
 {
 	t_co	co;
@@ -31,28 +26,23 @@ static t_co	get_coor(t_fractal frac, t_co i, t_mlx *mlx)
 		hover = mlx->prev_hover.value;
 	if (frac.set == MANDELBROT)
 	{
-		co.x = ((i.x - (size.x / 2) - (45 * mlx->size.x / 700)) / (size.x / 2)) \
-			* (1.5 * hover);
+		co.x = ((i.x - (size.x / 2) - (45 * mlx->size.x / 700)) / (size.x / 2)) * (1.5 * hover);
 		co.y = ((i.y - (size.y / 2)) / (size.y / 2)) * (1.5 * hover);
 	}
 	else if (frac.set == JULIA)
 	{
-		co.x = (i.x - (size.x * 2) + (170 * mlx->size.x / 700)) / (size.x / 2) \
-			* (1.5 * hover);
+		co.x = (i.x - (size.x * 2) + (170 * mlx->size.x / 700)) / (size.x / 2) * (1.5 * hover);
 		co.y = ((i.y - (size.y / 2)) / (frac.end.y / 2)) * (1.5 * hover);
 	}
 	else if (frac.set == CELTIC)
 	{
 		co.x = (i.x - (size.x / 2)) / (size.x / 2) * (1.8 * hover);
-		co.y = (i.y - (size.y * 2) + (120 * mlx->size.x / 700)) / (size.y / 2) \
-			* (1.8 * hover);
+		co.y = (i.y - (size.y * 2) + (120 * mlx->size.x / 700)) / (size.y / 2) * (1.8 * hover);
 	}
 	else
 	{
-		co.x = (i.x - (size.x * 2) + (130 * mlx->size.x / 700)) / (size.x / 2) \
-			* (1.6 * hover);
-		co.y = ((i.y - (size.y / 2) - (380 * mlx->size.x / 700)) / (size.y \
-			/ 2)) * (1.6 * hover);
+		co.x = (i.x - (size.x * 2) + (130 * mlx->size.x / 700)) / (size.x / 2) * (1.6 * hover);
+		co.y = ((i.y - (size.y / 2) - (380 * mlx->size.x / 700)) / (size.y / 2)) * (1.6 * hover);
 	}
 	return (co);
 }
@@ -75,6 +65,11 @@ static void	fractal_preview(t_preview_thread *t)
 	}
 }
 
+static int	get_pos_txt(t_mlx *mlx, int pos, int diff)
+{
+	return ((int)(mlx->size.x / 4) * pos - diff);
+}
+
 void	set_menu(t_mlx *mlx)
 {
 	int					i;
@@ -87,7 +82,7 @@ void	set_menu(t_mlx *mlx)
 	while (++i < 4)
 	{
 		set_fractal(mlx, i);
-		set_color(mlx, mlx->fractal.color + mlx->offset_color);
+		set_color(mlx, mlx->fractal.color);
 		t[i].mlx = mlx;
 		t[i].frac = mlx->fractal;
 		pthread_create(&t[i].thread, NULL, (void *)fractal_preview, &t[i]);
@@ -96,12 +91,12 @@ void	set_menu(t_mlx *mlx)
 	while (++i < 4)
 		pthread_join(t[i].thread, NULL);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 1, 20), \
-		get_pos(mlx, 1, -3), WHITE, "Mandelbrot");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 3, 15), \
-		get_pos(mlx, 1, -3), WHITE, "Julia");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 1, 18), \
-		get_pos(mlx, 3, -3), WHITE, "Celtic");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos(mlx, 3, 36), \
-		get_pos(mlx, 3, -3), WHITE, "Burning Ship");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos_txt(mlx, 1, 20), \
+		get_pos_txt(mlx, 1, -3), WHITE, "Mandelbrot");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos_txt(mlx, 3, 15), \
+		get_pos_txt(mlx, 1, -3), WHITE, "Julia");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos_txt(mlx, 1, 18), \
+		get_pos_txt(mlx, 3, -3), WHITE, "Celtic");
+	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, get_pos_txt(mlx, 3, 36), \
+		get_pos_txt(mlx, 3, -3), WHITE, "Burning Ship");
 }

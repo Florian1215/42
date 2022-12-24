@@ -64,17 +64,21 @@ int	key_event(int k, t_mlx *mlx)
 	{
 		mlx->launch = 1;
 		set_fractal(mlx, mlx->fractal.set);
+		set_color(mlx, mlx->fractal.color);
 		fractal_render(mlx);
 	}
 	else if (k == TAB)
+	{
+		mlx->offset_color = 0;
 		set_menu(mlx);
+	}
 	return (1);
 }
 
 static int	key_event_press(int k, t_mlx *mlx)
 {
 	if (k == D)
-		toggle_dark_mode(mlx);
+		toggle_appearance(mlx);
 	else if (k == C)
 		edit_color(mlx);
 	if (mlx->in_menu)

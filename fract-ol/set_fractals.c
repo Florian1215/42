@@ -92,6 +92,6 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 	if (!mlx->in_menu)
 		init_hover(mlx);
 	mlx->c = init_coor(0, 0 - (mlx->launch * 2));
-	mlx->max_iter = 50;
+	mlx->max_iter = mlx->in_menu ? 30 : 50;
 	fractals_set[set](mlx);
 }

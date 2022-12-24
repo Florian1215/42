@@ -19,9 +19,9 @@
 # include <pthread.h>
 
 //TYPEDEF
-typedef struct s_palette		t_palette;
 typedef enum e_colors			t_colors;
 typedef union u_color			t_color;
+typedef enum e_appearance		t_appearance;
 typedef struct s_co				t_co;
 typedef struct s_mlx			t_mlx;
 typedef struct s_fractal		t_fractal;
@@ -44,14 +44,17 @@ struct s_co
 	double	y;
 };
 
-int				close_mlx(t_mlx *mlx);
-void			init_mlx(t_mlx **mlx);
-void			mlx_put_pixel_img(struct s_img *img, t_co co, int color);
-t_co			init_coor(double x, double y);
+int			close_mlx(t_mlx *mlx);
+void		init_mlx(t_mlx **mlx);
+void		mlx_put_pixel_img(struct s_img *img, t_co co, int color);
+t_co		init_coor(double x, double y);
 
 // COLOR
-# define FG		0x222222
-# define WHITE	0xFFFFFF
+enum e_color_hex
+{
+	FG = 0x222222,
+	WHITE = 0xFFFFFF,
+};
 
 enum e_colors
 {
@@ -59,11 +62,14 @@ enum e_colors
 	PURPLE,
 	BLUE,
 	RED,
-	LIGHT_GREEN,
 	BLUE_RED,
-	KHAKI,
-	YELLOW,
-	DARK_BLUE,
+	PINK,
+};
+
+enum e_appearance
+{
+	LIGHT,
+	DARK,
 };
 
 struct s_rgb
@@ -79,26 +85,16 @@ union u_color
 	struct s_rgb	rgb;
 };
 
-struct s_palette
-{
-	t_color		colors[5];
-	t_colors	set;
-};
-
-int				get_color(t_mlx *mlx, int i, double sqr, t_colors set);
-void			toggle_dark_mode(t_mlx *mlx);
-void			edit_color(t_mlx *mlx);
-void			set_color(t_mlx *mlx, t_colors color);
-t_palette		set_1(int dark_mode);
-t_palette		set_2(int dark_mode);
-t_palette		set_3(int dark_mode);
-t_palette		set_4(int dark_mode);
-t_palette		set_5(int dark_mode);
-t_palette		set_6(int dark_mode);
-t_palette		set_7(int dark_mode);
-t_palette		set_8(int dark_mode);
-t_palette		set_9(int dark_mode);
-t_palette		set_10(int dark_mode);
+int			get_color(t_mlx *mlx, int i, double sqr, t_colors set);
+void		toggle_appearance(t_mlx *mlx);
+void		edit_color(t_mlx *mlx);
+void		set_color(t_mlx *mlx, t_colors color);
+t_color		*set_1(t_appearance new_app);
+t_color		*set_2(t_appearance new_app);
+t_color		*set_3(t_appearance new_app);
+t_color		*set_4(t_appearance new_app);
+t_color		*set_5(t_appearance new_app);
+t_color		*set_6(t_appearance new_app);
 
 // HOOK
 enum e_keycode
@@ -127,8 +123,8 @@ enum e_mousecode
 	SCROLL_OUT = 5,
 };
 
-void			set_hook(t_mlx *mlx);
-int				loop(t_mlx *mlx);
+void		set_hook(t_mlx *mlx);
+int			loop(t_mlx *mlx);
 
 // FRACTAL
 enum e_fractal
@@ -166,27 +162,26 @@ struct s_mlx
 	t_co			prev_pos;
 	struct s_hover	hover;
 	struct s_hover	prev_hover;
-	int				dark_mode;
+	t_appearance	appearance;
 	int				launch;
 	int				moving;
-	int				render;
 	int				in_menu;
 	int				offset_color;
 };
 
-void			fractal_render(t_mlx *mlx);
-void			create_fractal(t_thread	*t);
-void			move(t_mlx *mlx, enum e_keycode side);
-void			zoom(t_mlx *mlx, double scale, t_co co);
-void			edit_c(t_mlx *mlx, double j, double *nb);
-void			edit_iter(t_mlx *mlx, double j);
-t_fractal		init_fractal(t_fractals set, t_co start, t_co end, \
+void		fractal_render(t_mlx *mlx);
+void		create_fractal(t_thread	*t);
+void		move(t_mlx *mlx, enum e_keycode side);
+void		zoom(t_mlx *mlx, double scale, t_co co);
+void		edit_c(t_mlx *mlx, double j, double *nb);
+void		edit_iter(t_mlx *mlx, double j);
+t_fractal	init_fractal(t_fractals set, t_co start, t_co end, \
 	int (*func)(t_mlx *, t_co, t_colors), t_colors color);
-void			set_fractal(t_mlx *mlx, t_fractals set);
-int				mandelbrot(t_mlx *mlx, t_co c, t_colors color_set);
-int				julia(t_mlx *mlx, t_co z, t_colors color_set);
-int				burning_shipe(t_mlx *mlx, t_co c, t_colors color_set);
-int				celtic(t_mlx *mlx, t_co c, t_colors color_set);
+void		set_fractal(t_mlx *mlx, t_fractals set);
+int			mandelbrot(t_mlx *mlx, t_co c, t_colors color_set);
+int			julia(t_mlx *mlx, t_co z, t_colors color_set);
+int			burning_shipe(t_mlx *mlx, t_co c, t_colors color_set);
+int			celtic(t_mlx *mlx, t_co c, t_colors color_set);
 
 // THREAD
 struct s_thread
@@ -204,11 +199,9 @@ struct s_preview_thread
 };
 
 // MENU
-void			set_menu(t_mlx *mlx);
-t_fractals		select_fractal(t_mlx *mlx, t_co co);
-void			init_hover(t_mlx *mlx);
-int				mouse_event_motion(int x, int y, t_mlx *mlx);
-
-#include <stdio.h>
+void		set_menu(t_mlx *mlx);
+t_fractals	select_fractal(t_mlx *mlx, t_co co);
+void		init_hover(t_mlx *mlx);
+int			mouse_event_motion(int x, int y, t_mlx *mlx);
 
 #endif
