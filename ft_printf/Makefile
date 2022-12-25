@@ -10,28 +10,35 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= ft_str.c ft_putnb.c ft_printf.c 
-OBJS_SRC	= $(SRCS:.c=.o)
-HEAD		= libftprintf.h
-NAME		= libftprintf.a
-CC			= cc
-RM			= rm -f
-CFLAGS		= -Wall -Wextra -Werror
+OBJS_DIR	= OBJS/
+SRCS		= printf.c put_nb.c
+OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
-%.o: %.c Makefile ${HEAD}
-			${CC} ${CFLAGS} -I ${HEAD} -c $< -o $@
+HEAD		= printf.h
+NAME		= libftprintf.a
+
+CC			= cc
+RM			= rm -rf
+AR			= ar rc
+FLAGS		= -Wall -Wextra -Werror
+
+all:		dir ${NAME}
+
+$(OBJS_DIR)%.o: %.c ${HEAD}
+			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}
-			ar rc ${NAME} ${OBJS_SRC}
+			${AR} ${NAME} ${OBJS_SRC}
 
-all:		${NAME}
+dir:
+			mkdir -p $(OBJS_DIR)
 
 clean:
-			${RM} ${OBJS_SRC}
+			${RM} ${OBJS_DIR}
 
 fclean:		clean
 			${RM} ${NAME}
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all dir clean fclean re

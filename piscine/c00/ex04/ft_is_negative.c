@@ -14,8 +14,11 @@
 
 void	ft_is_negative(int n)
 {
+	char	c;
+
 	if (n >= 0)
-		write (1, &"P", 1);
+		c = 'P';
 	else
-		write (1, &"N", 1);
+		c = 'N';
+	write (1, &c, 1);
 }

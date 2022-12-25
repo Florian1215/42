@@ -46,7 +46,7 @@ static char	*ft_wordcpy(const char *src, int n)
 
 	dest = malloc((n + 1) * sizeof(char));
 	if (!dest)
-		return (0);
+		return (NULL);
 	dest[n] = '\0';
 	while (n--)
 		dest[n] = src[n];
@@ -58,7 +58,7 @@ static char	**ft_free_all(char **split, int i)
 	while (i >= 0)
 		free(split[i--]);
 	free(split);
-	return (0);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
@@ -71,7 +71,7 @@ char	**ft_split(char const *s, char c)
 	size = ft_wordcount(s, c);
 	split = malloc((size + 1) * sizeof(char *));
 	if (!split)
-		return (0);
+		return (NULL);
 	i = -1;
 	while (++i < size)
 	{

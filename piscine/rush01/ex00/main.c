@@ -113,16 +113,12 @@ int	main(int argc, char **argv)
 		write(1, "Error", 6)
 		return (0);
 	}
-	i = 0;
-	j = 0;
-	while (i < N_SIZE)
+	i = -1;
+	while (++i < N_SIZE)
 	{
-		while (j < N_SIZE)
-		{
+		j = -1;
+		while (++j < N_SIZE)
 			tab[i][j] = 0;
-			j++;
-		}
-		i++;
 	}
 	entry = ft_parsing(argv[1]);
 	if (entry && ft_find_solution(tab, entry, 0))

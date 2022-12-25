@@ -112,7 +112,7 @@ t_color	*set_5(t_appearance new_app)
 			pal[1].color = 0x263248;
 			pal[2].color = 0x7E8AA2;
 			pal[3].color = 0xE3DFBB;
-			pal[4].color = 0xf0642A;
+			pal[4].color = 0xF0642A;
 		}
 		else
 		{

@@ -80,4 +80,5 @@ int	main(int ac, char **av)
 		ft_atoi(av[1]);
 		client(av[2]);
 	}
+	return (0);
 }

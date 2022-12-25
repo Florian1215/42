@@ -23,7 +23,7 @@ FLAG		= -Wall -Wextra -Werror
 
 all:		${NAME}
 
-$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
+$(OBJS_DIR)%.o: %.c ${HEAD}
 			${CC} ${FLAG} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	dir ${OBJS}

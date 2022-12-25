@@ -12,7 +12,7 @@
 
 #include <unistd.h>
 
-void	ft_printing(int array[])
+void	ft_printing(int tab[])
 {
 	int		i;
 	char	c;
@@ -20,32 +20,32 @@ void	ft_printing(int array[])
 	i = -1;
 	while (++i < 3)
 	{
-		c = array[i] + '0';
+		c = tab[i] + '0';
 		write(1, &c, 1);
 	}
-	if (array[0] != 10 - 3)
+	if (tab[0] != 10 - 3)
 		write(1, ", ", 2);
 }
 
-void	ft_recursive(int array[], int i)
+void	ft_recursive(int tab[], int i)
 {
 	if (i == 0)
-		array[i] = 0;
+		tab[i] = 0;
 	else
-		array[i] = array[i - 1] + 1;
-	while (array[i] < 11 - 3 + i)
+		tab[i] = tab[i - 1] + 1;
+	while (tab[i] < 11 - 3 + i)
 	{
 		if (i == 3 - 1)
-			ft_printing(array);
+			ft_printing(tab);
 		else
-			ft_recursive(array, i + 1);
-		array[i] = array[i] + 1;
+			ft_recursive(tab, i + 1);
+		tab[i] = tab[i] + 1;
 	}
 }
 
 void	ft_print_comb(void)
 {
-	int	array[3];
+	int	tab[3];
 
-	ft_recursive(array, 0);
+	ft_recursive(tab, 0);
 }

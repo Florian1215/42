@@ -10,21 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_atoi(const char *str)
 {
-	long long int	res;
-	int				sign;
+	t_llu	res;
+	int		sign;
 
 	sign = 1;
 	res = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (*str == '+' || *str == '-')
-	{
 		if (*str++ == '-')
 			sign = -sign;
-	}
 	while (*str >= '0' && *str <= '9')
+	{
 		res = res * 10 + *str++ - '0';
+		if (res > LONG_LONG_MAX)
+			return (-1 + (sign == -1));
+	}
 	return ((int)res * sign);
 }

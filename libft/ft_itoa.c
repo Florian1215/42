@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 	len = ft_nblen(nb) + (n <= 0);
 	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
-		return (0);
+		return (NULL);
 	res[len] = '\0';
 	while (len--)
 	{
@@ -46,6 +46,6 @@ char	*ft_itoa(int n)
 		nb /= 10;
 	}
 	if (n < 0)
-		res[++len] = '-';
+		res[0] = '-';
 	return (res);
 }

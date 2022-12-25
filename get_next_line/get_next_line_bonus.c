@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fguirama <fguirama@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fguirama <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 10:24:34 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/15 10:24:34 by fguirama         ###   ########.fr       */
+/*   Created: 2022/12/25 14:33:43 by fguirama          #+#    #+#             */
+/*   Updated: 2022/12/25 14:33:45 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	strlen(char *str)
 {
@@ -84,14 +84,14 @@ static char	*get_line(char *line, char *static_str)
 
 char	*get_next_line(int fd)
 {
-	static char	static_str[BUFFER_SIZE];
+	static char	static_str[OPEN_MAX][BUFFER_SIZE];
 	char		buff[BUFFER_SIZE + 1];
 	char		*line;
 	int			read_bytes;
 
 	if (fd == -1 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = strjoin(static_str, NULL);
+	line = strjoin(static_str[fd], NULL);
 	if (!line)
 		return (NULL);
 	read_bytes = 1;
@@ -99,11 +99,11 @@ char	*get_next_line(int fd)
 	{
 		read_bytes = read(fd, buff, BUFFER_SIZE);
 		if ((*line == '\0' && !read_bytes) || read_bytes < 0)
-			return (free(line), *static_str = '\0', NULL);
+			return (free(line), *static_str[fd] = '\0', NULL);
 		buff[read_bytes] = '\0';
 		line = strjoin(line, buff);
 		if (!line)
 			return (free(line), NULL);
 	}
-	return (get_line(line, static_str));
+	return (get_line(line, static_str[fd]));
 }

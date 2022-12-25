@@ -14,12 +14,9 @@
 
 void	ft_print_numbers(void)
 {
-	char	x;
+	char	n;
 
-	x = '0';
-	while (x <= '9')
-	{
-		write (1, &x, 1);
-		x++;
-	}
+	n = '0' - 1;
+	while (++n <= '9')
+		write (1, &n, 1);
 }

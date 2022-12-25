@@ -16,17 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_list	t_list;
-typedef enum e_list		t_lst;
-
-struct s_list
-{
-	char			*buff;
-	struct s_list	*next;
-};
-
 char	*get_next_line(int fd);
-t_list	*lstlast(t_list *lst);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 20

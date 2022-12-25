@@ -29,9 +29,6 @@ void	ft_putnbr(int nb)
 	else
 		n = nb;
 	if (n > 9)
-	{
 		ft_putnbr(n / 10);
-		n %= 10;
-	}
-	ft_putchar(n + '0');
+	ft_putchar(n % 10 + '0');
 }

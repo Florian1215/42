@@ -49,4 +49,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re mlx dir
+.PHONY:		all dir mlx clean fclean re

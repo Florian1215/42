@@ -10,30 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "printf.h"
+
+void	put_char(int c, int *len)
+{
+	if (*len != -1)
+	{
+		if (write(1, &c, 1) == -1)
+			*len = -1;
+		else
+			*len += 1;
+	}
+}
+
+static void	put_str(char *s, int *len)
+{
+	if (s == NULL)
+		s = "(null)";
+	while (*s)
+		put_char(*s++, len);
+}
 
 void	ft_format(const char c, va_list	args, int *len)
 {
 	if (c == '%')
-		ft_putchar('%', len);
+		put_char('%', len);
 	else if (c == 'c')
-		ft_putchar(va_arg(args, int), len);
+		put_char(va_arg(args, int), len);
 	else if (c == 's')
-		ft_putstr(va_arg(args, char *), len);
+		put_str(va_arg(args, char *), len);
 	else if (c == 'p')
 	{
-		ft_putstr("0x", len);
-		ft_putunsigned(va_arg(args, unsigned long long int),
-			"0123456789abcdef", 16, len);
+		put_str("0x", len);
+		put_unsigned(va_arg(args, t_llu), HEX_L, len);
 	}
 	else if (c == 'u')
-		ft_putunsigned(va_arg(args, unsigned int), "0123456789", 10, len);
+		put_unsigned(va_arg(args, unsigned int), DEC, len);
 	else if (c == 'i' || c == 'd')
-		ft_putnbr_base(va_arg(args, int), len);
+		put_nbr_base(va_arg(args, int), len);
 	else if (c == 'x')
-		ft_putunsigned(va_arg(args, unsigned int), "0123456789abcdef", 16, len);
+		put_unsigned(va_arg(args, unsigned int), HEX_L, len);
 	else if (c == 'X')
-		ft_putunsigned(va_arg(args, unsigned int), "0123456789ABCDEF", 16, len);
+		put_unsigned(va_arg(args, unsigned int), HEX_U, len);
 }
 
 int	ft_printf(const char *format, ...)
@@ -52,7 +70,7 @@ int	ft_printf(const char *format, ...)
 			ft_format(*format++, valist, &len);
 		}
 		else
-			ft_putchar(*format++, &len);
+			put_char(*format++, &len);
 	}
 	va_end(valist);
 	return (len);

@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 16:26:26 by fguirama          #+#    #+#             */
-/*   Updated: 2022/11/08 16:26:27 by fguirama         ###   ########lyon.fr   */
+/*   Created: 2022/12/25 14:33:48 by fguirama          #+#    #+#             */
+/*   Updated: 2022/12/25 14:33:49 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-void	ft_putnbr_fd(int n, int fd)
-{
-	unsigned int	nb;
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
 
-	if (n < 0)
-	{
-		ft_putchar_fd('-', fd);
-		nb = -n;
-	}
-	else
-		nb = n;
-	if (nb > 9)
-		ft_putnbr_fd(nb / 10, fd);
-	ft_putchar_fd(nb % 10 + '0', fd);
-}
+char	*get_next_line(int fd);
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 20
+# endif
+
+#endif

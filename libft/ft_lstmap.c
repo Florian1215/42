@@ -12,6 +12,18 @@
 
 #include "libft.h"
 
+static t_list	*ft_lstnew_free(void *content)
+{
+	t_list	*new;
+
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (free(content), NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}
+
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*new_lst;
@@ -20,12 +32,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	first_lst = NULL;
 	while (lst)
 	{
-		new_lst = ft_lstnew((*f)(lst->content));
-		if (!lst)
-		{
-			ft_lstclear(&first_lst, del);
-			return (NULL);
-		}
+		new_lst = ft_lstnew_free(f(lst->content));
+		if (!new_lst)
+			return (ft_lstclear(&first_lst, del), NULL);
 		ft_lstadd_back(&first_lst, new_lst);
 		lst = lst->next;
 	}

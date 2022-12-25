@@ -15,6 +15,9 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
+
+typedef unsigned long long int	t_llu;
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

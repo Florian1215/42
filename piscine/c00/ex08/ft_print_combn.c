@@ -12,40 +12,40 @@
 
 #include <unistd.h>
 
-void	ft_printing(int array[], int lenght)
+void	ft_printing(int tab[], int len)
 {
 	int		i;
 	char	c;
 
 	i = -1;
-	while (++i < lenght)
+	while (++i < len)
 	{
-		c = array[i] + '0';
+		c = tab[i] + '0';
 		write(1, &c, 1);
 	}
-	if (array[0] != 10 - lenght)
+	if (tab[0] != 10 - len)
 		write(1, ", ", 2);
 }
 
-void	ft_recursive(int array[], int lenght, int i)
+void	ft_recursive(int tab[], int len, int i)
 {
 	if (i == 0)
-		array[i] = 0;
+		tab[i] = 0;
 	else
-		array[i] = array[i - 1] + 1;
-	while (array[i] < 11 - lenght + i)
+		tab[i] = tab[i - 1] + 1;
+	while (tab[i] < 11 - len + i)
 	{
-		if (i == lenght - 1)
-			ft_printing(array, lenght);
+		if (i == len - 1)
+			ft_printing(tab, len);
 		else
-			ft_recursive(array, lenght, i + 1);
-		array[i] = array[i] + 1;
+			ft_recursive(tab, len, i + 1);
+		tab[i] = tab[i] + 1;
 	}
 }
 
 void	ft_print_combn(int n)
 {
-	int	array[10];
+	int	tab[10];
 
-	ft_recursive(array, n, 0);
+	ft_recursive(tab, n, 0);
 }

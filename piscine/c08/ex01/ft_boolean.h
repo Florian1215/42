@@ -15,14 +15,17 @@
 
 # include <unistd.h>
 
-typedef char	t_bool;
-# define TRUE 1
-# define FALSE 0
+typedef enum e_bool	t_bool;
+
+enum e_bool
+{
+	FALSE,
+	TRUE,
+};
 
 # define SUCCESS 0
 # define EVEN_MSG "I have an even number of arguments.\n"
 # define ODD_MSG "I have an odd number of arguments.\n"
-
-# define EVEN(NBR) ((NBR % 2) ? 0 : 1)
+# define EVEN(NBR) !(NBR % 2)
 
 #endif
