@@ -35,7 +35,7 @@ static void	set_julia(t_mlx *mlx)
 	t_co	start;
 	t_co	end;
 
-	mlx->c = init_coor(1, 0 - (mlx->launch * 2));
+	mlx->c = init_coor(0.75, 0 - (mlx->launch * 2));
 	if (mlx->in_menu)
 	{
 		start = init_coor(mlx->size.x / 2, 0);

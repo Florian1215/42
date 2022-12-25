@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "fractol.h"
 
 static unsigned int	get_gradient(t_color *pal, int color, double op, int cat)
@@ -48,23 +47,16 @@ int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 
 void	edit_color(t_mlx *mlx)
 {
+	mlx->offset_color = (mlx->offset_color + 1) % 6;
 	if (mlx->in_menu)
-	{
-		mlx->offset_color = (mlx->offset_color + 1) % 6;
 		set_menu(mlx);
-	}
 	else
-	{
-		printf("click color %d\n", mlx->offset_color);
-		printf("offset = %d - color %d\n", mlx->offset_color, mlx->fractal.color);
-		mlx->offset_color = (mlx->offset_color + 1) % 6;
 		set_color(mlx, mlx->fractal.color);
-	}
 }
 
 void	set_color(t_mlx *mlx, t_colors color)
 {
-	mlx->fractal.color = (color + mlx->offset_color) % 6;
+	mlx->color = (color + mlx->offset_color) % 6;
 	if (!mlx->in_menu)
 		fractal_render(mlx);
 }

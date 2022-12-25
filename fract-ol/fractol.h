@@ -104,16 +104,12 @@ enum e_keycode
 	Q = 12,
 	ESQ = 53,
 	TAB = 48,
-	R = 15,
-	F = 3,
-	T = 17,
-	G = 5,
 	PLUS = 69,
 	MINUS = 78,
 	RIGHT = 123,
 	LEFT = 124,
 	DOWN = 125,
-	UP = 126
+	UP = 126,
 };
 
 enum e_mousecode
@@ -167,11 +163,11 @@ struct s_mlx
 	int				moving;
 	int				in_menu;
 	int				offset_color;
+	t_colors		color;
 };
 
 void		fractal_render(t_mlx *mlx);
 void		create_fractal(t_thread	*t);
-void		move(t_mlx *mlx, enum e_keycode side);
 void		zoom(t_mlx *mlx, double scale, t_co co);
 void		edit_c(t_mlx *mlx, double j, double *nb);
 void		edit_iter(t_mlx *mlx, double j);
@@ -182,6 +178,7 @@ int			mandelbrot(t_mlx *mlx, t_co c, t_colors color_set);
 int			julia(t_mlx *mlx, t_co z, t_colors color_set);
 int			burning_shipe(t_mlx *mlx, t_co c, t_colors color_set);
 int			celtic(t_mlx *mlx, t_co c, t_colors color_set);
+int			julia3(t_mlx *mlx, t_co z, t_colors color_set);
 
 // THREAD
 struct s_thread
@@ -203,5 +200,8 @@ void		set_menu(t_mlx *mlx);
 t_fractals	select_fractal(t_mlx *mlx, t_co co);
 void		init_hover(t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
+
+#include <stdio.h>
+
 
 #endif

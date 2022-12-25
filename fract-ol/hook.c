@@ -69,7 +69,6 @@ int	key_event(int k, t_mlx *mlx)
 	}
 	else if (k == TAB)
 	{
-		mlx->offset_color = 0;
 		set_menu(mlx);
 	}
 	return (1);
@@ -83,26 +82,18 @@ static int	key_event_press(int k, t_mlx *mlx)
 		edit_color(mlx);
 	if (mlx->in_menu)
 		return (0);
-	else if (k == R)
-		edit_c(mlx, 0.1, &mlx->c.x);
-	else if (k == F)
-		edit_c(mlx, -0.1, &mlx->c.x);
-	else if (k == T)
-		edit_c(mlx, 0.1, &mlx->c.y);
-	else if (k == G)
-		edit_c(mlx, -0.1, &mlx->c.y);
+	else if (k == LEFT)
+		edit_c(mlx, -0.03, &mlx->c.x);
+	else if (k == DOWN)
+		edit_c(mlx, -0.03, &mlx->c.y);
+	else if (k == RIGHT)
+		edit_c(mlx, 0.03, &mlx->c.x);
+	else if (k == UP)
+		edit_c(mlx, 0.03, &mlx->c.y);
 	else if (k == PLUS)
 		edit_iter(mlx, 10);
 	else if (k == MINUS)
 		edit_iter(mlx, -10);
-	else if (k == RIGHT)
-		move(mlx, RIGHT);
-	else if (k == LEFT)
-		move(mlx, LEFT);
-	else if (k == DOWN)
-		move(mlx, DOWN);
-	else if (k == UP)
-		move(mlx, UP);
 	return (1);
 }
 

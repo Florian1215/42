@@ -41,10 +41,8 @@ int	julia(t_mlx *mlx, t_co z, t_colors color_set)
 	sqr = init_coor(pow(z.x, 2), pow(z.y, 2));
 	while (++i < mlx->max_iter)
 	{
-//		z.y = 2 * z.x * z.y - mlx->c.y;
-//		z.x = sqr.x - sqr.y - (mlx->in_menu ? 1 : mlx->c.x);
-		z.x = z.x * z.x * z.x - 3 * z.y * z.y * z.x + mlx->c.x;
-		z.y = -z.y * z.y * z.y + 3 * sqr.x * z.y + mlx->c.y;
+		z.y = 2 * z.x * z.y - mlx->c.y;
+		z.x = sqr.x - sqr.y - (mlx->in_menu ? 1 : mlx->c.x);
 		sqr = init_coor(pow(z.x, 2), pow(z.y, 2));
 		if (sqr.x + sqr.y > 4)
 			return (get_color(mlx, i, sqr.x + sqr.y, color_set));
@@ -87,6 +85,24 @@ int	celtic(t_mlx *mlx, t_co c, t_colors color_set)
 	{
 		z.y = (2 * z.x * z.y) + c.x;
 		z.x = fabs(sqr.x - sqr.y) + c.y;
+		sqr = init_coor(pow(z.x, 2), pow(z.y, 2));
+		if (sqr.x + sqr.y > 4)
+			return (get_color(mlx, i, sqr.x + sqr.y, color_set));
+	}
+	return (FG);
+}
+
+int	julia3(t_mlx *mlx, t_co z, t_colors color_set)
+{
+	int		i;
+	t_co	sqr;
+
+	i = -1;
+	sqr = init_coor(pow(z.x, 2), pow(z.y, 2));
+	while (++i < mlx->max_iter)
+	{
+		z.x = sqr.x * z.x - 3 * sqr.y * z.x + mlx->c.x;
+		z.y = -z.y * z.y * z.y + 3 * sqr.x * z.y + mlx->c.y;
 		sqr = init_coor(pow(z.x, 2), pow(z.y, 2));
 		if (sqr.x + sqr.y > 4)
 			return (get_color(mlx, i, sqr.x + sqr.y, color_set));

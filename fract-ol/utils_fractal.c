@@ -17,31 +17,6 @@ static double	cross_multi(double start, double end, double scale)
 	return (start + ((end - start) * scale));
 }
 
-void	move(t_mlx *mlx, enum e_keycode side)
-{
-	double	xy;
-	int		i;
-
-	i = 1;
-	if (side == RIGHT || (side == DOWN && (mlx->fractal.set == MANDELBROT || \
-		mlx->fractal.set == JULIA)) || (side == UP && (mlx->fractal.set \
-		== BURNING_SHIP || mlx->fractal.set == CELTIC)))
-		i = -1;
-	if (side == RIGHT || side == LEFT)
-	{
-		xy = fabs(mlx->fractal.end.x - mlx->fractal.start.x) * 0.02 * i;
-		mlx->fractal.start.x += xy;
-		mlx->fractal.end.x += xy;
-	}
-	else
-	{
-		xy = fabs(mlx->fractal.end.y - mlx->fractal.start.y) * 0.02 * i;
-		mlx->fractal.start.y += xy;
-		mlx->fractal.end.y += xy;
-	}
-	fractal_render(mlx);
-}
-
 void	zoom(t_mlx *mlx, double scale, t_co co)
 {
 	if (scale < 1)
@@ -63,6 +38,7 @@ void	edit_c(t_mlx *mlx, double j, double *nb)
 	if (res < -2 || res > 2)
 		return ;
 	*nb = res;
+	printf("x = %f - y = %f\n", mlx->c.x, mlx->c.y);
 	fractal_render(mlx);
 }
 

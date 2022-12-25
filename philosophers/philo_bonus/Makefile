@@ -19,7 +19,7 @@ HEAD		= philosophers.h
 
 CC			= cc
 RM			= rm -rf
-FLAG		= -Wall -Wextra -Werror
+FLAG		= -Wall -Wextra -Werror# -g3 -fsanitize=thread
 
 all:		${NAME}
 
