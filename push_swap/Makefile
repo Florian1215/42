@@ -12,7 +12,7 @@
 
 OBJS_DIR	= OBJ/
 
-INS			= print_stack.c ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils.c utils2.c solve20.c
+INS			= solve_b.c utils_solve.c solve_a.c efficient_rrr.c solve_3.c solve_5.c print_stack.c ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils1.c utils2.c sort.c
 OBJS_INS	= $(addprefix ${OBJS_DIR}, $(INS:.c=.o))
 
 SRCS		= push_swap.c solve.c
@@ -25,13 +25,14 @@ OBJS_BON	= $(addprefix ${OBJS_DIR}, $(BON:.c=.o))
 NAME_BON	= checker
 
 CC			= cc
-RM			= rm -f
+RM			= rm -rf
 FLAGS		= -Wall -Wextra -Werror
 
-ARGS		= 6 14 1 15 17 11 16 3 2 12 19 5 7 10 4 18 8 0 13 9
+ARGS		= -436 -337 94 3 469 127 -258 -327 211 -98 490 206 -50 -325 -406 -154 -266 397 -212 267 346 -298 98 292 -448 438 22 -464 481 65 29 8 470 273 -295 460 -309 285 -159 -360 417 -54 376 320 -303 335 406 391 339 -287
 
 all:		${NAME}
-#			./push_swap ${ARGS}
+			./push_swap ${ARGS}
+#			./push_swap ${ARGS} | ./Push_Swap-Tester/checker_Mac ${ARGS}
 
 $(OBJS_DIR)%.o: %.c ${HEAD} Makefile
 			@mkdir -p ${OBJS_DIR}

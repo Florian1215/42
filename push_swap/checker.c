@@ -41,11 +41,11 @@ static void	instructions(char *ins, t_stack *stack)
 	else if (!ft_strcmp(ins, "rr"))
 		rotate_ab(stack, 0);
 	else if (!ft_strcmp(ins, "rra"))
-		reverse_a(stack, 0);
+		reverse_rotate_a(stack, 0);
 	else if (!ft_strcmp(ins, "rrb"))
-		reverse_b(stack, 0);
+		reverse_rotate_b(stack, 0);
 	else if (!ft_strcmp(ins, "rrr"))
-		reverse_ab(stack, 0);
+		reverse_rotate_ab(stack, 0);
 	else
 		error_(stack);
 }
@@ -58,6 +58,7 @@ int	main(int ac, char **av)
 	if (ac == 1)
 		return (0);
 	stack = parsing(--ac, ++av);
+	stack->print = 0;
 	while (1)
 	{
 		line = get_next_line(0);
@@ -67,8 +68,8 @@ int	main(int ac, char **av)
 		free(line);
 	}
 	if (is_sort(stack, 1))
-		ft_putstr_nl("OK");
+		put_str_nl("OK");
 	else
-		ft_putstr_nl("KO");
-	free_stack(stack, 1, 1);
+		put_str_nl("KO");
+	free_stack(stack, ALL);
 }

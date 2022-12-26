@@ -22,6 +22,7 @@ RM			= rm -rf
 FLAG		= -Wall -Wextra -Werror# -g3 -fsanitize=thread
 
 all:		${NAME}
+			./philo 5 800 200 200
 
 $(OBJS_DIR)%.o: %.c ${HEAD} Makefile
 			${CC} ${FLAG} -I ${HEAD} -c $< -o $@

@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdio.h>
+# include <semaphore.h>
 
 # define MAX_THREAD 200
 
@@ -45,22 +46,23 @@ enum e_state
 
 struct s_philo
 {
-	int				n;
-	int				eat_count;
-	t_time			eat_last;
-	pthread_mutex_t	mutex_forks;
-	pthread_mutex_t	mutex_eat;
-	t_env			*env;
+	int		id;
+	int		n;
+	int		eat_count;
+	t_time	eat_last;
+	sem_t	*sem_forks;
+	sem_t	*sem_eat;
+	t_env	*env;
 };
 
 struct s_env
 {
-	int				nb;
-	int				time[3];
-	int				must_eat;
-	pthread_mutex_t	mutex_print;
-	t_philo			p[MAX_THREAD];
-	pthread_t		threads[MAX_THREAD];
+	int			nb;
+	int			time[3];
+	int			must_eat;
+	sem_t		*sem_print;
+	t_philo		p[MAX_THREAD];
+	pthread_t	threads[MAX_THREAD];
 };
 
 int		parsing(t_env *env, int ac, char **av);

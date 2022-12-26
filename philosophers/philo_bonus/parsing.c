@@ -56,7 +56,6 @@ int	parsing(t_env *env, int ac, char **av)
 	}
 	else
 		env->must_eat = -1;
-	pthread_mutex_init(&env->mutex_print, NULL);
 	get_timedelta();
 	return (0);
 }

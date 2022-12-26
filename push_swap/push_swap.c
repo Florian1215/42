@@ -19,19 +19,18 @@ int	main(int ac, char **av)
 	if (ac == 1)
 		return (0);
 	stack = parsing(--ac, ++av);
+	stack->print = 1;
 	if (stack)
 	{
 		if (!is_sort(stack, 0))
 		{
-			if (1)
-				solve20(stack);
-			else if (stack->len == 3)
+			if (stack->len == 3)
 				solve3(stack);
 			else if (stack->len == 5)
 				solve5(stack);
 			else
-				solve(stack, 0);
+				solve(stack);
 		}
-		free_stack(stack, 1, 1);
+		free_stack(stack, ALL);
 	}
 }

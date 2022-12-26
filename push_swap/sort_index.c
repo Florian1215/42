@@ -41,7 +41,7 @@ static int	partition(int *tab, int start, int end)
 	return (i);
 }
 
-void	quick_sort(int *tab, int start, int end)
+static void	quick_sort(int *tab, int start, int end)
 {
 	int	pivot;
 
@@ -68,15 +68,15 @@ void	get_index(t_stack *stack)
 	int	*sorted_stack;
 	int	i;
 
-	sorted_stack = malloc(sizeof(int) * stack->len_a);
+	sorted_stack = malloc(sizeof(int) * stack->len);
 	if (!sorted_stack)
 		return ;
 	i = -1;
-	while (i++ < stack->len_a)
+	while (i++ < stack->len)
 		sorted_stack[i] = stack->a[i];
-	quick_sort(sorted_stack, 0, stack->len_a - 1);
+	quick_sort(sorted_stack, 0, stack->len - 1);
 	i = -1;
-	while (++i < stack->len_a)
+	while (++i < stack->len)
 		stack->a[i] = find_index(sorted_stack, stack->a[i]);
 	free(sorted_stack);
 }

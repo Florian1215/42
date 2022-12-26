@@ -48,9 +48,9 @@ void	print_state(t_philo *p, t_state state)
 								"is thinking", "has taken a fork"};
 	static char	*colors[5] = {"30", "31", "35", "34", "36"};
 
-	pthread_mutex_lock(&p->env->mutex_print);
+	sem_wait(p->env->sem_print);
 	printf("\033[37m%-6llu\033[0m %d \033[%sm%s\033[0m\n", get_timedelta(), \
 		p->n + 1, colors[state], states[state]);
 	if (state != DIE)
-		pthread_mutex_unlock(&p->env->mutex_print);
+		sem_post(p->env->sem_print);
 }

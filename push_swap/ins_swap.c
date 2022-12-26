@@ -24,24 +24,24 @@ static void	swap(int *stack, int len)
 	}
 }
 
-void	swap_a(t_stack *stack, int print)
+void	swap_a(t_stack *stack)
 {
 	swap(stack->a, stack->len_a);
-	if (print)
-		ft_putstr_nl("sa");
+	if (stack->print)
+		put_str_nl("sa");
 }
 
-void	swap_b(t_stack *stack, int print)
+void	swap_b(t_stack *stack)
 {
 	swap(stack->b, stack->len_b);
-	if (print)
-		ft_putstr_nl("sb");
+	if (stack->print)
+		put_str_nl("sb");
 }
 
-void	swap_ab(t_stack *stack, int print)
+void	swap_ab(t_stack *stack)
 {
-	swap_a(stack, 0);
-	swap_b(stack, 0);
-	if (print)
-		ft_putstr_nl("ss");
+	swap(stack->a, stack->len_a);
+	swap(stack->b, stack->len_b);
+	if (stack->print)
+		put_str_nl("ss");
 }

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	ft_strlen(char *str)
+int	str_len(char *str)
 {
 	int	len;
 

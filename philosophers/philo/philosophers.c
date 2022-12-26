@@ -44,6 +44,8 @@ static int	create_life(t_env *env)
 {
 	int	i;
 
+	if (pthread_mutex_init(&env->mutex_print, NULL))
+		return (0);
 	i = -1;
 	while (++i < env->nb)
 	{

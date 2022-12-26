@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	ft_atoi(char *nb, int k, t_stack *stack)
+static void	atoi_(char *nb, int k, t_stack *stack)
 {
 	long unsigned int	res;
 	int					sign;
@@ -25,7 +25,7 @@ static void	ft_atoi(char *nb, int k, t_stack *stack)
 	i = sign == -1;
 	while (nb[i] >= '0' && nb[i] <= '9')
 		res = res * 10 + nb[i++] - '0';
-	if (!i || (i == 1 && sign == -1) || ft_strlen(nb) != i)
+	if (!i || (i == 1 && sign == -1) || str_len(nb) != i)
 		return (error_(stack));
 	if (res - (sign < 0) > INT_MAX)
 		return (error_(stack));
@@ -45,7 +45,7 @@ static t_stack	*malloc_pasring(int ac, char **av)
 	i = -1;
 	ct = 0;
 	while (++i < ac)
-		ct += ft_countword(av[i]);
+		ct += ct_word(av[i]);
 	if (!ct)
 		return (error_(NULL), NULL);
 	stack = malloc(sizeof(t_stack));
@@ -53,15 +53,13 @@ static t_stack	*malloc_pasring(int ac, char **av)
 		return (NULL);
 	stack->a = malloc(ct * sizeof(int));
 	if (!stack->a)
-		return (free_stack(stack, 0, 0));
+		return (free_stack(stack, NONE));
 	stack->b = malloc(ct * sizeof(int));
 	if (!stack->b)
-		return (free_stack(stack, 1, 0));
+		return (free_stack(stack, A));
 	stack->len = ct;
 	stack->len_a = ct;
 	stack->len_b = 0;
-	stack->chunck = 1;
-	stack->chunck_size = 10;
 	return (stack);
 }
 
@@ -81,10 +79,10 @@ t_stack	*parsing(int ac, char **av)
 	while (i < ac)
 	{
 		j = 0;
-		split = ft_split(av[i++]);
+		split = split_(av[i++]);
 		while (split[j])
-			ft_atoi(split[j++], k++, stack);
-		ft_free_split(split, -1);
+			atoi_(split[j++], k++, stack);
+		free_split(split, -1);
 	}
 	get_index(stack);
 	return (stack);

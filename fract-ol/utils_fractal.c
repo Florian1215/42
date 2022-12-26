@@ -38,7 +38,7 @@ void	edit_c(t_mlx *mlx, double j, double *nb)
 	if (res < -2 || res > 2)
 		return ;
 	*nb = res;
-	printf("x = %f - y = %f\n", mlx->c.x, mlx->c.y);
+	//printf("x = %f - y = %f\n", mlx->c.x, mlx->c.y);
 	fractal_render(mlx);
 }
 

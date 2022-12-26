@@ -18,7 +18,7 @@ void	print_stack(t_stack *stack)
 	int	i;
 
 	i = 0;
-	printf("\nA (%d) - B (%d)\n", stack->len_a, stack->len_b);
+	printf("\nA (%d) - B (%d) | sort %d\n", stack->len_a, stack->len_b, is_sort(stack, 1));
 	while (i < stack->len_a || i < stack->len_b)
 	{
 		if (i < stack->len_a)

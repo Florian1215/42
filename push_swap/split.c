@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	ft_wordlen(char const *s)
+static int	word_len(char const *s)
 {
 	int	len;
 
@@ -22,25 +22,25 @@ static int	ft_wordlen(char const *s)
 	return (len);
 }
 
-int	ft_countword(char const *s)
+int	ct_word(char const *s)
 {
 	int	i;
-	int	count;
+	int	ct;
 
-	count = 0;
+	ct = 0;
 	while (*s)
 	{
 		while (*s && *s == ' ')
 			s++;
-		i = ft_wordlen(s);
+		i = word_len(s);
 		s += i;
 		if (i)
-			count++;
+			ct++;
 	}
-	return (count);
+	return (ct);
 }
 
-static char	*ft_wordcpy(const char *src, int n)
+static char	*word_cpy(const char *src, int n)
 {
 	char	*dest;
 
@@ -53,7 +53,7 @@ static char	*ft_wordcpy(const char *src, int n)
 	return (dest);
 }
 
-char	**ft_free_split(char **split, int i)
+char	**free_split(char **split, int i)
 {
 	if (i == -1)
 	{
@@ -68,28 +68,27 @@ char	**ft_free_split(char **split, int i)
 	return (0);
 }
 
-char	**ft_split(char const *s)
+char	**split_(char const *s)
 {
 	char	**split;
-	int		size;
+	int		n_word;
 	int		i;
 	int		n;
 
-	size = ft_countword(s);
-	split = malloc((size + 1) * sizeof(char *));
+	n_word = ct_word(s);
+	split = malloc((n_word + 1) * sizeof(char *));
 	if (!split)
 		return (0);
 	i = -1;
-	while (++i < size)
+	while (++i < n_word)
 	{
 		while (*s && *s == ' ')
 			s++;
-		n = ft_wordlen(s);
-		split[i] = ft_wordcpy(s, n);
+		n = word_len(s);
+		split[i] = word_cpy(s, n);
 		if (!split[i])
-			return (ft_free_split(split, i - 1));
+			return (free_split(split, i - 1));
 		s += n;
 	}
-	split[size] = 0;
-	return (split);
+	return (split[n_word] = NULL, split);
 }

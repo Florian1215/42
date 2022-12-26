@@ -16,25 +16,23 @@ static void	live(t_philo *p)
 {
 	t_time	sleep_until;
 
-	if (!(p->env->nb % 2) && p->n % 2)
-		usleep(100);
 	while (1)
 	{
 		print_state(p, THINK);
-		pthread_mutex_lock(&p->env->p[get_fork(p, LEFT)].mutex_forks);
+		sem_wait(p->env->p[get_fork(p, LEFT)].sem_forks);
 		print_state(p, FORK);
-		pthread_mutex_lock(&p->env->p[get_fork(p, RIGHT)].mutex_forks);
+		sem_wait(p->env->p[get_fork(p, RIGHT)].sem_forks);
 		print_state(p, FORK);
 		sleep_until = get_timestamp() + p->env->time[EAT];
 		print_state(p, EAT);
 		work_usleep(sleep_until);
 		sleep_until = get_timestamp() + p->env->time[SLEEP];
-		pthread_mutex_unlock(&p->env->p[(p->n + 1) % p->env->nb].mutex_forks);
-		pthread_mutex_unlock(&p->mutex_forks);
-		pthread_mutex_lock(&p->mutex_eat);
+		sem_post(p->env->p[(p->n + 1) % p->env->nb].sem_forks);
+		sem_post(p->sem_forks);
+		sem_wait(p->sem_eat);
 		p->eat_count += 1;
 		p->eat_last = get_timedelta();
-		pthread_mutex_unlock(&p->mutex_eat);
+		sem_post(p->sem_eat);
 		print_state(p, SLEEP);
 		work_usleep(sleep_until);
 	}
@@ -44,17 +42,19 @@ static int	create_life(t_env *env)
 {
 	int	i;
 
+	sem_unlink("print");
+	env->sem_print = sem_open("print", O_CREAT | O_EXCL);
 	i = -1;
 	while (++i < env->nb)
 	{
+		sem_unlink("eat");
+		sem_unlink("forks");
 		env->p[i].n = i;
 		env->p[i].eat_count = 0;
 		env->p[i].eat_last = 0;
 		env->p[i].env = env;
-		if (pthread_mutex_init(&env->p[i].mutex_forks, NULL))
-			return (0);
-		if (pthread_mutex_init(&env->p[i].mutex_eat, NULL))
-			return (0);
+		env->p[i].sem_forks = sem_open("forks", O_CREAT | O_EXCL);
+		env->p[i].sem_eat = sem_open("eat", O_CREAT | O_EXCL);
 		if (pthread_create(env->threads + i, NULL, (void *)live, env->p + i))
 			return (0);
 	}
@@ -69,38 +69,40 @@ static int	is_alive(t_env *env)
 	i = -1;
 	while (++i < env->nb)
 	{
-		pthread_mutex_lock(&env->p[i].mutex_eat);
+		sem_wait(env->p[i].sem_eat);
 		if (env->p[i].eat_last + env->time[DIE] < get_timedelta())
-			return (print_state(env->p + i, DIE), 0);
-		pthread_mutex_unlock(&env->p[i].mutex_eat);
+		{
+			print_state(env->p + i, DIE);
+			exit(0);
+		}
+		sem_post(env->p[i].sem_eat);
 	}
 	if (env->must_eat == -1)
 		return (1);
 	i = -1;
 	while (++i < env->nb)
 	{
-		pthread_mutex_lock(&env->p[i].mutex_eat);
+		sem_wait(env->p[i].sem_eat);
 		eat_enough = env->p[i].eat_count < env->must_eat;
-		pthread_mutex_unlock(&env->p[i].mutex_eat);
+		sem_post(env->p[i].sem_eat);
 		if (eat_enough)
 			return (1);
 	}
-	return (0);
+	exit(0);
 }
 
-static int	free_all(t_env *env)
-{
-	int	i;
-
-	i = -1;
-	if (pthread_mutex_destroy(&env->mutex_print))
-		return (3);
-	while (++i < env->nb)
-		if (pthread_detach(env->threads[i]) || pthread_mutex_destroy \
-		(&env->p[i].mutex_forks) || pthread_mutex_destroy(&env->p[i].mutex_eat))
-			return (3);
-	return (0);
-}
+//static int	free_all(t_env *env)
+//{
+//	int	i;
+//
+//	i = -1;
+//	sem_close(env->sem_print);
+//	while (++i < env->nb)
+//		if (pthread_detach(env->threads[i]) || sem_close(env->p[i].sem_forks) \
+//				|| sem_close(env->p[i].sem_eat))
+//			return (3);
+//	return (0);
+//}
 
 int	main(int ac, char **av)
 {
@@ -118,5 +120,5 @@ int	main(int ac, char **av)
 		return (2);
 	while (is_alive(&env))
 		continue ;
-	return (free_all(&env));
+	return (0);
 }
