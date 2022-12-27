@@ -20,7 +20,7 @@
 # include <limits.h>
 
 typedef struct s_stack		t_stack;
-typedef enum e_free_stacks	t_free_stacks;
+typedef enum e_stacks		t_stacks;
 
 struct s_stack
 {
@@ -32,36 +32,29 @@ struct s_stack
 	int	print;
 };
 
-enum e_free_stacks
+enum e_stacks
 {
 	NONE,
 	A,
 	ALL,
+	B = 0,
 };
 
-// GNL
-char	*get_next_line(int fd);
-
 // SOLVE
-void	solve3(t_stack *stack);
-void	solve5(t_stack *stack);
-void	solve(t_stack *stack);
-void	solve_b(t_stack *stack);
-
+void	efficient_move(t_stack *stack, t_stacks s, int index);
 void	efficient_rr(t_stack *stack, int *a, int *b);
-void	efficient_ra(t_stack *stack, int a);
-void	efficient_rb(t_stack *stack, int b);
+int		get_side(int i, int len);
 int		get_min(t_stack *stack);
-int	get_min_index(t_stack *stack);
-int		get_max(t_stack *stack);
-
+int		get_min_index(t_stack *stack);
 void	get_min_rotate(t_stack *stack, int *a, int *b);
-int		set_a_location_min(t_stack *stack);
+int		get_max(t_stack *stack);
+int		get_max_index(t_stack *stack);
 
 // UTILS
+char	*get_next_line(int fd);
 void	error_(t_stack *stack);
 t_stack	*parsing(int ac, char **av);
-void	*free_stack(t_stack *stack, t_free_stacks stacks);
+void	*free_stack(t_stack *stack, t_stacks stacks);
 void	put_str_nl(char *str);
 int		is_sort(t_stack *stack, int check_b);
 int		*convert_to_index(t_stack *stack);
@@ -72,25 +65,22 @@ char	**free_split(char **split, int i);
 int		ct_word(char const *s);
 
 // INSTRUCTIONS
-void	swap_a(t_stack *stack);
-void	swap_b(t_stack *stack);
-void	swap_ab(t_stack *stack);
+void	sa(t_stack *stack);
+void	sb(t_stack *stack);
+void	ss(t_stack *stack);
 
-void	push_a(t_stack *stack);
-void	push_b(t_stack *stack);
+void	pa(t_stack *stack);
+void	pb(t_stack *stack);
 
-void	rotate_a(t_stack *stack);
-void	rotate_b(t_stack *stack);
-void	rotate_ab(t_stack *stack);
+void	ra(t_stack *stack);
+void	rb(t_stack *stack);
+void	rr(t_stack *stack);
 
-void	reverse_rotate_a(t_stack *stack);
-void	reverse_rotate_b(t_stack *stack);
-void	reverse_rotate_ab(t_stack *stack);
+void	rra(t_stack *stack);
+void	rrb(t_stack *stack);
+void	rrr(t_stack *stack);
 
 void	move_up(int *stack, int *len);
 void	move_down(int *stack, int *len);
-
-# include <stdio.h>
-void	print_stack(t_stack *stack);
 
 #endif

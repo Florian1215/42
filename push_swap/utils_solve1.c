@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_solve.c                                      :+:      :+:    :+:   */
+/*   utils_solve1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 18:18:00 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/26 18:18:00 by fguirama         ###   ########.fr       */
+/*   Created: 2022/12/27 14:43:00 by fguirama          #+#    #+#             */
+/*   Updated: 2022/12/27 14:43:00 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	get_side(int i, int len)
+{
+	if (i >= (len + 1) / 2)
+		return ((len - i) * -1);
+	return (i);
+}
 
 int	get_min(t_stack *stack)
 {
@@ -34,8 +41,8 @@ int	get_min_index(t_stack *stack)
 	min = get_min(stack);
 	while (++i < stack->len_a)
 		if (stack->a[i] == min)
-			return (i);
-	return (0);
+			break ;
+	return (get_side(i, stack->len_a));
 }
 
 int	get_max(t_stack *stack)
@@ -60,6 +67,6 @@ int	get_max_index(t_stack *stack)
 	max = get_max(stack);
 	while (++i < stack->len_a)
 		if (stack->a[i] == max)
-			return (i);
-	return (0);
+			break ;
+	return (get_side(++i, stack->len_a));
 }

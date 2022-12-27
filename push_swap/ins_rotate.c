@@ -24,21 +24,21 @@ static void	rotate(int *stack, int *len)
 	*len += 1;
 }
 
-void	rotate_a(t_stack *stack)
+void	ra(t_stack *stack)
 {
 	rotate(stack->a, &stack->len_a);
 	if (stack->print)
 		put_str_nl("ra");
 }
 
-void	rotate_b(t_stack *stack)
+void	rb(t_stack *stack)
 {
 	rotate(stack->b, &stack->len_b);
 	if (stack->print)
 		put_str_nl("rb");
 }
 
-void	rotate_ab(t_stack *stack)
+void	rr(t_stack *stack)
 {
 	rotate(stack->a, &stack->len_a);
 	rotate(stack->b, &stack->len_b);

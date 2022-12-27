@@ -10,50 +10,44 @@
 #                                                                              #
 # **************************************************************************** #
 
-OBJS_DIR	= OBJ/
+OBJS_DIR		= OBJ/
 
-INS			= solve_b.c utils_solve.c solve_a.c efficient_rrr.c solve_3.c solve_5.c print_stack.c ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils1.c utils2.c sort.c
-OBJS_INS	= $(addprefix ${OBJS_DIR}, $(INS:.c=.o))
+SRCS			= ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils1.c utils2.c
+OBJS_SRCS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
-SRCS		= push_swap.c solve.c
-OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
-HEAD		= push_swap.h
-NAME		= push_swap
+SRCS_PS			= push_swap.c utils_solve1.c utils_solve2.c
+OBJS_PS			= $(addprefix ${OBJS_DIR}, $(SRCS_PS:.c=.o))
+NAME			= push_swap
 
-BON			= checker.c get_next_line.c get_next_line_utils.c
-OBJS_BON	= $(addprefix ${OBJS_DIR}, $(BON:.c=.o))
-NAME_BON	= checker
+BON				= bonus_checker.c bonus_get_next_line.c
+OBJS_BON		= $(addprefix ${OBJS_DIR}, $(BON:.c=.o))
+NAME_BON		= checker
 
-CC			= cc
-RM			= rm -rf
-FLAGS		= -Wall -Wextra -Werror
+HEAD			= push_swap.h
+CC				= cc
+RM				= rm -rf
+FLAGS			= -Wall -Wextra -Werror
 
-ARGS		= -436 -337 94 3 469 127 -258 -327 211 -98 490 206 -50 -325 -406 -154 -266 397 -212 267 346 -298 98 292 -448 438 22 -464 481 65 29 8 470 273 -295 460 -309 285 -159 -360 417 -54 376 320 -303 335 406 391 339 -287
+all:			${NAME}
 
-all:		${NAME}
-			./push_swap ${ARGS}
-#			./push_swap ${ARGS} | ./Push_Swap-Tester/checker_Mac ${ARGS}
+$(OBJS_DIR)%.o: %.c ${HEAD}
+				${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
-$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
-			@mkdir -p ${OBJS_DIR}
-			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
+${NAME}:		dir ${OBJS_SRCS} ${OBJS_PS}
+				${CC} ${FLAGS} ${OBJS_SRCS} ${OBJS_PS} -o ${NAME}
 
-${NAME}:	${OBJS_INS} ${OBJS_SRC}
-			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_SRC} -o ${NAME}
+dir:
+				mkdir -p ${OBJS_DIR}
 
-bonus:		${OBJS_INS} ${OBJS_BON}
-			${CC} ${FLAGS} ${OBJS_INS} ${OBJS_BON} -o ${NAME_BON}
-
-check:		${NAME} bonus
-			./push_swap ${ARGS} | ./checker ${ARGS} 
-			./push_swap ${ARGS} | wc -l
+bonus:			dir ${OBJS_SRCS} ${OBJS_BON}
+				${CC} ${FLAGS} ${OBJS_SRCS} ${OBJS_BON} -o ${NAME_BON}
 
 clean:
-			${RM} ${OBJS_DIR}
+				${RM} ${OBJS_DIR}
 
-fclean:		clean
-			${RM} ${NAME} ${NAME_BON}
+fclean:			clean
+				${RM} ${NAME} ${NAME_BON}
 
-re:			fclean all
+re:				fclean all
 
-.PHONY:		all clean fclean re bonus check
+.PHONY:			all clean fclean re bonus dir

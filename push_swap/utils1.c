@@ -32,7 +32,7 @@ void	error_(t_stack *stack)
 	exit(-1);
 }
 
-void	*free_stack(t_stack *stack, t_free_stacks stacks)
+void	*free_stack(t_stack *stack, t_stacks stacks)
 {
 	if (stacks)
 		free(stack->a);

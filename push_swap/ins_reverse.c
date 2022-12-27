@@ -24,21 +24,21 @@ static void	reverse(int *stack, int *len)
 	stack[0] = tmp;
 }
 
-void	reverse_rotate_a(t_stack *stack)
+void	rra(t_stack *stack)
 {
 	reverse(stack->a, &stack->len_a);
 	if (stack->print)
 		put_str_nl("rra");
 }
 
-void	reverse_rotate_b(t_stack *stack)
+void	rrb(t_stack *stack)
 {
 	reverse(stack->b, &stack->len_b);
 	if (stack->print)
 		put_str_nl("rrb");
 }
 
-void	reverse_rotate_ab(t_stack *stack)
+void	rrr(t_stack *stack)
 {
 	reverse(stack->a, &stack->len_a);
 	reverse(stack->b, &stack->len_b);

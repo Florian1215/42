@@ -21,14 +21,14 @@ static void	push(int *from, int *len_from, int *to, int *len_to)
 	move_up(from, len_from);
 }
 
-void	push_a(t_stack *stack)
+void	pa(t_stack *stack)
 {
 	push(stack->b, &stack->len_b, stack->a, &stack->len_a);
 	if (stack->print)
 		put_str_nl("pa");
 }
 
-void	push_b(t_stack *stack)
+void	pb(t_stack *stack)
 {
 	push(stack->a, &stack->len_a, stack->b, &stack->len_b);
 	if (stack->print)
