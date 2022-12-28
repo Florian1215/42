@@ -201,7 +201,4 @@ t_fractals	select_fractal(t_mlx *mlx, t_co co);
 void		init_hover(t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
 
-#include <stdio.h>
-
-
 #endif

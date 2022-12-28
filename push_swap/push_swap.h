@@ -36,8 +36,8 @@ enum e_stacks
 {
 	NONE,
 	A,
-	ALL,
 	B = 0,
+	ALL,
 };
 
 // SOLVE
