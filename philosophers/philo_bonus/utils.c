@@ -12,13 +12,6 @@
 
 #include "philosophers.h"
 
-int	get_fork(t_philo *p, t_side side)
-{
-	if (side ^ (p->env->nb % 2 ^ p->n % 2))
-		return ((p->n + 1) % p->env->nb);
-	return (p->n);
-}
-
 t_time	get_timestamp(void)
 {
 	struct timeval	timestamp;
@@ -46,7 +39,7 @@ void	print_state(t_philo *p, t_state state)
 {
 	static char	*states[5] = {"died", "is eating", "is sleeping", \
 								"is thinking", "has taken a fork"};
-	static char	*colors[5] = {"30", "31", "35", "34", "36"};
+	static char	*colors[5] = {"30", "31", "93", "94", "96"};
 
 	sem_wait(p->env->sem_print);
 	printf("\033[37m%-6llu\033[0m %d \033[%sm%s\033[0m\n", get_timedelta(), \

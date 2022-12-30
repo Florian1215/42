@@ -41,6 +41,9 @@ enum e_stacks
 };
 
 // SOLVE
+void	solve3(t_stack *stack);
+void	solve_radix(t_stack *stack);
+void	solve_smart_sort(t_stack *stack);
 void	efficient_move(t_stack *stack, t_stacks s, int index);
 void	efficient_rr(t_stack *stack, int *a, int *b);
 int		get_side(int i, int len);

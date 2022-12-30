@@ -12,7 +12,7 @@
 
 #include "philosophers.h"
 
-static int	ft_strlen(char *str)
+static int	str_len(char *str)
 {
 	int	len;
 
@@ -22,7 +22,7 @@ static int	ft_strlen(char *str)
 	return (len);
 }
 
-static int	ft_atoi(char *nb, int *var)
+static int	atoi_(char *nb, int *var)
 {
 	unsigned long int	res;
 	int					i;
@@ -31,7 +31,7 @@ static int	ft_atoi(char *nb, int *var)
 	i = 0;
 	while (nb[i] >= '0' && nb[i] <= '9')
 		res = res * 10 + nb[i++] - '0';
-	if (!i || ft_strlen(nb) != i)
+	if (!i || str_len(nb) != i)
 		return (1);
 	*var = (int)res;
 	return (0);
@@ -41,21 +41,26 @@ int	parsing(t_env *env, int ac, char **av)
 {
 	if (ac != 4 && ac != 5)
 		return (1);
-	if (ft_atoi(av[0], &env->nb) || env->nb > MAX_THREAD)
+	if (atoi_(av[0], &env->nb) || env->nb > MAX_THREAD)
 		return (1);
-	if (ft_atoi(av[1], env->time + DIE))
+	if (atoi_(av[1], env->time + DIE))
 		return (1);
-	if (ft_atoi(av[2], env->time + EAT))
+	if (atoi_(av[2], env->time + EAT))
 		return (1);
-	if (ft_atoi(av[3], env->time + SLEEP))
+	if (atoi_(av[3], env->time + SLEEP))
 		return (1);
 	if (ac == 5)
 	{
-		if (ft_atoi(av[4], &env->must_eat))
+		if (atoi_(av[4], &env->must_eat))
 			return (1);
 	}
 	else
 		env->must_eat = -1;
-	get_timedelta();
+	sem_unlink("sem_forks");
+	sem_unlink("sem_print");
+	sem_unlink("sem_eat");
+	env->sem_forks = sem_open("sem_forks", O_CREAT | O_EXCL, S_IRWXU, env->nb);
+	env->sem_print = sem_open("sem_print", O_CREAT | O_EXCL, S_IRWXU, 1);
+	env->sem_eat = sem_open("sem_eat", O_CREAT | O_EXCL, S_IRWXU, 1);
 	return (0);
 }

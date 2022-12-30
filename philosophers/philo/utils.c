@@ -46,7 +46,7 @@ void	print_state(t_philo *p, t_state state)
 {
 	static char	*states[5] = {"died", "is eating", "is sleeping", \
 								"is thinking", "has taken a fork"};
-	static char	*colors[5] = {"30", "31", "35", "34", "36"};
+	static char	*colors[5] = {"30", "31", "93", "94", "96"};
 
 	pthread_mutex_lock(&p->env->mutex_print);
 	printf("\033[37m%-6llu\033[0m %d \033[%sm%s\033[0m\n", get_timedelta(), \

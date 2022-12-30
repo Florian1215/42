@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	solve3(t_stack *stack)
+void	solve3(t_stack *stack)
 {
 	if (is_sort(stack, 0) || stack->len_a != 3)
 		return ;
@@ -33,59 +33,45 @@ static void	solve3(t_stack *stack)
 		ra(stack);
 }
 
-static void	solve_b(t_stack *stack)
-{
-	int			a;
-	int			b;
-
-	while (stack->len_b)
-	{
-		a = 0;
-		b = 0;
-		get_min_rotate(stack, &a, &b);
-		efficient_rr(stack, &a, &b);
-		efficient_move(stack, A, a);
-		efficient_move(stack, B, b);
-		pa(stack);
-	}
-	efficient_move(stack, A, get_side(get_min_index(stack), stack->len_a));
-}
-
-static void	solve(t_stack *stack)
+static void	solve5_2(t_stack *stack)
 {
 	int	i;
-	int	pivot1;
-	int	pivot2;
 
 	i = -1;
-	pivot1 = stack->len_a / 3;
-	pivot2 = stack->len_a / 3 * 2;
-	while (++i < stack->len)
+	while (++i < 3)
+		if (stack->a[i] == 0)
+			return (ra(stack));
+	return (ra(stack));
+}
+
+static void	solve5(t_stack *stack)
+{
+	pb(stack);
+	pb(stack);
+	solve3(stack);
+	while (stack->len_b)
 	{
-		if (stack->a[0] < pivot1)
+		if (is_sort(stack, 0) && stack->b[0] > stack->a[stack->len_a - 1])
 		{
-			pb(stack);
-			rb(stack);
+			pa(stack);
+			ra(stack);
 		}
-		else if (stack->a[0] < pivot2)
-			pb(stack);
+		else if ((stack->b[0] < stack->a[0] && stack->b[0] > \
+			stack->a[stack->len_a - 1]) || (is_sort(stack, 0) \
+			&& (stack->b[0] == 0 || (stack->len_b == 2 && stack->b[0] == 1 \
+			&& stack->b[1] == 0))))
+			pa(stack);
 		else
 			ra(stack);
 	}
-	while (stack->len_a > 3)
-		pb(stack);
-	solve3(stack);
-	if (stack->len_a == 2 && stack->a[0] > stack->a[1])
-		sa(stack);
-	solve_b(stack);
+	while (!is_sort(stack, 0))
+		solve5_2(stack);
 }
 
 int	main(int ac, char **av)
 {
 	t_stack	*stack;
 
-	if (ac == 1)
-		return (0);
 	stack = parsing(--ac, ++av);
 	if (!stack)
 		return (1);
@@ -94,8 +80,12 @@ int	main(int ac, char **av)
 	{
 		if (stack->len == 3)
 			solve3(stack);
+		else if (stack->len == 5)
+			solve5(stack);
+		else if (stack->len == 6)
+			solve_radix(stack);
 		else
-			solve(stack);
+			solve_smart_sort(stack);
 	}
 	free_stack(stack, ALL);
 }
