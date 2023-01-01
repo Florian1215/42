@@ -12,17 +12,12 @@
 
 #include "fractol.h"
 
-//5) Excalibur
-//8) ghost
-
 int	main(void)
 {
-	t_mlx	*mlx;
+	t_mlx	mlx;
 
 	init_mlx(&mlx);
-	if (!mlx)
-		return (1);
-	set_menu(mlx);
-	set_hook(mlx);
-	mlx_loop(mlx->mlx_ptr);
+	set_page(&mlx, 1);
+	set_hook(&mlx);
+	mlx_loop(mlx.mlx_ptr);
 }

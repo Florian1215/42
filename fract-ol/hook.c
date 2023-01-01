@@ -22,7 +22,7 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 		{
 			mlx->in_menu = 0;
 			mlx->launch = 1;
-			set_fractal(mlx, (t_fractals)select_fractal(mlx, init_complex(x, y)));
+			set_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
 			set_color(mlx, mlx->fractal.color);
 		}
 	}
@@ -105,19 +105,25 @@ static int	key_event_press(int k, t_mlx *mlx)
 	else if (k == C)
 		edit_color(mlx);
 	if (mlx->in_menu)
-		return (0);
-	else if (k == LEFT)
-		edit_c(mlx, 0.03, &mlx->fractal.c.y);
-	else if (k == DOWN)
-		edit_c(mlx, 0.03, &mlx->fractal.c.x);
-	else if (k == RIGHT)
-		edit_c(mlx, -0.03, &mlx->fractal.c.y);
-	else if (k == UP)
-		edit_c(mlx, -0.03, &mlx->fractal.c.x);
-	else if (k == PLUS)
-		edit_iter(mlx, 10);
-	else if (k == MINUS)
-		edit_iter(mlx, -10);
+	{
+		if (k == LEFT || k == RIGHT)
+			set_page(mlx, ++mlx->page % 2);
+	}
+	else
+	{
+		if (k == LEFT)
+			edit_c(mlx, 0.03, &mlx->fractal.c.y);
+		else if (k == DOWN)
+			edit_c(mlx, 0.03, &mlx->fractal.c.x);
+		else if (k == RIGHT)
+			edit_c(mlx, -0.03, &mlx->fractal.c.y);
+		else if (k == UP)
+			edit_c(mlx, -0.03, &mlx->fractal.c.x);
+		else if (k == PLUS)
+			edit_iter(mlx, 10);
+		else if (k == MINUS)
+			edit_iter(mlx, -10);
+	}
 	return (1);
 }
 

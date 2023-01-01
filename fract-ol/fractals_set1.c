@@ -14,72 +14,39 @@
 
 static void	set_mandelbrot(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(0, 0);
-		end = init_complex(mlx->size / 2, mlx->size / 2);
-	}
-	else
-	{
-		start = init_complex(-2.2, -2);
-		end = init_complex(1.8, 2);
-	}
 	mlx->fractal.set = MANDELBROT;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = mandelbrot;
+	mlx->fractal.start = init_complex(-2.2, -2);
+	mlx->fractal.end = init_complex(1.8, 2);
+	mlx->fractal.sequence = mandelbrot;
+	mlx->fractal.coor = coor_mandelbrot;
 	mlx->fractal.color = GREEN;
+	mlx->fractal.diff = 20;
 	mlx->fractal.name = "Mandelbrot";
 }
 
 static void	set_julia(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(mlx->size / 2, 0);
-		end = init_complex(mlx->size / 2 * 2, mlx->size / 2);
-	}
-	else
-	{
-		start = init_complex(-2, -2);
-		end = init_complex(2, 2);
-	}
 	mlx->fractal.set = JULIA;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = julia;
+	mlx->fractal.start = init_complex(-2, -2);
+	mlx->fractal.end = init_complex(2, 2);
+	mlx->fractal.sequence = julia;
+	mlx->fractal.coor = coor_julia;
 	mlx->fractal.color = PURPLE;
 	mlx->fractal.name = "Julia";
+	mlx->fractal.diff = 15;
 	set_preset(mlx, PRESET_1);
 }
 
 static void	set_celtic(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(0, mlx->size / 2);
-		end = init_complex(mlx->size / 2, mlx->size);
-	}
-	else
-	{
-		start = init_complex(-2, 1.3);
-		end = init_complex(2, -2.7);
-	}
 	mlx->fractal.set = CELTIC;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = celtic;
+	mlx->fractal.start = init_complex(-2, 1.3);
+	mlx->fractal.end = init_complex(2, -2.7);
+	mlx->fractal.sequence = celtic;
+	mlx->fractal.coor = coor_celtic;
 	mlx->fractal.color = BLUE;
 	mlx->fractal.name = "Celtic";
+	mlx->fractal.diff = 18;
 }
 
 void	set_fractal(t_mlx *mlx, t_fractals set)

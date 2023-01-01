@@ -12,35 +12,35 @@
 
 #include "fractol.h"
 
-t_slots	select_fractal(t_mlx *mlx, t_co co)
+t_pos	select_fractal(t_mlx *mlx, t_co co)
 {
-	int	size;
+	int	hsize;
 
 	if (co.x > mlx->size || co.y > mlx->size || co.x < 0 || co.y < 0)
-		return (-1);
-	size = mlx->size / 2;
-	if (co.x < size && co.y < size)
-		return (SLOT_1);
-	else if (co.x > size && co.y < size)
-		return (SLOT_2);
-	else if (co.x < size && co.y > size)
-		return (SLOT_3);
+		return (POS_ERROR);
+	hsize = mlx->size / 2;
+	if (co.x < hsize && co.y < hsize)
+		return (POS_1);
+	else if (co.x > hsize && co.y < hsize)
+		return (POS_2);
+	else if (co.x < hsize && co.y > hsize)
+		return (POS_3);
 	else
-		return (SLOT_4);
+		return (POS_4);
 }
 
 int	mouse_event_motion(int x, int y, t_mlx *mlx)
 {
-	t_fractals	current;
-	t_co		co;
+	t_pos	current;
+	t_co	co;
 
 	if (mlx->in_menu)
 	{
-		current = (t_fractals)select_fractal(mlx, init_complex(x, y));
-		if (current != mlx->hover.set)
+		current = select_fractal(mlx, init_complex(x, y));
+		if (current != mlx->hover.pos)
 		{
 			mlx->prev_hover = mlx->hover;
-			mlx->hover.set = current;
+			mlx->hover.pos = current;
 			mlx->hover.value = 1;
 			set_menu(mlx);
 		}
@@ -57,4 +57,16 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 		mlx->prev_pos = init_complex(x, y);
 	}
 	return (1);
+}
+
+void	set_page(t_mlx *mlx, int page)
+{
+	static t_fractals	menu[2][4] = {{MANDELBROT, JULIA, CELTIC, BURNING_SHIP}, {BUFFALO, BURNING_JULIA, MANDELBROT, MANDELBROT}};
+
+	mlx->menu[POS_1] = menu[page][POS_1];
+	mlx->menu[POS_2] = menu[page][POS_2];
+	mlx->menu[POS_3] = menu[page][POS_3];
+	mlx->menu[POS_4] = menu[page][POS_4];
+	mlx->page = page;
+	set_menu(mlx);
 }

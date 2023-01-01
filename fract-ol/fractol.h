@@ -27,9 +27,9 @@ typedef struct s_co				t_co;
 typedef struct s_mlx			t_mlx;
 typedef struct s_fractal		t_fractal;
 typedef enum e_fractal			t_fractals;
-typedef enum e_slots			t_slots;
 typedef struct s_thread			t_thread;
 typedef struct s_preview_thread	t_preview_thread;
+typedef enum e_pos				t_pos;
 
 //UTILS
 struct	s_img {
@@ -46,8 +46,17 @@ struct s_co
 	double	y;
 };
 
+enum e_pos
+{
+	POS_ERROR = -1,
+	POS_1,
+	POS_2,
+	POS_3,
+	POS_4,
+};
+
 int			close_mlx(t_mlx *mlx);
-void		init_mlx(t_mlx **mlx);
+void		init_mlx(t_mlx *mlx);
 void		mlx_put_pixel_img(struct s_img *img, t_co co, int color);
 t_co		init_complex(double x, double y);
 
@@ -146,14 +155,6 @@ enum e_fractal
 	BURNING_JULIA,
 };
 
-enum e_slots
-{
-	SLOT_1,
-	SLOT_2,
-	SLOT_3,
-	SLOT_4,
-};
-
 enum e_preset
 {
 	PRESET_0,
@@ -171,38 +172,42 @@ enum e_preset
 struct s_fractal
 {
 	t_fractals	set;
+	t_colors	color;
 	t_co		start;
 	t_co		end;
-	t_colors	color;
 	t_co		c;
+	int			diff;
 	char		*name;
 	double		max_iter;
-	int			(*func)(t_mlx *, t_fractal, t_co);
+	t_co		(*coor)(t_co, int, double);
+	int			(*sequence)(t_mlx *, t_fractal, t_co);
 };
 
 struct	s_hover
 {
-	t_fractals	set;
-	double		value;
+	t_pos	pos;
+	double	value;
 };
 
 struct s_mlx
 {
-	void			*mlx_ptr;
-	void			*win_ptr;
-	struct s_img	img;
-	t_fractal		fractal;
-	t_co			prev_pos;
-	struct s_hover	hover;
-	struct s_hover	prev_hover;
-	t_appearance	appearance;
-	int				size;
-	int				launch;
-	int				moving;
-	int				in_menu;
-	int				offset_color;
-	t_colors		color;
-	int				add_co;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	struct s_img		img;
+	struct s_hover		hover;
+	struct s_hover		prev_hover;
+	t_appearance		appearance;
+	t_fractals			menu[4];
+	t_fractal			fractal;
+	t_colors			color;
+	t_co				prev_pos;
+	int					size;
+	int					launch;
+	int					moving;
+	int					in_menu;
+	int					offset_color;
+	int					add_co;
+	int					page;
 };
 
 void		fractal_render(t_mlx *mlx);
@@ -213,15 +218,21 @@ void		edit_c(t_mlx *mlx, double j, double *nb);
 void		edit_iter(t_mlx *mlx, double j);
 void		set_fractal(t_mlx *mlx, t_fractals set);
 int			mandelbrot(t_mlx *mlx, t_fractal frac, t_co c);
+t_co		coor_mandelbrot(t_co i, int size, double hover);
 int			julia(t_mlx *mlx, t_fractal frac, t_co z);
+t_co		coor_julia(t_co i, int size, double hover);
 int			burning_shipe(t_mlx *mlx, t_fractal frac, t_co c);
-int			celtic(t_mlx *mlx, t_fractal frac, t_co c);
-int			julia3(t_mlx *mlx, t_fractal frac, t_co z);
-int			buffalo(t_mlx *mlx, t_fractal frac, t_co z);
-int			burning_julia(t_mlx *mlx, t_fractal frac, t_co c);
+t_co		coor_burning_ship(t_co i, int size, double hover);
 void		set_burning_shipe(t_mlx *mlx);
+int			celtic(t_mlx *mlx, t_fractal frac, t_co c);
+t_co		coor_celtic(t_co i, int size, double hover);
+int			buffalo(t_mlx *mlx, t_fractal frac, t_co z);
+t_co		coor_buffalo(t_co i, int size, double hover);
 void		set_buffalo(t_mlx *mlx);
+int			burning_julia(t_mlx *mlx, t_fractal frac, t_co c);
+t_co		coor_burning_julia(t_co i, int size, double hover);
 void		set_burning_julia(t_mlx *mlx);
+int			julia3(t_mlx *mlx, t_fractal frac, t_co z);
 
 // THREAD
 struct s_thread
@@ -240,9 +251,10 @@ struct s_preview_thread
 
 // MENU
 void		set_menu(t_mlx *mlx);
-t_slots		select_fractal(t_mlx *mlx, t_co co);
+t_pos		select_fractal(t_mlx *mlx, t_co co);
 void		init_hover(t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
+void		set_page(t_mlx *mlx, int page);
 
 #include <stdio.h>
 

@@ -25,18 +25,16 @@ int	loop(t_mlx *mlx)
 	}
 	else if (mlx->in_menu)
 	{
-		if (mlx->hover.value >= 0.80 || mlx->prev_hover.value < 1)
+		if (mlx->hover.value >= 0.85 || mlx->prev_hover.value < 1)
 		{
-			if (mlx->hover.value >= 0.80)
-				mlx->hover.value -= 0.03;
+			if (mlx->hover.value >= 0.85)
+				mlx->hover.value -= 0.04;
 			else if (mlx->hover.value >= 0.95)
 				mlx->hover.value -= 0.01;
 			if (mlx->prev_hover.value < 0.85)
-				mlx->prev_hover.value += 0.06;
-			else if (mlx->prev_hover.value < 0.95)
-				mlx->prev_hover.value += 0.04;
-			else if (mlx->prev_hover.value < 1)
 				mlx->prev_hover.value += 0.02;
+			else if (mlx->prev_hover.value < 1)
+				mlx->prev_hover.value += 0.04;
 			set_menu(mlx);
 		}
 	}

@@ -14,69 +14,38 @@
 
 void	set_burning_shipe(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(mlx->size / 3, mlx->size / 2);
-		end = init_complex(mlx->size / 3 * 2, mlx->size);
-	}
-	else
-	{
-		start = init_complex(-2.4, 1.6);
-		end = init_complex(1.6, -2.4);
-	}
 	mlx->fractal.set = BURNING_SHIP;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = burning_shipe;
+	mlx->fractal.start = init_complex(-2.4, 1.6);
+	mlx->fractal.end = init_complex(1.6, -2.4);
+	mlx->fractal.sequence = burning_shipe;
+	mlx->fractal.coor = coor_burning_ship;
 	mlx->fractal.color = RED;
 	mlx->fractal.name = "Burning Ship";
+	mlx->fractal.diff = 36;
 }
 
 void	set_buffalo(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(mlx->size / 3 * 2, 0);
-		end = init_complex(mlx->size, mlx->size / 2);
-	}
-	else
-	{
-		start = init_complex(-2.4, 1.6);
-		end = init_complex(1.6, -2.4);
-	}
 	mlx->fractal.set = BUFFALO;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = buffalo;
+	mlx->fractal.start = init_complex(-2, -2);
+	mlx->fractal.end = init_complex(2, 2);
+	mlx->fractal.sequence = buffalo;
+	mlx->fractal.coor = coor_buffalo;
 	mlx->fractal.color = BLUE_RED;
 	mlx->fractal.name = "Buffalo";
+	mlx->fractal.diff = 25;
+	mlx->fractal.c = init_complex(0.36, -0.69);
 }
 
 void	set_burning_julia(t_mlx *mlx)
 {
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_complex(mlx->size / 3 * 2, mlx->size / 2);
-		end = init_complex(mlx->size, mlx->size);
-	}
-	else
-	{
-		start = init_complex(-2.4, 1.6);
-		end = init_complex(1.6, -2.4);
-	}
 	mlx->fractal.set = BURNING_JULIA;
-	mlx->fractal.start = start;
-	mlx->fractal.end = end;
-	mlx->fractal.func = burning_julia;
+	mlx->fractal.start = init_complex(-2, -2);
+	mlx->fractal.end = init_complex(2, 2);
+	mlx->fractal.sequence = burning_julia;
+	mlx->fractal.coor = coor_burning_julia;
 	mlx->fractal.color = PINK;
 	mlx->fractal.name = "Burning Julia";
+	mlx->fractal.diff = 45;
+	mlx->fractal.c = init_complex(0.92, -0.54);
 }

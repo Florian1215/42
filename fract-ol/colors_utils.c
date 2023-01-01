@@ -12,20 +12,21 @@
 
 #include "fractol.h"
 
-static t_color	get_gradient(t_color *pal, int color, double op, int cat)
+static int	get_gradient(t_color *pal, int color, double op, int cat)
 {
 	t_color			col;
 
 	col.rgb.r = pal[color].rgb.r + ((pal[color + 1].rgb.r - pal[color].rgb.r) * ((op - cat * color) / cat));
 	col.rgb.g = pal[color].rgb.g + ((pal[color + 1].rgb.g - pal[color].rgb.g) * ((op - cat * color) / cat));
 	col.rgb.b = pal[color].rgb.b + ((pal[color + 1].rgb.b - pal[color].rgb.b) * ((op - cat * color) / cat));
-	return (col);
+	return (col.color);
 }
 
 int	get_color(t_mlx *mlx, t_fractal frac, int i, double sqr)
 {
 	static t_color	*(*colors_set[7])(t_appearance app) = {set_1, set_2, set_3, \
 		set_4, set_5, set_6};
+	t_colors		set;
 	double			op;
 	int				color;
 	int				cat;
@@ -42,7 +43,11 @@ int	get_color(t_mlx *mlx, t_fractal frac, int i, double sqr)
 	color = i / cat;
 	if (color < 0)
 		color = 0;
-	return (get_gradient(colors_set[frac.color](mlx->appearance), color, op, cat).color);
+	if (mlx->in_menu)
+		set = frac.color;
+	else
+		set = mlx->color;
+	return (get_gradient(colors_set[set](mlx->appearance), color, op, cat));
 }
 
 void	edit_color(t_mlx *mlx)

@@ -56,6 +56,7 @@ void	edit_c(t_mlx *mlx, double j, double *nb)
 	if (res < -2 || res > 2)
 		return ;
 	*nb = res;
+	printf("%f, %f\n", mlx->fractal.c.x, mlx->fractal.c.y);
 	fractal_render(mlx);
 }
 
