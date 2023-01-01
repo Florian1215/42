@@ -12,17 +12,17 @@
 
 #include "fractol.h"
 
-static unsigned int	get_gradient(t_color *pal, int color, double op, int cat)
+static t_color	get_gradient(t_color *pal, int color, double op, int cat)
 {
 	t_color			col;
 
 	col.rgb.r = pal[color].rgb.r + ((pal[color + 1].rgb.r - pal[color].rgb.r) * ((op - cat * color) / cat));
 	col.rgb.g = pal[color].rgb.g + ((pal[color + 1].rgb.g - pal[color].rgb.g) * ((op - cat * color) / cat));
 	col.rgb.b = pal[color].rgb.b + ((pal[color + 1].rgb.b - pal[color].rgb.b) * ((op - cat * color) / cat));
-	return (col.color);
+	return (col);
 }
 
-int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
+int	get_color(t_mlx *mlx, t_fractal frac, int i, double sqr)
 {
 	static t_color	*(*colors_set[7])(t_appearance app) = {set_1, set_2, set_3, \
 		set_4, set_5, set_6};
@@ -36,13 +36,13 @@ int	get_color(t_mlx *mlx, int i, double sqr, t_colors set)
 	if (op < 0)
 		op = 0;
 	op += i;
-	cat = mlx->max_iter / 4;
+	cat = frac.max_iter / 4;
 	if (!cat)
 		cat = 1;
 	color = i / cat;
 	if (color < 0)
 		color = 0;
-	return (get_gradient(colors_set[set](mlx->appearance), color, op, cat));
+	return (get_gradient(colors_set[frac.color](mlx->appearance), color, op, cat).color);
 }
 
 void	edit_color(t_mlx *mlx)

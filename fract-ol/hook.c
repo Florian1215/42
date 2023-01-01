@@ -22,7 +22,7 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 		{
 			mlx->in_menu = 0;
 			mlx->launch = 1;
-			set_fractal(mlx, select_fractal(mlx, init_coor(x, y)));
+			set_fractal(mlx, (t_fractals)select_fractal(mlx, init_complex(x, y)));
 			set_color(mlx, mlx->fractal.color);
 		}
 	}
@@ -30,15 +30,15 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 	{
 		if (button == SCROLL_IN || button == SCROLL_OUT)
 		{
-			co.x = (double)x / (mlx->size.x / (mlx->fractal.end.x - \
+			co.x = (double)x / (mlx->size / (mlx->fractal.end.x - \
 				mlx->fractal.start.x)) + mlx->fractal.start.x;
-			co.y = (double)y / (mlx->size.y / (mlx->fractal.end.y - \
+			co.y = (double)y / (mlx->size / (mlx->fractal.end.y - \
 				mlx->fractal.start.y)) * -1 + mlx->fractal.end.y;
 			zoom(mlx, (button == SCROLL_IN) ? 1 / 1.3 : 1.3, co);
 		}
 		else if (button == LEFT_CLICK)
 		{
-			mlx->prev_pos = init_coor(x, y);
+			mlx->prev_pos = init_complex(x, y);
 			mlx->moving = 1;
 		}
 	}
@@ -68,9 +68,33 @@ int	key_event(int k, t_mlx *mlx)
 		fractal_render(mlx);
 	}
 	else if (k == TAB)
-	{
 		set_menu(mlx);
+	else if (k == W)
+	{
+		mlx->launch = 1;
+		set_fractal(mlx, ++mlx->fractal.set % 6);
+		set_color(mlx, mlx->fractal.color);
 	}
+	else if (k == NUM_0)
+		set_preset(mlx, PRESET_0);
+	else if (k == NUM_1)
+		set_preset(mlx, PRESET_1);
+	else if (k == NUM_2)
+		set_preset(mlx, PRESET_2);
+	else if (k == NUM_3)
+		set_preset(mlx, PRESET_3);
+	else if (k == NUM_4)
+		set_preset(mlx, PRESET_4);
+	else if (k == NUM_5)
+		set_preset(mlx, PRESET_5);
+	else if (k == NUM_6)
+		set_preset(mlx, PRESET_6);
+	else if (k == NUM_7)
+		set_preset(mlx, PRESET_7);
+	else if (k == NUM_8)
+		set_preset(mlx, PRESET_8);
+	else if (k == NUM_9)
+		set_preset(mlx, PRESET_9);
 	return (1);
 }
 
@@ -83,13 +107,13 @@ static int	key_event_press(int k, t_mlx *mlx)
 	if (mlx->in_menu)
 		return (0);
 	else if (k == LEFT)
-		edit_c(mlx, -0.03, &mlx->c.x);
+		edit_c(mlx, 0.03, &mlx->fractal.c.y);
 	else if (k == DOWN)
-		edit_c(mlx, -0.03, &mlx->c.y);
+		edit_c(mlx, 0.03, &mlx->fractal.c.x);
 	else if (k == RIGHT)
-		edit_c(mlx, 0.03, &mlx->c.x);
+		edit_c(mlx, -0.03, &mlx->fractal.c.y);
 	else if (k == UP)
-		edit_c(mlx, 0.03, &mlx->c.y);
+		edit_c(mlx, -0.03, &mlx->fractal.c.x);
 	else if (k == PLUS)
 		edit_iter(mlx, 10);
 	else if (k == MINUS)

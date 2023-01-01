@@ -31,7 +31,7 @@ t_time	get_timedelta(void)
 
 void	work_usleep(t_time until)
 {
-	while (get_timestamp() < until - 10)
+	while (get_timestamp() < until)
 		usleep(10);
 }
 

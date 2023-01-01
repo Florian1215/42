@@ -12,6 +12,9 @@
 
 #include "fractol.h"
 
+//5) Excalibur
+//8) ghost
+
 int	main(void)
 {
 	t_mlx	*mlx;

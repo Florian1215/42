@@ -16,21 +16,19 @@ int	loop(t_mlx *mlx)
 {
 	if (mlx->launch)
 	{
-		edit_c(mlx, mlx->c.y < -0.4 ? 0.07 : 0.03, &mlx->c.y);
-		if (mlx->c.y > 0)
+		edit_c(mlx, mlx->fractal.c.y < -0.4 ? 0.07 : 0.03, &mlx->fractal.c.y);
+		if (mlx->fractal.c.y > 0)
 		{
-			edit_c(mlx, -mlx->c.y, &mlx->c.y);
+			edit_c(mlx, -mlx->fractal.c.y, &mlx->fractal.c.y);
 			mlx->launch = 0;
 		}
 	}
 	else if (mlx->in_menu)
 	{
-		if (mlx->hover.value >= 0.75 || mlx->prev_hover.value < 1)
+		if (mlx->hover.value >= 0.80 || mlx->prev_hover.value < 1)
 		{
-			if (mlx->hover.value >= 0.75)
+			if (mlx->hover.value >= 0.80)
 				mlx->hover.value -= 0.03;
-			else if (mlx->hover.value >= 0.85)
-				mlx->hover.value -= 0.02;
 			else if (mlx->hover.value >= 0.95)
 				mlx->hover.value -= 0.01;
 			if (mlx->prev_hover.value < 0.85)

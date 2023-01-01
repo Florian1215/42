@@ -37,16 +37,16 @@ void	create_fractal(t_thread	*t)
 	t_co	r;
 	double	col;
 
-	i.x = t->mlx->size.x / 8 * t->id - 1;
-	r = init_coor(
-			(t->mlx->fractal.end.x - t->mlx->fractal.start.x) / (t->mlx->size.x - 1),
-			(t->mlx->fractal.end.y - t->mlx->fractal.start.y) / (t->mlx->size.y - 1));
-	while (++i.x < t->mlx->size.x / 8 * (t->id + 1))
+	i.x = t->mlx->size / 8 * t->id - 1;
+	r = init_complex(
+			(t->mlx->fractal.end.x - t->mlx->fractal.start.x) / (t->mlx->size - 1),
+			(t->mlx->fractal.end.y - t->mlx->fractal.start.y) / (t->mlx->size - 1));
+	while (++i.x < t->mlx->size / 8 * (t->id + 1))
 	{
 		i.y = -1;
-		while (++i.y < t->mlx->size.y)
+		while (++i.y < t->mlx->size)
 		{
-			col = t->mlx->fractal.func(t->mlx, init_coor(t->mlx->fractal.start.x + i.x * r.x, t->mlx->fractal.end.y - i.y * r.y), t->mlx->color);
+			col = t->mlx->fractal.func(t->mlx, t->mlx->fractal, init_complex(t->mlx->fractal.start.x + i.x * r.x, t->mlx->fractal.end.y - i.y * r.y));
 			mlx_put_pixel_img(&t->mlx->img, i, col);
 		}
 	}

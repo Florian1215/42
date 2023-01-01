@@ -33,41 +33,6 @@ void	solve3(t_stack *stack)
 		ra(stack);
 }
 
-static void	solve5_2(t_stack *stack)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 3)
-		if (stack->a[i] == 0)
-			return (ra(stack));
-	return (ra(stack));
-}
-
-static void	solve5(t_stack *stack)
-{
-	pb(stack);
-	pb(stack);
-	solve3(stack);
-	while (stack->len_b)
-	{
-		if (is_sort(stack, 0) && stack->b[0] > stack->a[stack->len_a - 1])
-		{
-			pa(stack);
-			ra(stack);
-		}
-		else if ((stack->b[0] < stack->a[0] && stack->b[0] > \
-			stack->a[stack->len_a - 1]) || (is_sort(stack, 0) \
-			&& (stack->b[0] == 0 || (stack->len_b == 2 && stack->b[0] == 1 \
-			&& stack->b[1] == 0))))
-			pa(stack);
-		else
-			ra(stack);
-	}
-	while (!is_sort(stack, 0))
-		solve5_2(stack);
-}
-
 int	main(int ac, char **av)
 {
 	t_stack	*stack;
@@ -80,8 +45,6 @@ int	main(int ac, char **av)
 	{
 		if (stack->len == 3)
 			solve3(stack);
-		else if (stack->len == 5)
-			solve5(stack);
 		else if (stack->len == 6)
 			solve_radix(stack);
 		else

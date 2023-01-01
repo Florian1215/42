@@ -21,9 +21,9 @@ static void	live(t_philo *p)
 	while (1)
 	{
 		print_state(p, THINK);
-		pthread_mutex_lock(&p->env->p[get_fork(p, LEFT)].mutex_forks);
+		pthread_mutex_lock(&p->mutex_forks);
 		print_state(p, FORK);
-		pthread_mutex_lock(&p->env->p[get_fork(p, RIGHT)].mutex_forks);
+		pthread_mutex_lock(&p->env->p[(p->n + 1) % p->env->nb].mutex_forks);
 		print_state(p, FORK);
 		sleep_until = get_timestamp() + p->env->time[EAT];
 		print_state(p, EAT);

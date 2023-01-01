@@ -22,10 +22,12 @@
 typedef enum e_colors			t_colors;
 typedef union u_color			t_color;
 typedef enum e_appearance		t_appearance;
+typedef enum e_preset			t_preset;
 typedef struct s_co				t_co;
 typedef struct s_mlx			t_mlx;
 typedef struct s_fractal		t_fractal;
 typedef enum e_fractal			t_fractals;
+typedef enum e_slots			t_slots;
 typedef struct s_thread			t_thread;
 typedef struct s_preview_thread	t_preview_thread;
 
@@ -47,7 +49,7 @@ struct s_co
 int			close_mlx(t_mlx *mlx);
 void		init_mlx(t_mlx **mlx);
 void		mlx_put_pixel_img(struct s_img *img, t_co co, int color);
-t_co		init_coor(double x, double y);
+t_co		init_complex(double x, double y);
 
 // COLOR
 enum e_color_hex
@@ -85,7 +87,7 @@ union u_color
 	struct s_rgb	rgb;
 };
 
-int			get_color(t_mlx *mlx, int i, double sqr, t_colors set);
+int			get_color(t_mlx *mlx, t_fractal frac, int i, double sqr);
 void		toggle_appearance(t_mlx *mlx);
 void		edit_color(t_mlx *mlx);
 void		set_color(t_mlx *mlx, t_colors color);
@@ -102,6 +104,7 @@ enum e_keycode
 	C = 8,
 	D = 2,
 	Q = 12,
+	W = 13,
 	ESQ = 53,
 	TAB = 48,
 	PLUS = 69,
@@ -110,6 +113,16 @@ enum e_keycode
 	LEFT = 124,
 	DOWN = 125,
 	UP = 126,
+	NUM_0 = 82,
+	NUM_1 = 83,
+	NUM_2 = 84,
+	NUM_3 = 85,
+	NUM_4 = 86,
+	NUM_5 = 87,
+	NUM_6 = 88,
+	NUM_7 = 89,
+	NUM_8 = 91,
+	NUM_9 = 92,
 };
 
 enum e_mousecode
@@ -129,6 +142,30 @@ enum e_fractal
 	JULIA,
 	CELTIC,
 	BURNING_SHIP,
+	BUFFALO,
+	BURNING_JULIA,
+};
+
+enum e_slots
+{
+	SLOT_1,
+	SLOT_2,
+	SLOT_3,
+	SLOT_4,
+};
+
+enum e_preset
+{
+	PRESET_0,
+	PRESET_1,
+	PRESET_2,
+	PRESET_3,
+	PRESET_4,
+	PRESET_5,
+	PRESET_6,
+	PRESET_7,
+	PRESET_8,
+	PRESET_9,
 };
 
 struct s_fractal
@@ -137,7 +174,10 @@ struct s_fractal
 	t_co		start;
 	t_co		end;
 	t_colors	color;
-	int			(*func)(void *, t_co, t_colors);
+	t_co		c;
+	char		*name;
+	double		max_iter;
+	int			(*func)(t_mlx *, t_fractal, t_co);
 };
 
 struct	s_hover
@@ -150,35 +190,38 @@ struct s_mlx
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	double			max_iter;
 	struct s_img	img;
 	t_fractal		fractal;
-	t_co			size;
-	t_co			c;
 	t_co			prev_pos;
 	struct s_hover	hover;
 	struct s_hover	prev_hover;
 	t_appearance	appearance;
+	int				size;
 	int				launch;
 	int				moving;
 	int				in_menu;
 	int				offset_color;
 	t_colors		color;
+	int				add_co;
 };
 
 void		fractal_render(t_mlx *mlx);
 void		create_fractal(t_thread	*t);
 void		zoom(t_mlx *mlx, double scale, t_co co);
+void		set_preset(t_mlx *mlx, t_preset preset);
 void		edit_c(t_mlx *mlx, double j, double *nb);
 void		edit_iter(t_mlx *mlx, double j);
-t_fractal	init_fractal(t_fractals set, t_co start, t_co end, \
-	int (*func)(t_mlx *, t_co, t_colors), t_colors color);
 void		set_fractal(t_mlx *mlx, t_fractals set);
-int			mandelbrot(t_mlx *mlx, t_co c, t_colors color_set);
-int			julia(t_mlx *mlx, t_co z, t_colors color_set);
-int			burning_shipe(t_mlx *mlx, t_co c, t_colors color_set);
-int			celtic(t_mlx *mlx, t_co c, t_colors color_set);
-int			julia3(t_mlx *mlx, t_co z, t_colors color_set);
+int			mandelbrot(t_mlx *mlx, t_fractal frac, t_co c);
+int			julia(t_mlx *mlx, t_fractal frac, t_co z);
+int			burning_shipe(t_mlx *mlx, t_fractal frac, t_co c);
+int			celtic(t_mlx *mlx, t_fractal frac, t_co c);
+int			julia3(t_mlx *mlx, t_fractal frac, t_co z);
+int			buffalo(t_mlx *mlx, t_fractal frac, t_co z);
+int			burning_julia(t_mlx *mlx, t_fractal frac, t_co c);
+void		set_burning_shipe(t_mlx *mlx);
+void		set_buffalo(t_mlx *mlx);
+void		set_burning_julia(t_mlx *mlx);
 
 // THREAD
 struct s_thread
@@ -197,8 +240,10 @@ struct s_preview_thread
 
 // MENU
 void		set_menu(t_mlx *mlx);
-t_fractals	select_fractal(t_mlx *mlx, t_co co);
+t_slots		select_fractal(t_mlx *mlx, t_co co);
 void		init_hover(t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
+
+#include <stdio.h>
 
 #endif

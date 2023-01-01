@@ -12,13 +12,6 @@
 
 #include "philosophers.h"
 
-int	get_fork(t_philo *p, t_side side)
-{
-	if (side ^ (p->env->nb % 2 ^ p->n % 2))
-		return ((p->n + 1) % p->env->nb);
-	return (p->n);
-}
-
 t_time	get_timestamp(void)
 {
 	struct timeval	timestamp;
@@ -38,7 +31,7 @@ t_time	get_timedelta(void)
 
 void	work_usleep(t_time until)
 {
-	while (get_timestamp() < until - 10)
+	while (get_timestamp() < until)
 		usleep(10);
 }
 

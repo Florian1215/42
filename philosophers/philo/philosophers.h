@@ -24,15 +24,8 @@
 
 typedef unsigned long long int	t_time;
 typedef enum e_state			t_state;
-typedef enum e_side				t_side;
 typedef struct s_env			t_env;
 typedef struct s_philo			t_philo;
-
-enum e_side
-{
-	LEFT,
-	RIGHT,
-};
 
 enum e_state
 {
@@ -67,7 +60,6 @@ int		parsing(t_env *env, int ac, char **av);
 t_time	get_timedelta(void);
 t_time	get_timestamp(void);
 void	print_state(t_philo *p, t_state state);
-int		get_fork(t_philo *p, t_side side);
 void	work_usleep(t_time until);
 
 #endif

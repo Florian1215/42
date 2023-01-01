@@ -19,15 +19,20 @@ static void	set_mandelbrot(t_mlx *mlx)
 
 	if (mlx->in_menu)
 	{
-		start = init_coor(0, 0);
-		end = init_coor(mlx->size.x / 2, mlx->size.y / 2);
+		start = init_complex(0, 0);
+		end = init_complex(mlx->size / 2, mlx->size / 2);
 	}
 	else
 	{
-		start = init_coor(-2.2, -2);
-		end = init_coor(1.8, 2);
+		start = init_complex(-2.2, -2);
+		end = init_complex(1.8, 2);
 	}
-	mlx->fractal = init_fractal(MANDELBROT, start, end, &mandelbrot, GREEN);
+	mlx->fractal.set = MANDELBROT;
+	mlx->fractal.start = start;
+	mlx->fractal.end = end;
+	mlx->fractal.func = mandelbrot;
+	mlx->fractal.color = GREEN;
+	mlx->fractal.name = "Mandelbrot";
 }
 
 static void	set_julia(t_mlx *mlx)
@@ -35,18 +40,23 @@ static void	set_julia(t_mlx *mlx)
 	t_co	start;
 	t_co	end;
 
-	mlx->c = init_coor(0.75, 0 - (mlx->launch * 2));
 	if (mlx->in_menu)
 	{
-		start = init_coor(mlx->size.x / 2, 0);
-		end = init_coor(mlx->size.x, mlx->size.y / 2);
+		start = init_complex(mlx->size / 2, 0);
+		end = init_complex(mlx->size / 2 * 2, mlx->size / 2);
 	}
 	else
 	{
-		start = init_coor(-2, -2);
-		end = init_coor(2, 2);
+		start = init_complex(-2, -2);
+		end = init_complex(2, 2);
 	}
-	mlx->fractal = init_fractal(JULIA, start, end, &julia, PURPLE);
+	mlx->fractal.set = JULIA;
+	mlx->fractal.start = start;
+	mlx->fractal.end = end;
+	mlx->fractal.func = julia;
+	mlx->fractal.color = PURPLE;
+	mlx->fractal.name = "Julia";
+	set_preset(mlx, PRESET_1);
 }
 
 static void	set_celtic(t_mlx *mlx)
@@ -56,42 +66,29 @@ static void	set_celtic(t_mlx *mlx)
 
 	if (mlx->in_menu)
 	{
-		start = init_coor(0, mlx->size.y / 2);
-		end = init_coor(mlx->size.x / 2, mlx->size.y);
+		start = init_complex(0, mlx->size / 2);
+		end = init_complex(mlx->size / 2, mlx->size);
 	}
 	else
 	{
-		start = init_coor(-2, 1.3);
-		end = init_coor(2, -2.7);
+		start = init_complex(-2, 1.3);
+		end = init_complex(2, -2.7);
 	}
-	mlx->fractal = init_fractal(CELTIC, start, end, &celtic, BLUE);
-}
-
-static void	set_burning_shipe(t_mlx *mlx)
-{
-	t_co	start;
-	t_co	end;
-
-	if (mlx->in_menu)
-	{
-		start = init_coor(mlx->size.x / 2, mlx->size.y / 2);
-		end = init_coor(mlx->size.x, mlx->size.y);
-	}
-	else
-	{
-		start = init_coor(-2.4, 1.6);
-		end = init_coor(1.6, -2.4);
-	}
-	mlx->fractal = init_fractal(BURNING_SHIP, start, end, &burning_shipe, RED);
+	mlx->fractal.set = CELTIC;
+	mlx->fractal.start = start;
+	mlx->fractal.end = end;
+	mlx->fractal.func = celtic;
+	mlx->fractal.color = BLUE;
+	mlx->fractal.name = "Celtic";
 }
 
 void	set_fractal(t_mlx *mlx, t_fractals set)
 {
-	static void	(*fractals_set[5])(t_mlx *) = {set_mandelbrot, set_julia, set_celtic, set_burning_shipe};
+	static void	(*fractals_set[6])(t_mlx *) = {set_mandelbrot, set_julia, set_celtic, set_burning_shipe, set_buffalo, set_burning_julia};
 
 	if (!mlx->in_menu)
 		init_hover(mlx);
-	mlx->c = init_coor(0, 0 - (mlx->launch * 2));
-	mlx->max_iter = mlx->in_menu ? 30 : 50;
+	set_preset(mlx, PRESET_0);
 	fractals_set[set](mlx);
+	mlx->fractal.max_iter = 50;
 }

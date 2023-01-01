@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 OBJS_DIR	= OBJS/
-SRCS		= fractals.c main.c hook.c menu.c set_colors1.c set_colors2.c set_fractals.c thread.c utils_colors.c utils_fractal.c utils_loop.c utils_menu.c utils_mlx.c
+SRCS		= animation.c colors_set1.c colors_set2.c colors_utils.c fractals1.c fractals_set1.c fractals_set2.c fractals_utils.c hook.c main.c menu.c menu_utils.c thread.c utils_mlx.c
 OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
 NAME		= fractol
