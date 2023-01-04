@@ -16,7 +16,7 @@ static void	swap(int *stack, int len)
 {
 	int	tmp;
 
-	if (len > 2)
+	if (len > 1)
 	{
 		tmp = stack[0];
 		stack[0] = stack[1];

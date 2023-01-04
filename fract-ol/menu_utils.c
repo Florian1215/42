@@ -29,40 +29,15 @@ t_pos	select_fractal(t_mlx *mlx, t_co co)
 		return (POS_4);
 }
 
-int	mouse_event_motion(int x, int y, t_mlx *mlx)
-{
-	t_pos	current;
-	t_co	co;
-
-	if (mlx->in_menu)
-	{
-		current = select_fractal(mlx, init_complex(x, y));
-		if (current != mlx->hover.pos)
-		{
-			mlx->prev_hover = mlx->hover;
-			mlx->hover.pos = current;
-			mlx->hover.value = 1;
-			set_menu(mlx);
-		}
-	}
-	else if (mlx->moving)
-	{
-		co.x = (mlx->prev_pos.x - x) / mlx->size * fabs(mlx->fractal.end.x - mlx->fractal.start.x);
-		mlx->fractal.start.x += co.x;
-		mlx->fractal.end.x += co.x;
-		co.y = (mlx->fractal.set > 1 ? (mlx->prev_pos.y - y) : (y - mlx->prev_pos.y)) / mlx->size * fabs(mlx->fractal.end.y - mlx->fractal.start.y);
-		mlx->fractal.start.y += co.y;
-		mlx->fractal.end.y += co.y;
-		fractal_render(mlx);
-		mlx->prev_pos = init_complex(x, y);
-	}
-	return (1);
-}
-
 void	set_page(t_mlx *mlx, int page)
 {
-	static t_fractals	menu[2][4] = {{MANDELBROT, JULIA, CELTIC, BURNING_SHIP}, {BUFFALO, BURNING_JULIA, MANDELBROT, MANDELBROT}};
+	static t_fractals	menu[3][4] = {\
+				{MANDELBROT, JULIA, CELTIC, BURNING_SHIP}, \
+				{BUFFALO, BURNING_JULIA, JULIA3, CELTIC_MANDELBAR}, \
+				{PERPENDICULAR_CELTIC, HEART, MANDELBAR, CELTIC_MANDELBROT}};
 
+	if (page < 0)
+		page = 2;
 	mlx->menu[POS_1] = menu[page][POS_1];
 	mlx->menu[POS_2] = menu[page][POS_2];
 	mlx->menu[POS_3] = menu[page][POS_3];

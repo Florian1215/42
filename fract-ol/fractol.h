@@ -63,7 +63,7 @@ t_co		init_complex(double x, double y);
 // COLOR
 enum e_color_hex
 {
-	FG = 0x222222,
+	FG = 0x202020,
 	WHITE = 0xFFFFFF,
 };
 
@@ -71,10 +71,16 @@ enum e_colors
 {
 	GREEN,
 	PURPLE,
-	BLUE,
+	ELECTRIC_BLUE,
 	RED,
 	BLUE_RED,
 	PINK,
+	GREEN_BLUE,
+	BLUE_LIGHT,
+	PASTEL_PINK,
+	NIGHT_BLUE,
+	BLUE,
+	YELLOW,
 };
 
 enum e_appearance
@@ -100,12 +106,18 @@ int			get_color(t_mlx *mlx, t_fractal frac, int i, double sqr);
 void		toggle_appearance(t_mlx *mlx);
 void		edit_color(t_mlx *mlx);
 void		set_color(t_mlx *mlx, t_colors color);
-t_color		*set_1(t_appearance new_app);
-t_color		*set_2(t_appearance new_app);
-t_color		*set_3(t_appearance new_app);
-t_color		*set_4(t_appearance new_app);
-t_color		*set_5(t_appearance new_app);
-t_color		*set_6(t_appearance new_app);
+t_color		*set_green(t_appearance new_app);
+t_color		*set_purple(t_appearance new_app);
+t_color		*set_electric_blue(t_appearance new_app);
+t_color		*set_red(t_appearance new_app);
+t_color		*set_blue_red(t_appearance new_app);
+t_color		*set_pink(t_appearance new_app);
+t_color		*set_green_blue(t_appearance new_app);
+t_color		*set_blue_light(t_appearance new_app);
+t_color		*set_pastel_pink(t_appearance new_app);
+t_color		*set_night_blue(t_appearance new_app);
+t_color		*set_blue(t_appearance new_app);
+t_color		*set_yellow(t_appearance new_app);
 
 // HOOK
 enum e_keycode
@@ -137,12 +149,17 @@ enum e_keycode
 enum e_mousecode
 {
 	LEFT_CLICK = 1,
+	RIGHT_CLICK = 2,
 	SCROLL_IN = 4,
 	SCROLL_OUT = 5,
 };
 
 void		set_hook(t_mlx *mlx);
-int			loop(t_mlx *mlx);
+int			key_event(int k, t_mlx *mlx);
+int			key_event_press(int k, t_mlx *mlx);
+int			mouse_event_press(int button, int x, int y, t_mlx *mlx);
+int			mouse_event_release(int button, int x, int y, t_mlx *mlx);
+int			mouse_event_motion(int x, int y, t_mlx *mlx);
 
 // FRACTAL
 enum e_fractal
@@ -153,6 +170,12 @@ enum e_fractal
 	BURNING_SHIP,
 	BUFFALO,
 	BURNING_JULIA,
+	JULIA3,
+	CELTIC_MANDELBAR,
+	PERPENDICULAR_CELTIC,
+	HEART,
+	MANDELBAR,
+	CELTIC_MANDELBROT,
 };
 
 enum e_preset
@@ -179,7 +202,7 @@ struct s_fractal
 	int			diff;
 	char		*name;
 	double		max_iter;
-	t_co		(*coor)(t_co, int, double);
+	t_co		coor;
 	int			(*sequence)(t_mlx *, t_fractal, t_co);
 };
 
@@ -205,9 +228,11 @@ struct s_mlx
 	int					launch;
 	int					moving;
 	int					in_menu;
+	int					edit_c;
 	int					offset_color;
 	int					add_co;
 	int					page;
+	int					render;
 };
 
 void		fractal_render(t_mlx *mlx);
@@ -217,22 +242,33 @@ void		set_preset(t_mlx *mlx, t_preset preset);
 void		edit_c(t_mlx *mlx, double j, double *nb);
 void		edit_iter(t_mlx *mlx, double j);
 void		set_fractal(t_mlx *mlx, t_fractals set);
+void		move(t_mlx *mlx, int x, int y);
+
 int			mandelbrot(t_mlx *mlx, t_fractal frac, t_co c);
-t_co		coor_mandelbrot(t_co i, int size, double hover);
 int			julia(t_mlx *mlx, t_fractal frac, t_co z);
-t_co		coor_julia(t_co i, int size, double hover);
 int			burning_shipe(t_mlx *mlx, t_fractal frac, t_co c);
-t_co		coor_burning_ship(t_co i, int size, double hover);
-void		set_burning_shipe(t_mlx *mlx);
 int			celtic(t_mlx *mlx, t_fractal frac, t_co c);
-t_co		coor_celtic(t_co i, int size, double hover);
 int			buffalo(t_mlx *mlx, t_fractal frac, t_co z);
-t_co		coor_buffalo(t_co i, int size, double hover);
-void		set_buffalo(t_mlx *mlx);
 int			burning_julia(t_mlx *mlx, t_fractal frac, t_co c);
-t_co		coor_burning_julia(t_co i, int size, double hover);
-void		set_burning_julia(t_mlx *mlx);
 int			julia3(t_mlx *mlx, t_fractal frac, t_co z);
+int			celtic_mandelbar(t_mlx *mlx, t_fractal frac, t_co z);
+int			perpendicular_celtic(t_mlx *mlx, t_fractal frac, t_co z);
+int			heart(t_mlx *mlx, t_fractal frac, t_co z);
+int			mandelbar(t_mlx *mlx, t_fractal frac, t_co z);
+int			celtic_mandelbrot(t_mlx *mlx, t_fractal frac, t_co z);
+
+void		set_mandelbrot(t_mlx *mlx);
+void		set_julia(t_mlx *mlx);
+void		set_celtic(t_mlx *mlx);
+void		set_burning_shipe(t_mlx *mlx);
+void		set_buffalo(t_mlx *mlx);
+void		set_burning_julia(t_mlx *mlx);
+void		set_julia3(t_mlx *mlx);
+void		set_celtic_mandelbar(t_mlx *mlx);
+void		set_perpendicular_celtic(t_mlx *mlx);
+void		set_heart(t_mlx *mlx);
+void		set_mandelbar(t_mlx *mlx);
+void		set_celtic_mandelbrot(t_mlx *mlx);
 
 // THREAD
 struct s_thread

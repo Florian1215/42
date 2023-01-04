@@ -11,10 +11,10 @@
 # **************************************************************************** #
 
 OBJS_DIR	= OBJS/
-SRCS		= printf.c put_nb.c
+SRCS		= printf.c put_nb.c flags.c str.c
 OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
-HEAD		= printf.h
+HEAD		= ft_printf.h
 NAME		= libftprintf.a
 
 CC			= cc
@@ -22,16 +22,15 @@ RM			= rm -rf
 AR			= ar rc
 FLAGS		= -Wall -Wextra -Werror
 
-all:		dir ${NAME}
+bonus:		${NAME}
 
 $(OBJS_DIR)%.o: %.c ${HEAD}
+			mkdir -p $(OBJS_DIR)
 			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}
 			${AR} ${NAME} ${OBJS_SRC}
 
-dir:
-			mkdir -p $(OBJS_DIR)
 
 clean:
 			${RM} ${OBJS_DIR}
@@ -41,4 +40,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all dir clean fclean re
+.PHONY:		all clean fclean re

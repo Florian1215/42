@@ -37,6 +37,7 @@ void	init_mlx(t_mlx *mlx)
 	mlx->offset_color = 0;
 	mlx->appearance = LIGHT;
 	mlx->moving = 0;
+	mlx->render = 0;
 	init_hover(mlx);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, (int)mlx->size, \
 		(int)mlx->size, "Fract-ol");

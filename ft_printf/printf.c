@@ -10,68 +10,71 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
-void	put_char(int c, int *len)
+void	put_char(t_env *env, int c)
 {
-	if (*len != -1)
+	if (env->len == -1 || (env->dot && !env->precision))
+		return ;
+	if (env->dot)
+		env->precision--;
+	if (env->value > 0)
 	{
-		if (write(1, &c, 1) == -1)
-			*len = -1;
-		else
-			*len += 1;
+		env->value--;
+		put_char(env, ' ');
 	}
+	if (write(1, &c, 1) == -1)
+		env->len = -1;
+	else
+		env->len += 1;
 }
 
-static void	put_str(char *s, int *len)
+static void	format_str(t_env *env, char c, va_list	args)
 {
-	if (s == NULL)
-		s = "(null)";
-	while (*s)
-		put_char(*s++, len);
-}
-
-void	ft_format(const char c, va_list	args, int *len)
-{
-	if (c == '%')
-		put_char('%', len);
-	else if (c == 'c')
-		put_char(va_arg(args, int), len);
-	else if (c == 's')
-		put_str(va_arg(args, char *), len);
-	else if (c == 'p')
+	if (c == STRING)
+		return (put_str(env, va_arg(args, char *)));
+	if (c == POINTER)
 	{
-		put_str("0x", len);
-		put_unsigned(va_arg(args, t_llu), HEX_L, len);
+		env->hashtag = 1;
+		return (put_hexa(env, va_arg(args, t_llu), 0));
 	}
-	else if (c == 'u')
-		put_unsigned(va_arg(args, unsigned int), DEC, len);
-	else if (c == 'i' || c == 'd')
-		put_nbr_base(va_arg(args, int), len);
-	else if (c == 'x')
-		put_unsigned(va_arg(args, unsigned int), HEX_L, len);
-	else if (c == 'X')
-		put_unsigned(va_arg(args, unsigned int), HEX_U, len);
+	if (c == UNSIGNED)
+		return (put_unsigned(env, va_arg(args, unsigned int), DEC, 1));
+	if (c == INTEGER || c == DIGIT)
+		return (put_nbr_base(env, va_arg(args, int)));
+	if (to_upper(c) == HEXA)
+		return (put_hexa(env, va_arg(args, unsigned int), is_upper(c)));
+	env->value--;
+	env->precision = 1;
+	if (c == CHAR)
+		return (put_char(env, va_arg(args, int)));
+	put_char(env, c);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	valist;
-	int		len;
+	va_list	args;
+	t_env	env;
 
-	va_start(valist, format);
-	len = 0;
-	while (*format && len != -1)
+	va_start(args, format);
+	env.len = 0;
+	env.i = -1;
+	while (format[++env.i] && env.len != -1)
 	{
-		if (*format == '%')
+		init_flags(&env);
+		if (format[env.i] == '%')
 		{
-			if (!*++format)
+			env.i++;
+			set_flags(&env, format);
+			if (!format[env.i])
 				break ;
-			ft_format(*format++, valist, &len);
+			env.start_len = env.len;
+			format_str(&env, format[env.i], args);
+			left_jutify(&env);
 		}
 		else
-			put_char(*format++, &len);
+			put_char(&env, format[env.i]);
 	}
-	va_end(valist);
-	return (len);
+	va_end(args);
+	return (env.len);
 }

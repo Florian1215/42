@@ -33,7 +33,7 @@ static void	ft_putnbr(int n)
 	ft_putchar(nb % 10 + '0');
 }
 
-static void	ft_format(const char c, va_list	args)
+static void	format(const char c, va_list	args)
 {
 	if (c == 'c')
 		ft_putchar(va_arg(args, int));
@@ -52,7 +52,7 @@ void	ft_printf(const char *format, ...)
 		{
 			if (!*++format)
 				break ;
-			ft_format(*format++, valist);
+			format(*format++, valist);
 		}
 		else
 			ft_putchar(*format++);

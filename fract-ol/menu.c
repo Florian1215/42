@@ -15,13 +15,16 @@
 static t_co	get_coor(t_mlx *mlx, t_fractal frac, t_co i)
 {
 	double	hover;
+	t_co	co;
 
 	hover = 1;
 	if (mlx->hover.pos != POS_ERROR && frac.set == mlx->menu[mlx->hover.pos])
 		hover = mlx->hover.value;
 	else if (mlx->prev_hover.pos != POS_ERROR && frac.set == mlx->menu[mlx->prev_hover.pos])
 		hover = mlx->prev_hover.value;
-	return (frac.coor(i, mlx->size / 2, hover));
+	co.x = ((i.x - frac.start.x) - (mlx->size / 2) / 4 + frac.coor.x) / ((mlx->size / 2) / 2) * (1.6 * hover);
+	co.y = ((i.y - frac.start.y) - (mlx->size / 2) / 4 + frac.coor.y) / ((mlx->size / 2) / 2) * (1.6 * hover);
+	return (co);
 }
 
 static void	fractal_preview(t_preview_thread *t)
