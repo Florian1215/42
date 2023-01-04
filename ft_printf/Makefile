@@ -20,9 +20,11 @@ NAME		= libftprintf.a
 CC			= cc
 RM			= rm -rf
 AR			= ar rc
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -g3
 
 bonus:		${NAME}
+#			gcc main.c libftprintf.a
+#			./a.out
 
 $(OBJS_DIR)%.o: %.c ${HEAD}
 			mkdir -p $(OBJS_DIR)

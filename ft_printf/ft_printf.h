@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/25 12:15:50 by fguirama          #+#    #+#             */
-/*   Updated: 2022/12/25 12:15:52 by fguirama         ###   ########lyon.fr   */
+/*   Created: 2023/01/04 14:57:23 by fguirama          #+#    #+#             */
+/*   Updated: 2023/01/04 16:39:39 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,18 @@
 # include <stdarg.h>
 
 typedef unsigned long long int	t_llu;
+typedef enum e_bool				t_bool;
 typedef enum e_conversions		t_conversions;
 typedef enum e_flags			t_flags;
 typedef enum e_bases			t_bases;
 typedef struct s_base			t_base;
 typedef struct s_env			t_env;
+
+enum e_bool
+{
+	FALSE,
+	TRUE,
+};
 
 enum e_conversions
 {
@@ -49,8 +56,7 @@ enum e_flags
 enum e_bases
 {
 	DEC,
-	HEX_L,
-	HEX_U,
+	HEX,
 };
 
 struct s_base
@@ -66,6 +72,7 @@ struct s_env
 	int	hashtag;
 	int	space;
 	int	zero;
+	int	nb_zero;
 	int	plus;
 	int	minus;
 	int	left_justify;
@@ -76,19 +83,21 @@ struct s_env
 };
 
 int		ft_printf(const char *format, ...);
-void	put_char(t_env *env, int c);
+void	put_char(t_env *env, int c, t_bool preci);
 void	put_str(t_env *env, char *s);
-void	put_unsigned(t_env *env, t_llu nb, t_bases b, int decrease_value);
+void	put_u(t_env *env, t_llu nb);
+void	put_unsigned(t_env *env, t_llu nb, t_bases b);
 void	put_nbr_base(t_env *env, int n);
-void	put_hexa(t_env *env, t_llu nb, int upper);
+void	put_hexa(t_env *env, t_llu nb, t_bool upper);
+int		nb_len(t_llu nb, t_llu len_base);
 void	left_jutify(t_env *env);
 int		to_upper(int c);
-int		is_upper(int c);
+t_bool	is_upper(int c);
 void	init_flags(t_env *env);
 void	set_flags(t_env *env, const char *str);
-int		is_flags(int c);
-int		is_conversion(int c);
-int		is_digit(int c);
+t_bool	is_flags(int c);
+t_bool	is_conversion(int c);
+t_bool	is_digit(int c);
 
 #include <stdio.h>
 

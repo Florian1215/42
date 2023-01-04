@@ -30,23 +30,20 @@ void	put_str(t_env *env, char *s)
 	{
 		if (env->dot && env->precision < str_len(s))
 			env->value -= env->precision;
-		else
+		else if (env->value > str_len(s))
 			env->value -= str_len(s);
-		if (env->dot)
-			env->precision += env->value;
+		else
+			env->value = 0;
+		if (env->dot && env->precision > str_len(s))
+			env->precision = str_len(s);
+	}
+//	printf("%d - %d\n", env->precision, env->value);
+	if (!*s && env->value)
+	{
+		if (!env->dot)
+			env->value--;
+		put_char(env, ' ', TRUE);
 	}
 	while (*s)
-		put_char(env, *s++);
-}
-
-void	left_jutify(t_env *env)
-{
-	int	n;
-
-	if (!env->minus || env->len == -1)
-		return ;
-	n = env->len - env->start_len;
-	env->dot = 0;
-	while (env->left_justify-- > n)
-		put_char(env, ' ');
+		put_char(env, *s++, TRUE);
 }

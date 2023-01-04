@@ -12,17 +12,19 @@
 
 #include "ft_printf.h"
 
-void	put_char(t_env *env, int c)
+void	put_char(t_env *env, int c, t_bool preci)
 {
-	if (env->len == -1 || (env->dot && !env->precision))
+	if (env->len == -1 || (preci && env->dot && env->precision < 0))
 		return ;
-	if (env->dot)
-		env->precision--;
 	if (env->value > 0)
 	{
 		env->value--;
-		put_char(env, ' ');
+		put_char(env, ' ', FALSE);
 	}
+	if (preci && env->dot)
+		env->precision--;
+	if (preci && env->dot && env->precision < 0)
+		return ;
 	if (write(1, &c, 1) == -1)
 		env->len = -1;
 	else
@@ -34,12 +36,9 @@ static void	format_str(t_env *env, char c, va_list	args)
 	if (c == STRING)
 		return (put_str(env, va_arg(args, char *)));
 	if (c == POINTER)
-	{
-		env->hashtag = 1;
-		return (put_hexa(env, va_arg(args, t_llu), 0));
-	}
+		return (put_hexa(env, va_arg(args, t_llu), 2));
 	if (c == UNSIGNED)
-		return (put_unsigned(env, va_arg(args, unsigned int), DEC, 1));
+		return (put_u(env, va_arg(args, unsigned int)));
 	if (c == INTEGER || c == DIGIT)
 		return (put_nbr_base(env, va_arg(args, int)));
 	if (to_upper(c) == HEXA)
@@ -47,8 +46,8 @@ static void	format_str(t_env *env, char c, va_list	args)
 	env->value--;
 	env->precision = 1;
 	if (c == CHAR)
-		return (put_char(env, va_arg(args, int)));
-	put_char(env, c);
+		return (put_char(env, va_arg(args, int), TRUE));
+	put_char(env, c, TRUE);
 }
 
 int	ft_printf(const char *format, ...)
@@ -73,7 +72,7 @@ int	ft_printf(const char *format, ...)
 			left_jutify(&env);
 		}
 		else
-			put_char(&env, format[env.i]);
+			put_char(&env, format[env.i], FALSE);
 	}
 	va_end(args);
 	return (env.len);

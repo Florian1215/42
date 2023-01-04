@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   te.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 15:11:00 by fguirama          #+#    #+#             */
-/*   Updated: 2023/01/03 15:11:00 by fguirama         ###   ########.fr       */
+/*   Created: 2023/01/04 15:59:00 by fguirama          #+#    #+#             */
+/*   Updated: 2023/01/04 15:59:00 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#ifndef TE_H
+# define TE_H
 
-int	main(void)
-{
-	char	*line;
-	int		format;
-
-	line = "\\\\!/%0#44x\\\\!/";
-	format = -2044674958;
-	printf("| %d\n", printf(line, format));
-	printf("| %d\n", ft_printf(line, format));
-}
-
-
-
-//>------------<                                0x2bff4f47>------------<| 70
+#endif
