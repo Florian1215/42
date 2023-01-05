@@ -12,121 +12,79 @@
 
 #include "ft_printf.h"
 
-t_bool	is_conversion(int c)
-{
-	return (c == CHAR || c == STRING || c == DIGIT || to_upper(c) == HEXA || \
-		c == UNSIGNED || c == INTEGER || c == POINTER || c == PERCENT);
-}
-
-t_bool	is_flags(int c)
-{
-	return ((c == HASHTAG) || c == SPACE || c == ZERO || c == PLUS || \
-		c == MINUS || c == DOT);
-}
-
-t_bool	is_digit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
-
-//static t_bool	find_flag_dot(t_env *env, const char *str)
-//{
-//	int	i;
-//
-//	i = env->i - 1;
-//	while (str[++i] && is_flags(str[i]))
-//	{
-//		if (str[i] == ZERO || str[i] == MINUS || str[i] == SPACE || str[i] == PLUS)
-//			while (str[i] && is_digit(str[i]))
-//				i++;
-//		if (str[i] == DOT)
-//			return (TRUE);
-//	}
-//	return (FALSE);
-//}
-
-static int	atoi_(t_env *env, const char *str, int *var)
+static int	atoi_(t_env *env, const char *s, t_flags flag)
 {
 	int	res;
 
 	res = 0;
-	if (var)
-		env->i++;
-	if (str[env->i] != '0' || var != NULL)// || find_flag_dot(env, str))
-		while (str[env->i] && is_digit(str[env->i]))
-			res = res * 10 + str[env->i++] - '0';
-	env->i--;
-	if (var)
-		*var = 1;
+	while (s[env->i] && is_digit(s[env->i]))
+		res = res * 10 + s[env->i++] - '0';
+	if (flag != LENGTH)
+		env->flags[flag] = 1;
 	return (res);
 }
 
-void	set_flags(t_env *env, const char *str)
+static void	set_all_flags(t_env *env, t_flags flag, const char *s)
 {
-	while (str[env->i] && (is_flags(str[env->i]) || (env->value == -1 && is_digit(str[env->i]))))
+	if (flag > 3)
 	{
-		if (str[env->i] == HASHTAG)
-			env->hashtag = 1;
-		else if (str[env->i] == PLUS)
-			env->plus = 1;
-		else if (str[env->i] == SPACE)
-			env->space = 1;
-		else if (str[env->i] == ZERO)
-			env->nb_zero = atoi_(env, str, &env->zero);
-		else if (str[env->i] == MINUS)
-			env->left_justify = atoi_(env, str, &env->minus);
-		else if (str[env->i] == DOT)
-		{
-			env->precision = atoi_(env, str, &env->dot);
-			if (env->zero && env->nb_zero)
-			{
-				env->zero = 0;
-				env->value = env->nb_zero;
-			}
-		}
-		else if (is_digit(str[env->i]))
-		{
-			if (!env->left_justify && env->minus)
-			{
-//				printf("%d - '%c'\n", env->left_justify, str[env->i]);
-				env->i--;
-				env->left_justify = atoi_(env, str, &env->minus);
-				env->i++;
-//				printf("%d\n", env->left_justify);
-			}
-			if (!env->nb_zero && env->zero)
-			{
-				env->i--;
-				env->nb_zero = atoi_(env, str, &env->zero);
-			}
-			else
-				env->value = atoi_(env, str, NULL);
-		}
-//		printf("\n%d %d\n", env->left_justify, env->value);
+		env->flags[flag] = 1;
 		env->i++;
+	}
+	else
+	{
+		env->i++;
+		env->values[flag] = atoi_(env, s, flag);
+		if (flag == DOT && env->flags[ZERO] && env->values[ZERO])
+		{
+			env->flags[ZERO] = 0;
+			env->values[LENGTH] = env->values[ZERO];
+		}
+	}
+}
+
+void	set_flags(t_env *env, const char *s)
+{
+	t_flags	flag;
+
+	while (s[env->i] && (get_flags(s[env->i]) != ERROR || is_digit(s[env->i])))
+	{
+		flag = get_flags(s[env->i]);
+		if (flag != ERROR)
+			set_all_flags(env, flag, s);
+		else
+		{
+			if (env->flags[DASH] && !env->values[DASH])
+				env->values[DASH] = atoi_(env, s, DASH);
+			else if (env->flags[ZERO] && !env->values[ZERO])
+				env->values[ZERO] = atoi_(env, s, ZERO);
+			else if (env->values[LENGTH] == -1)
+				env->values[LENGTH] = atoi_(env, s, LENGTH);
+			else
+				break ;
+		}
 	}
 }
 
 void	init_flags(t_env *env)
 {
-	env->hashtag = 0;
-	env->space = 0;
-	env->zero = 0;
-	env->plus = 0;
-	env->minus = 0;
-	env->dot = 0;
-	env->value = -1;
-	env->left_justify = 0;
+	env->flags[HASHTAG] = 0;
+	env->flags[PLUS] = 0;
+	env->flags[SPACE] = 0;
+	env->flags[ZERO] = 0;
+	env->flags[DASH] = 0;
+	env->flags[DOT] = 0;
+	env->values[DASH] = 0;
+	env->values[LENGTH] = -1;
 }
 
 void	left_jutify(t_env *env)
 {
 	int	n;
 
-//	printf("\n%d - %d\n", env->len, env->left_justify);
-	if (!env->minus || env->len == -1)
+	if (!env->flags[DASH] || env->len == -1)
 		return ;
 	n = env->len - env->start_len;
-	while (env->left_justify-- > n)
+	while (env->values[DASH]-- > n)
 		put_char(env, ' ', FALSE);
 }

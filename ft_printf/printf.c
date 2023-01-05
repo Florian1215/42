@@ -14,16 +14,16 @@
 
 void	put_char(t_env *env, int c, t_bool preci)
 {
-	if (env->len == -1 || (preci && env->dot && env->precision < 0))
+	if (env->len == -1 || (preci && env->flags[DOT] && env->values[DOT] < 0))
 		return ;
-	if (env->value > 0)
+	if (env->values[LENGTH] > 0)
 	{
-		env->value--;
+		env->values[LENGTH]--;
 		put_char(env, ' ', FALSE);
 	}
-	if (preci && env->dot)
-		env->precision--;
-	if (preci && env->dot && env->precision < 0)
+	if (preci && env->flags[DOT])
+		env->values[DOT]--;
+	if (preci && env->flags[DOT] && env->values[DOT] < 0)
 		return ;
 	if (write(1, &c, 1) == -1)
 		env->len = -1;
@@ -43,8 +43,8 @@ static void	format_str(t_env *env, char c, va_list	args)
 		return (put_nbr_base(env, va_arg(args, int)));
 	if (to_upper(c) == HEXA)
 		return (put_hexa(env, va_arg(args, unsigned int), is_upper(c)));
-	env->value--;
-	env->precision = 1;
+	env->values[LENGTH]--;
+	env->values[DOT] = 1;
 	if (c == CHAR)
 		return (put_char(env, va_arg(args, int), TRUE));
 	put_char(env, c, TRUE);

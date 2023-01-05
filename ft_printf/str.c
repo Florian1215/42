@@ -26,22 +26,21 @@ void	put_str(t_env *env, char *s)
 {
 	if (s == NULL)
 		s = "(null)";
-	if (env->value)
+	if (env->values[LENGTH])
 	{
-		if (env->dot && env->precision < str_len(s))
-			env->value -= env->precision;
-		else if (env->value > str_len(s))
-			env->value -= str_len(s);
+		if (env->flags[DOT] && env->values[DOT] < str_len(s))
+			env->values[LENGTH] -= env->values[DOT];
+		else if (env->values[LENGTH] > str_len(s))
+			env->values[LENGTH] -= str_len(s);
 		else
-			env->value = 0;
-		if (env->dot && env->precision > str_len(s))
-			env->precision = str_len(s);
+			env->values[LENGTH] = 0;
+		if (env->flags[DOT] && env->values[DOT] > str_len(s))
+			env->values[DOT] = str_len(s);
 	}
-//	printf("%d - %d\n", env->precision, env->value);
-	if (!*s && env->value)
+	if (!*s && env->values[LENGTH])
 	{
-		if (!env->dot)
-			env->value--;
+		if (!env->flags[DOT])
+			env->values[LENGTH]--;
 		put_char(env, ' ', TRUE);
 	}
 	while (*s)

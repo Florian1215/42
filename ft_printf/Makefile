@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 OBJS_DIR	= OBJS/
-SRCS		= printf.c put_nb.c flags.c str.c
+SRCS		= printf.c put_nb.c put_nb_flags.c flags.c str.c utils.c
 OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
 HEAD		= ft_printf.h
@@ -22,17 +22,16 @@ RM			= rm -rf
 AR			= ar rc
 FLAGS		= -Wall -Wextra -Werror -g3
 
-bonus:		${NAME}
-#			gcc main.c libftprintf.a
-#			./a.out
+all:		${NAME}
 
-$(OBJS_DIR)%.o: %.c ${HEAD}
-			mkdir -p $(OBJS_DIR)
+$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
+			@mkdir -p $(OBJS_DIR)
 			${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
 ${NAME}:	${OBJS_SRC}
 			${AR} ${NAME} ${OBJS_SRC}
 
+bonus:		${NAME}
 
 clean:
 			${RM} ${OBJS_DIR}
@@ -42,4 +41,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all bonus clean fclean re
