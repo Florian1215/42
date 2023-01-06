@@ -28,16 +28,33 @@ t_color	*set_blue_light(t_appearance new_app)
 	return (pal);
 }
 
+static t_co	preset_celtic_mandelbar(t_preset preset)
+{
+	static double	presets[7][2] = {
+	{0.80, 0},
+	{0.75, 0.13},
+	{0.82, -0.2},
+	{0.76, 0.06},
+	{0.18, 0.69},
+	{0.76, -0.32},
+	{0.8, -0.14},
+	};
+
+	return (init_complex(presets[preset][0], presets[preset][1]));
+}
+
 void	set_celtic_mandelbar(t_mlx *mlx)
 {
 	mlx->fractal.set = CELTIC_MANDELBAR;
 	mlx->fractal.start = init_complex(-2, 2);
 	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = celtic_mandelbrot;
-	mlx->fractal.coor = init_complex(-125, -130);
+	mlx->fractal.offset_coor = init_complex(-125, -130);
+	mlx->fractal.preset = preset_celtic_mandelbar;
+	mlx->fractal.max_preset = PRESET_6;
 	mlx->fractal.color = BLUE_LIGHT;
 	mlx->fractal.name = "Celtic Mandelbar";
-	mlx->fractal.diff = 50;
+	mlx->fractal.offset_name = 50;
 	mlx->fractal.c = init_complex(-0.780000, -0.180000);
 }
 

@@ -34,10 +34,12 @@ void	set_celtic(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2, 1.3);
 	mlx->fractal.end = init_complex(2, -2.7);
 	mlx->fractal.sequence = celtic;
-	mlx->fractal.coor = init_complex(-125, -225);
+	mlx->fractal.offset_coor = init_complex(-125, -225);
+	mlx->fractal.preset = preset_default;
+	mlx->fractal.max_preset = PRESET_0;
 	mlx->fractal.color = ELECTRIC_BLUE;
 	mlx->fractal.name = "Celtic";
-	mlx->fractal.diff = 18;
+	mlx->fractal.offset_name = 18;
 }
 
 int	celtic(t_mlx *mlx, t_fractal frac, t_co c)

@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-t_bool	is_digit(int c)
+int	is_digit(int c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-t_bool	is_upper(int c)
+int	is_upper(int c)
 {
 	return (c > 'A' && c < 'Z');
 }

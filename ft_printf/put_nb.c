@@ -19,12 +19,12 @@ void	put_unsigned(t_env *env, t_llu nb, t_bases b)
 
 	if (nb >= base[b].len)
 		put_unsigned(env, nb / base[b].len, b);
-	put_char(env, base[b].base[nb % base[b].len], TRUE);
+	put_char(env, base[b].base[nb % base[b].len], 1);
 }
 
 void	put_u(t_env *env, t_llu nb)
 {
-	put_nb_flags(env, nb, FALSE, DEC);
+	put_nb_flags(env, nb, 0, DEC);
 	put_unsigned(env, nb, DEC);
 }
 
@@ -40,9 +40,9 @@ void	put_nbr_base(t_env *env, int n)
 	put_unsigned(env, nb, DEC);
 }
 
-void	put_hexa(t_env *env, t_llu nb, t_bool upper)
+void	put_hexa(t_env *env, t_llu nb, int upper)
 {
-	put_nb_flags(env, nb, FALSE, HEX + upper);
+	put_nb_flags(env, nb, 0, HEX + upper);
 	if (upper == 2)
 		upper = 0;
 	put_unsigned(env, nb, HEX + upper);

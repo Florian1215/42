@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ $1 =~ ^.*\.[ch] ]]; then
+if [[ $1 =~ ^.*\.[ch]|Makefile ]]; then
   update_date=$(date +"%Y\/%m\/%d %H:%M:%S");
   file=$1
   echo "$file"

@@ -12,14 +12,14 @@
 
 #include "ft_printf.h"
 
-void	put_char(t_env *env, int c, t_bool preci)
+void	put_char(t_env *env, int c, int preci)
 {
 	if (env->len == -1 || (preci && env->flags[DOT] && env->values[DOT] < 0))
 		return ;
 	if (env->values[LENGTH] > 0)
 	{
 		env->values[LENGTH]--;
-		put_char(env, ' ', FALSE);
+		put_char(env, ' ', 0);
 	}
 	if (preci && env->flags[DOT])
 		env->values[DOT]--;
@@ -46,8 +46,8 @@ static void	format_str(t_env *env, char c, va_list	args)
 	env->values[LENGTH]--;
 	env->values[DOT] = 1;
 	if (c == CHAR)
-		return (put_char(env, va_arg(args, int), TRUE));
-	put_char(env, c, TRUE);
+		return (put_char(env, va_arg(args, int), 1));
+	put_char(env, c, 1);
 }
 
 int	ft_printf(const char *format, ...)
@@ -72,7 +72,7 @@ int	ft_printf(const char *format, ...)
 			left_jutify(&env);
 		}
 		else
-			put_char(&env, format[env.i], FALSE);
+			put_char(&env, format[env.i], 0);
 	}
 	va_end(args);
 	return (env.len);

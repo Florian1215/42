@@ -31,7 +31,7 @@ static void	put_nb_flags_zero_dot(t_env *env, t_llu nb, int unsign, int len_nb)
 		(!env->flags[DOT] || env->values[DOT] < env->values[ZERO]))
 	{
 		while (env->values[ZERO]-- - len_nb + unsign)
-			put_char(env, '0', FALSE);
+			put_char(env, '0', 0);
 	}
 	if (env->flags[DOT])
 	{
@@ -40,11 +40,11 @@ static void	put_nb_flags_zero_dot(t_env *env, t_llu nb, int unsign, int len_nb)
 		else
 			env->values[DOT] += unsign;
 		while (env->values[DOT] - len_nb > 0)
-			put_char(env, '0', TRUE);
+			put_char(env, '0', 1);
 	}
 }
 
-static void	put_nb_flags_one_c(t_env *env, t_llu nb, t_bool unsign, t_bases *b)
+static void	put_nb_flags_one_c(t_env *env, t_llu nb, int unsign, t_bases *b)
 {
 	if ((env->flags[HASHTAG] || *b == 3) && *b && (nb || *b == 3))
 	{
@@ -52,8 +52,8 @@ static void	put_nb_flags_one_c(t_env *env, t_llu nb, t_bool unsign, t_bases *b)
 		env->values[ZERO] -= 2;
 		if (*b == 3)
 			*b = 1;
-		put_char(env, '0', FALSE);
-		put_char(env, "xX"[--*b], FALSE);
+		put_char(env, '0', 0);
+		put_char(env, "xX"[--*b], 0);
 	}
 	else if (unsign || env->flags[PLUS] || (env->flags[SPACE] && \
 		(env->values[LENGTH] <= 0 || env->flags[ZERO])))
@@ -61,17 +61,17 @@ static void	put_nb_flags_one_c(t_env *env, t_llu nb, t_bool unsign, t_bases *b)
 		if (env->values[LENGTH] && !unsign)
 			env->values[LENGTH]--;
 		if (unsign)
-			put_char(env, '-', FALSE);
+			put_char(env, '-', 0);
 		else if (env->flags[PLUS])
-			put_char(env, '+', FALSE);
+			put_char(env, '+', 0);
 		else
-			put_char(env, ' ', FALSE);
+			put_char(env, ' ', 0);
 		if (env->flags[ZERO])
 			env->values[ZERO]--;
 	}
 }
 
-void	put_nb_flags(t_env *env, t_llu nb, t_bool unsign, t_bases b)
+void	put_nb_flags(t_env *env, t_llu nb, int unsign, t_bases b)
 {
 	int			len_nb;
 

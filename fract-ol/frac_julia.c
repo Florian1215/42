@@ -30,21 +30,17 @@ t_color	*set_purple(t_appearance new_app)
 
 t_co	preset_julia(t_preset preset)
 {
-//	static double	pres[10][2] = {
-//	{0, 0},
-//	{0.80, 0},
-//	{0.75, 0.1},
-//	{0.78, -0.12},
-//	{0.78, -0.15},
-//	{1.15, 0.25},
-//	{0.8, -0.25},
-//	{0.74, 0.08},
-//	{0.8, -0.156},
-//	{0.76, 0.08}
-//	};
+	static double	presets[7][2] = {
+	{0.80, 0},
+	{0.75, 0.13},
+	{0.82, -0.2},
+	{0.76, 0.06},
+	{0.18, 0.69},
+	{0.76, -0.32},
+	{0.8, -0.14},
+	};
 
-	(void)preset;
-	return (init_complex(0, 0));
+	return (init_complex(presets[preset][0], presets[preset][1]));
 }
 
 void	set_julia(t_mlx *mlx)
@@ -53,11 +49,12 @@ void	set_julia(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2, -2);
 	mlx->fractal.end = init_complex(2, 2);
 	mlx->fractal.sequence = julia;
-	mlx->fractal.coor = init_complex(-125, -125);
+	mlx->fractal.offset_coor = init_complex(-125, -125);
+	mlx->fractal.preset = preset_julia;
+	mlx->fractal.max_preset = PRESET_6;
 	mlx->fractal.color = PURPLE;
 	mlx->fractal.name = "Julia";
-	mlx->fractal.diff = 19;
-	set_preset(mlx, PRESET_1);
+	mlx->fractal.offset_name = 19;
 }
 
 int	julia(t_mlx *mlx, t_fractal frac, t_co z)

@@ -41,8 +41,8 @@ void	put_str(t_env *env, char *s)
 	{
 		if (!env->flags[DOT])
 			env->values[LENGTH]--;
-		put_char(env, ' ', TRUE);
+		put_char(env, ' ', 1);
 	}
 	while (*s)
-		put_char(env, *s++, TRUE);
+		put_char(env, *s++, 1);
 }

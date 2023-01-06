@@ -58,10 +58,10 @@ void	set_flags(t_env *env, const char *s)
 				env->values[DASH] = atoi_(env, s, DASH);
 			else if (env->flags[ZERO] && !env->values[ZERO])
 				env->values[ZERO] = atoi_(env, s, ZERO);
-			else if (env->values[LENGTH] == -1)
-				env->values[LENGTH] = atoi_(env, s, LENGTH);
+			else if (env->flags[DOT] && !env->values[DOT])
+				env->values[DOT] = atoi_(env, s, DOT);
 			else
-				break ;
+				env->values[LENGTH] = atoi_(env, s, LENGTH);
 		}
 	}
 }
@@ -75,7 +75,7 @@ void	init_flags(t_env *env)
 	env->flags[DASH] = 0;
 	env->flags[DOT] = 0;
 	env->values[DASH] = 0;
-	env->values[LENGTH] = -1;
+	env->values[LENGTH] = 0;
 }
 
 void	left_jutify(t_env *env)
@@ -86,5 +86,5 @@ void	left_jutify(t_env *env)
 		return ;
 	n = env->len - env->start_len;
 	while (env->values[DASH]-- > n)
-		put_char(env, ' ', FALSE);
+		put_char(env, ' ', 0);
 }

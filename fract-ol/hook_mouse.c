@@ -46,6 +46,8 @@ static void	mouse_event_fractal(t_mlx *mlx, int button, int x, int y)
 
 int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 {
+	if (mlx->slide.slide)
+		return (0);
 	if (mlx->in_menu)
 		mouse_event_menu(mlx, button, x, y);
 	else
@@ -55,6 +57,8 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 
 int	mouse_event_release(int button, int x, int y, t_mlx *mlx)
 {
+	if (mlx->slide.slide)
+		return (0);
 	(void)x;
 	(void)y;
 	if (!mlx->in_menu)
@@ -71,11 +75,14 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 {
 	t_pos	current;
 
+	if (mlx->slide.slide)
+		return (0);
 	if (mlx->in_menu)
 	{
 		current = select_fractal(mlx, init_complex(x, y));
 		if (current != mlx->hover.pos)
 		{
+			mlx->hover.i = 0;
 			mlx->prev_hover = mlx->hover;
 			mlx->hover.pos = current;
 			mlx->hover.value = 1;

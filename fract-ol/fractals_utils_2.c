@@ -43,3 +43,26 @@ void	move(t_mlx *mlx, int x, int y)
 	fractal_render(mlx);
 	mlx->prev_pos = init_complex(x, y);
 }
+
+void	edit_c(t_mlx *mlx, double j, double *nb)
+{
+	double	res;
+
+	res = *nb + j;
+	if (res < -2 || res > 2)
+		return ;
+	*nb = res;
+	printf("%f, %f\n", mlx->fractal.c.x, mlx->fractal.c.y);
+	fractal_render(mlx);
+}
+
+void	edit_iter(t_mlx *mlx, double j)
+{
+	double	res;
+
+	res = mlx->fractal.max_iter + j;
+	if (res < 10 || res > 500)
+		return ;
+	mlx->fractal.max_iter = res;
+	fractal_render(mlx);
+}

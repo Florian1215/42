@@ -18,7 +18,7 @@
 # include <math.h>
 # include <pthread.h>
 
-//TYPEDEF
+//TYPEDEF --------------------------------------
 typedef enum e_colors			t_colors;
 typedef union u_color			t_color;
 typedef enum e_appearance		t_appearance;
@@ -30,8 +30,11 @@ typedef enum e_fractal			t_fractals;
 typedef struct s_thread			t_thread;
 typedef struct s_preview_thread	t_preview_thread;
 typedef enum e_pos				t_pos;
+typedef struct s_img			t_img;
+typedef struct s_slide			t_slide;
+typedef enum e_keycode			t_keycode;
 
-//UTILS
+//UTILS ----------------------------------------
 struct	s_img {
 	void	*img;
 	char	*addr;
@@ -57,10 +60,10 @@ enum e_pos
 
 int			close_mlx(t_mlx *mlx);
 void		init_mlx(t_mlx *mlx);
-void		mlx_put_pixel_img(struct s_img *img, t_co co, int color);
+void		mlx_put_pixel_img(t_img *img, t_co co, int color);
 t_co		init_complex(double x, double y);
 
-// COLOR
+// COLOR ---------------------------------------
 enum e_color_hex
 {
 	FG = 0x202020,
@@ -119,7 +122,7 @@ t_color		*set_night_blue(t_appearance new_app);
 t_color		*set_blue(t_appearance new_app);
 t_color		*set_yellow(t_appearance new_app);
 
-// HOOK
+// HOOK ----------------------------------------
 enum e_keycode
 {
 	C = 8,
@@ -130,8 +133,8 @@ enum e_keycode
 	TAB = 48,
 	PLUS = 69,
 	MINUS = 78,
-	RIGHT = 123,
-	LEFT = 124,
+	LEFT = 123,
+	RIGHT = 124,
 	DOWN = 125,
 	UP = 126,
 	NUM_0 = 82,
@@ -161,7 +164,28 @@ int			mouse_event_press(int button, int x, int y, t_mlx *mlx);
 int			mouse_event_release(int button, int x, int y, t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
 
-// FRACTAL
+// MENU ----------------------------------------
+struct s_slide
+{
+	t_img		img;
+	t_keycode	side;
+	int			i;
+	int			slide;
+	int			start;
+	int			save;
+};
+
+void		set_menu(t_mlx *mlx);
+void		set_name_fractals(t_mlx *mlx, int x_offset);
+t_pos		select_fractal(t_mlx *mlx, t_co co);
+void		init_hover(t_mlx *mlx);
+int			mouse_event_motion(int x, int y, t_mlx *mlx);
+void		set_page(t_mlx *mlx, int page);
+void		slide_page(t_mlx *mlx, t_keycode side);
+void		render_slide(t_mlx *mlx);
+void		hover_animation(t_mlx *mlx);
+
+// FRACTAL -------------------------------------
 enum e_fractal
 {
 	MANDELBROT,
@@ -199,10 +223,12 @@ struct s_fractal
 	t_co		start;
 	t_co		end;
 	t_co		c;
-	int			diff;
 	char		*name;
+	int			offset_name;
 	double		max_iter;
-	t_co		coor;
+	t_co		offset_coor;
+	t_preset	max_preset;
+	t_co		(*preset)(t_preset);
 	int			(*sequence)(t_mlx *, t_fractal, t_co);
 };
 
@@ -210,13 +236,14 @@ struct	s_hover
 {
 	t_pos	pos;
 	double	value;
+	int		i;
 };
 
 struct s_mlx
 {
 	void				*mlx_ptr;
 	void				*win_ptr;
-	struct s_img		img;
+	t_img				img;
 	struct s_hover		hover;
 	struct s_hover		prev_hover;
 	t_appearance		appearance;
@@ -233,6 +260,7 @@ struct s_mlx
 	int					add_co;
 	int					page;
 	int					render;
+	t_slide				slide;
 };
 
 void		fractal_render(t_mlx *mlx);
@@ -270,7 +298,9 @@ void		set_heart(t_mlx *mlx);
 void		set_mandelbar(t_mlx *mlx);
 void		set_celtic_mandelbrot(t_mlx *mlx);
 
-// THREAD
+t_co		preset_default(t_preset preset);
+
+// THREAD --------------------------------------
 struct s_thread
 {
 	t_mlx		*mlx;
@@ -284,13 +314,6 @@ struct s_preview_thread
 	pthread_t	thread;
 	t_fractal	frac;
 };
-
-// MENU
-void		set_menu(t_mlx *mlx);
-t_pos		select_fractal(t_mlx *mlx, t_co co);
-void		init_hover(t_mlx *mlx);
-int			mouse_event_motion(int x, int y, t_mlx *mlx);
-void		set_page(t_mlx *mlx, int page);
 
 #include <stdio.h>
 

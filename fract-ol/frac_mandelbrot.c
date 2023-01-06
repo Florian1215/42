@@ -40,9 +40,11 @@ void	set_mandelbrot(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2.2, -2);
 	mlx->fractal.end = init_complex(1.8, 2);
 	mlx->fractal.sequence = mandelbrot;
-	mlx->fractal.coor = init_complex(-200, -122);
+	mlx->fractal.offset_coor = init_complex(-200, -122);
+	mlx->fractal.preset = preset_default;
+	mlx->fractal.max_preset = PRESET_0;
 	mlx->fractal.color = GREEN;
-	mlx->fractal.diff = 20;
+	mlx->fractal.offset_name = 20;
 	mlx->fractal.name = "Mandelbrot";
 }
 

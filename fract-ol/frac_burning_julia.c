@@ -46,10 +46,10 @@ void	set_burning_julia(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2, 2);
 	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = burning_julia;
-	mlx->fractal.coor = init_complex(-125, -125);
+	mlx->fractal.offset_coor = init_complex(-125, -125);
 	mlx->fractal.color = PINK;
 	mlx->fractal.name = "Burning Julia";
-	mlx->fractal.diff = 45;
+	mlx->fractal.offset_name = 45;
 	mlx->fractal.c = init_complex(0.92, -0.54);
 }
 

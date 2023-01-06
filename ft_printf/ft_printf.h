@@ -14,13 +14,11 @@
 # define FT_PRINTF_H
 
 // INCLUDE --------------------------------------------------
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
 
 // TYPEDEF --------------------------------------------------
 typedef unsigned long long int	t_llu;
-typedef enum e_bool				t_bool;
 typedef enum e_flags			t_flags;
 typedef enum e_bases			t_bases;
 typedef struct s_base			t_base;
@@ -39,7 +37,7 @@ struct s_env
 int		ft_printf(const char *format, ...);
 
 // CHAR -----------------------------------------------------
-void	put_char(t_env *env, int c, t_bool preci);
+void	put_char(t_env *env, int c, int preci);
 void	put_str(t_env *env, char *s);
 
 // NUMBER ---------------------------------------------------
@@ -58,7 +56,7 @@ struct s_base
 void	put_nbr_base(t_env *env, int n);
 void	put_unsigned(t_env *env, t_llu nb, t_bases b);
 void	put_u(t_env *env, t_llu nb);
-void	put_hexa(t_env *env, t_llu nb, t_bool upper);
+void	put_hexa(t_env *env, t_llu nb, int upper);
 
 // FLAGS ----------------------------------------------------
 enum e_conversions
@@ -70,7 +68,6 @@ enum e_conversions
 	INTEGER = 'i',
 	UNSIGNED = 'u',
 	HEXA = 'X',
-	PERCENT = '%',
 };
 
 enum e_flags
@@ -87,19 +84,13 @@ enum e_flags
 
 void	init_flags(t_env *env);
 void	set_flags(t_env *env, const char *str);
-void	put_nb_flags(t_env *env, t_llu nb, t_bool unsign, t_bases b);
+void	put_nb_flags(t_env *env, t_llu nb, int unsign, t_bases b);
 void	left_jutify(t_env *env);
 
 // UTILS ----------------------------------------------------
-enum e_bool
-{
-	FALSE,
-	TRUE,
-};
-
 int		to_upper(int c);
-t_bool	is_upper(int c);
+int		is_upper(int c);
 t_flags	get_flags(int c);
-t_bool	is_digit(int c);
+int		is_digit(int c);
 
 #endif

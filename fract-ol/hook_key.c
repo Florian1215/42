@@ -6,7 +6,7 @@
 /*   By: fguirama <fguirama@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 18:08:00 by fguirama          #+#    #+#             */
-/*   Updated: 2023/01/02 18:08:00 by fguirama         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:25:28 by fguirama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	key_event_preset(t_mlx *mlx, int k)
 
 int	key_event(int k, t_mlx *mlx)
 {
+	if (mlx->slide.slide)
+		return (0);
 	if (k == ESQ)
 		close_mlx(mlx);
 	if (mlx->in_menu)
@@ -65,13 +67,13 @@ int	key_event(int k, t_mlx *mlx)
 static void	key_event_fractal(t_mlx *mlx, int k)
 {
 	if (k == LEFT)
-		edit_c(mlx, 0.03, &mlx->fractal.c.y);
+		edit_c(mlx, 0.01, &mlx->fractal.c.y);
 	else if (k == DOWN)
-		edit_c(mlx, 0.03, &mlx->fractal.c.x);
+		edit_c(mlx, 0.01, &mlx->fractal.c.x);
 	else if (k == RIGHT)
-		edit_c(mlx, -0.03, &mlx->fractal.c.y);
+		edit_c(mlx, -0.01, &mlx->fractal.c.y);
 	else if (k == UP)
-		edit_c(mlx, -0.03, &mlx->fractal.c.x);
+		edit_c(mlx, -0.01, &mlx->fractal.c.x);
 	else if (k == PLUS)
 		edit_iter(mlx, 10);
 	else if (k == MINUS)
@@ -80,18 +82,15 @@ static void	key_event_fractal(t_mlx *mlx, int k)
 
 int	key_event_press(int k, t_mlx *mlx)
 {
+	if (mlx->slide.slide)
+		return (0);
 	if (k == D)
 		toggle_appearance(mlx);
 	else if (k == C)
 		edit_color(mlx);
-	else if (mlx->in_menu)
-	{
-		if (k == LEFT)
-			set_page(mlx, ++mlx->page % 3);
-		else if (k == RIGHT)
-			set_page(mlx, --mlx->page);
-	}
-	else
+	else if (mlx->in_menu && (k == LEFT || k == RIGHT))
+		slide_page(mlx, k);
+	else if (!mlx->in_menu)
 		key_event_fractal(mlx, k);
 	return (1);
 }

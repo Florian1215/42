@@ -25,18 +25,10 @@ static int	hook_loop(t_mlx *mlx)
 	}
 	else if (mlx->in_menu)
 	{
-		if (mlx->hover.value >= 0.87 || mlx->prev_hover.value < 1)
-		{
-			if (mlx->hover.value >= 0.87)
-				mlx->hover.value -= 0.03;
-			else if (mlx->hover.value >= 0.95)
-				mlx->hover.value -= 0.01;
-			if (mlx->prev_hover.value < 0.87)
-				mlx->prev_hover.value += 0.02;
-			else if (mlx->prev_hover.value < 1)
-				mlx->prev_hover.value += 0.04;
-			set_menu(mlx);
-		}
+		if (mlx->slide.start)
+			render_slide(mlx);
+		else if (mlx->hover.pos != POS_ERROR || mlx->prev_hover.pos != POS_ERROR)
+			hover_animation(mlx);
 	}
 	return (1);
 }

@@ -46,10 +46,12 @@ void	set_burning_shipe(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2.4, 1.6);
 	mlx->fractal.end = init_complex(1.6, -2.4);
 	mlx->fractal.sequence = burning_shipe;
-	mlx->fractal.coor = init_complex(-200, -167);
+	mlx->fractal.offset_coor = init_complex(-200, -167);
+	mlx->fractal.preset = preset_default;
+	mlx->fractal.max_preset = PRESET_0;
 	mlx->fractal.color = RED;
 	mlx->fractal.name = "Burning Ship";
-	mlx->fractal.diff = 36;
+	mlx->fractal.offset_name = 36;
 }
 
 int	burning_shipe(t_mlx *mlx, t_fractal frac, t_co c)

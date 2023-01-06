@@ -53,10 +53,10 @@ void	set_buffalo(t_mlx *mlx)
 	mlx->fractal.start = init_complex(-2, 2);
 	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = buffalo;
-	mlx->fractal.coor = init_complex(-125, -122);
+	mlx->fractal.offset_coor = init_complex(-125, -122);
 	mlx->fractal.color = BLUE_RED;
 	mlx->fractal.name = "Buffalo";
-	mlx->fractal.diff = 25;
+	mlx->fractal.offset_name = 25;
 	mlx->fractal.c = init_complex(-1.140000, 0.060000);
 }
 
