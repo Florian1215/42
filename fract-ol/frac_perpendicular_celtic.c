@@ -31,7 +31,7 @@ t_color	*set_pastel_pink(t_appearance new_app)
 static t_co	preset_perpendicular_celtic(t_preset preset)
 {
 	static double	presets[7][2] = {
-	{0.80, 0},
+	{-0.750000, -0.090000},
 	{0.75, 0.13},
 	{0.82, -0.2},
 	{0.76, 0.06},
@@ -46,8 +46,6 @@ static t_co	preset_perpendicular_celtic(t_preset preset)
 void	set_perpendicular_celtic(t_mlx *mlx)
 {
 	mlx->fractal.set = PERPENDICULAR_CELTIC;
-	mlx->fractal.start = init_complex(-2, 2);
-	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = perpendicular_celtic;
 	mlx->fractal.offset_coor = init_complex(-130, -130);
 	mlx->fractal.preset = preset_perpendicular_celtic;
@@ -55,7 +53,6 @@ void	set_perpendicular_celtic(t_mlx *mlx)
 	mlx->fractal.color = PASTEL_PINK;
 	mlx->fractal.name = "Perpendicular Celtic";
 	mlx->fractal.offset_name = 60;
-	mlx->fractal.c = init_complex(-0.750000, -0.090000);
 }
 
 int	perpendicular_celtic(t_mlx *mlx, t_fractal frac, t_co z)

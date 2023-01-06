@@ -225,7 +225,8 @@ struct s_fractal
 	t_co		c;
 	char		*name;
 	int			offset_name;
-	double		max_iter;
+	int			max_iter;
+	double		size_zoom;
 	t_co		offset_coor;
 	t_preset	max_preset;
 	t_co		(*preset)(t_preset);

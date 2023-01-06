@@ -32,7 +32,7 @@ t_color	*set_blue(t_appearance new_app)
 static t_co	preset_mandelbar(t_preset preset)
 {
 	static double	presets[7][2] = {
-	{0.80, 0},
+	{-0.180000, 0.780000},
 	{0.75, 0.13},
 	{0.82, -0.2},
 	{0.76, 0.06},
@@ -47,8 +47,6 @@ static t_co	preset_mandelbar(t_preset preset)
 void	set_mandelbar(t_mlx *mlx)
 {
 	mlx->fractal.set = MANDELBAR;
-	mlx->fractal.start = init_complex(-2, 2);
-	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = mandelbar;
 	mlx->fractal.offset_coor = init_complex(-125, -100);
 	mlx->fractal.preset = preset_mandelbar;
@@ -56,7 +54,6 @@ void	set_mandelbar(t_mlx *mlx)
 	mlx->fractal.color = BLUE;
 	mlx->fractal.name = "Mandelbar";
 	mlx->fractal.offset_name = 30;
-	mlx->fractal.c = init_complex(-0.180000, 0.780000);
 }
 
 int	mandelbar(t_mlx *mlx, t_fractal frac, t_co z)

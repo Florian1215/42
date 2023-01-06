@@ -35,8 +35,8 @@ static t_co	get_coor(t_mlx *mlx, t_fractal frac, t_co i)
 		hover = mlx->hover.value;
 	else if (mlx->prev_hover.pos != POS_ERROR && frac.set == mlx->menu[mlx->prev_hover.pos])
 		hover = mlx->prev_hover.value;
-	co.x = ((i.x - frac.start.x) - (mlx->size / 2) / 4 + frac.offset_coor.x) / ((mlx->size / 2) / 2) * (1.6 * hover);
-	co.y = ((i.y - frac.start.y) - (mlx->size / 2) / 4 + frac.offset_coor.y) / ((mlx->size / 2) / 2) * (1.6 * hover);
+	co.x = ((i.x - frac.start.x) - (mlx->size / 2) / 4 + frac.offset_coor.x) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
+	co.y = ((i.y - frac.start.y) - (mlx->size / 2) / 4 + frac.offset_coor.y) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
 	return (co);
 }
 
@@ -76,9 +76,9 @@ void	set_menu(t_mlx *mlx)
 		set_color(mlx, mlx->fractal.color);
 		mlx->fractal.color = mlx->color;
 		if ((int)mlx->hover.pos == i)
-			mlx->fractal.max_iter -= (1 - mlx->hover.value) * 130;
+			mlx->fractal.max_iter -= (1 - mlx->hover.value) * 120;
 		else if ((int)mlx->prev_hover.pos == i)
-			mlx->fractal.max_iter -= (1 - mlx->prev_hover.value) * 130;
+			mlx->fractal.max_iter -= (1 - mlx->prev_hover.value) * 120;
 		t[i].mlx = mlx;
 		t[i].frac = mlx->fractal;
 		pthread_create(&t[i].thread, NULL, (void *)fractal_preview, &t[i]);

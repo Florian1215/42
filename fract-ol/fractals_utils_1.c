@@ -21,6 +21,9 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 
 	if (!mlx->in_menu)
 		init_hover(mlx);
+	mlx->fractal.size_zoom = 1.6;
+	mlx->fractal.start = init_complex(-2, 2);
+	mlx->fractal.end = init_complex(2, -2);
 	fractals_set[set](mlx);
 	set_preset(mlx, PRESET_0);
 	mlx->fractal.max_iter = 50;

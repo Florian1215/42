@@ -40,24 +40,37 @@ t_color	*set_blue_red(t_appearance new_app)
 	return (pal);
 }
 
-t_co	preset_buffalo(t_preset preset)
+static t_co	preset_buffalo(t_preset preset)
 {
-	// 0.36, -0.69
-	(void)preset;
-	return (init_complex(0, 0));
+	static double	presets[10][2] = {
+	{-1.14, 0.06},
+	{0.406, -0.936},
+	{-0.936, 0.052},
+	{0.536, -1.026},
+	{-1.752, -0.544},
+	{0.366, -0.676},
+	{-1.552, -1.772},
+	{-1.13, 0.08},
+	{-0.428, -1.52},
+	{0.426, -0.716},
+	};
+
+	return (init_complex(presets[preset][0], presets[preset][1]));
 }
 
 void	set_buffalo(t_mlx *mlx)
 {
 	mlx->fractal.set = BUFFALO;
-	mlx->fractal.start = init_complex(-2, 2);
-	mlx->fractal.end = init_complex(2, -2);
+	mlx->fractal.start = init_complex(-2.1, 2.1);
+	mlx->fractal.end = init_complex(2.1, -2.1);
 	mlx->fractal.sequence = buffalo;
 	mlx->fractal.offset_coor = init_complex(-125, -122);
+	mlx->fractal.preset = preset_buffalo;
+	mlx->fractal.max_preset = PRESET_9;
 	mlx->fractal.color = BLUE_RED;
 	mlx->fractal.name = "Buffalo";
 	mlx->fractal.offset_name = 25;
-	mlx->fractal.c = init_complex(-1.140000, 0.060000);
+	mlx->fractal.size_zoom = 1.85;
 }
 
 int	buffalo(t_mlx *mlx, t_fractal frac, t_co z)

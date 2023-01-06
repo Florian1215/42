@@ -46,8 +46,6 @@ t_co	preset_julia(t_preset preset)
 void	set_julia(t_mlx *mlx)
 {
 	mlx->fractal.set = JULIA;
-	mlx->fractal.start = init_complex(-2, -2);
-	mlx->fractal.end = init_complex(2, 2);
 	mlx->fractal.sequence = julia;
 	mlx->fractal.offset_coor = init_complex(-125, -125);
 	mlx->fractal.preset = preset_julia;

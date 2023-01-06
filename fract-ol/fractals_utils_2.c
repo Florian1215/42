@@ -19,10 +19,14 @@ static double	cross_multi(double start, double end, double scale)
 
 void	zoom(t_mlx *mlx, double scale, t_co co)
 {
-	if (scale < 1)
-		mlx->fractal.max_iter += 0.7;
-	else if (scale > 1)
-		mlx->fractal.max_iter -= 0.7;
+	static int	i = 0;
+
+	i++;
+	if (i > 5)
+	{
+		i = 0;
+		mlx->fractal.max_iter += 5 * (-1 * (scale > 1) + (scale < 1));
+	}
 	mlx->fractal.start.x = cross_multi(co.x, mlx->fractal.start.x, scale);
 	mlx->fractal.start.y = cross_multi(co.y, mlx->fractal.start.y, scale);
 	mlx->fractal.end.x = cross_multi(co.x, mlx->fractal.end.x, scale);

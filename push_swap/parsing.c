@@ -80,6 +80,10 @@ t_stack	*parsing(int ac, char **av)
 	{
 		j = 0;
 		split = split_(av[i++]);
+		if (!split)
+			return (error_(stack), NULL);
+		if (!*split)
+			return (free_split(split, -1), error_(stack), NULL);
 		while (split[j])
 			atoi_(split[j++], k++, stack);
 		free_split(split, -1);

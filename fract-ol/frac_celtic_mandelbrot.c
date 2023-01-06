@@ -38,7 +38,7 @@ t_color	*set_yellow(t_appearance new_app)
 static t_co	preset_celtic_mandelbrot(t_preset preset)
 {
 	static double	presets[7][2] = {
-	{0.80, 0},
+	{-0.852000, 0.128000},
 	{0.75, 0.13},
 	{0.82, -0.2},
 	{0.76, 0.06},
@@ -53,8 +53,6 @@ static t_co	preset_celtic_mandelbrot(t_preset preset)
 void	set_celtic_mandelbrot(t_mlx *mlx)
 {
 	mlx->fractal.set = CELTIC_MANDELBROT;
-	mlx->fractal.start = init_complex(-2, 2);
-	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = celtic_mandelbrot;
 	mlx->fractal.offset_coor = init_complex(-125, -125);
 	mlx->fractal.preset = preset_celtic_mandelbrot;
@@ -62,7 +60,6 @@ void	set_celtic_mandelbrot(t_mlx *mlx)
 	mlx->fractal.color = YELLOW;
 	mlx->fractal.name = "Celtic Mandelbrot";
 	mlx->fractal.offset_name = 60;
-	mlx->fractal.c = init_complex(-0.852000, 0.128000);
 }
 
 int	celtic_mandelbrot(t_mlx *mlx, t_fractal frac, t_co z)

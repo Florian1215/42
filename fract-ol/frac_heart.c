@@ -32,7 +32,7 @@ t_color	*set_night_blue(t_appearance new_app)
 static t_co	preset_heart(t_preset preset)
 {
 	static double	presets[7][2] = {
-	{0.80, 0},
+	{-0.030000, 0.300000},
 	{0.75, 0.13},
 	{0.82, -0.2},
 	{0.76, 0.06},
@@ -47,8 +47,6 @@ static t_co	preset_heart(t_preset preset)
 void	set_heart(t_mlx *mlx)
 {
 	mlx->fractal.set = HEART;
-	mlx->fractal.start = init_complex(-2, 2);
-	mlx->fractal.end = init_complex(2, -2);
 	mlx->fractal.sequence = heart;
 	mlx->fractal.offset_coor = init_complex(-125, -180);
 	mlx->fractal.preset = preset_heart;
@@ -56,7 +54,6 @@ void	set_heart(t_mlx *mlx)
 	mlx->fractal.color = NIGHT_BLUE;
 	mlx->fractal.name = "Heart";
 	mlx->fractal.offset_name = 18;
-	mlx->fractal.c = init_complex(-0.030000, 0.300000);
 }
 
 int	heart(t_mlx *mlx, t_fractal frac, t_co z)
