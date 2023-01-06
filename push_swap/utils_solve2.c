@@ -12,11 +12,6 @@
 
 #include "push_swap.h"
 
-int	abs(int n)
-{
-	return (n * (-1 * (n < 0) + (n > 0)));
-}
-
 void	efficient_move(t_stack *stack, t_stacks s, int index)
 {
 	static	void	(*func_side[2][2])() = {{rb, rrb}, \
@@ -72,7 +67,7 @@ void	get_min_rotate(t_stack *stack, int *a, int *b)
 		else
 			index_a = get_mid_index(stack, stack->b[i]);
 		index_b = get_side(i, stack->len_b);
-		if (!i || abs(index_a) + abs(index_b) < abs(*a) + abs(*b))
+		if (!i || get_move(index_a, index_b) < get_move(*a, *b))
 		{
 			*a = index_a;
 			*b = index_b;

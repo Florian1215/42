@@ -54,7 +54,5 @@ void	solve_smart_sort(t_stack *stack)
 	while (stack->len_a > 3)
 		pb(stack);
 	solve3(stack);
-	if (stack->len_a == 2 && stack->a[0] > stack->a[1])
-		sa(stack);
 	solve_b(stack);
 }

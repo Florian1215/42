@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_solve3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 15:11:00 by fguirama          #+#    #+#             */
-/*   Updated: 2023/01/03 15:11:00 by fguirama         ###   ########.fr       */
+/*   Created: 2023/01/06 18:32:00 by fguirama          #+#    #+#             */
+/*   Updated: 2023/01/06 18:32:00 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "push_swap.h"
 
-int	main(void)
+int	abs(int n)
 {
-	char	*line;
-	char	*format;
+	return (n * (-1 * (n < 0) + (n > 0)));
+}
 
-	line = "%. 15s";
-	format = "salut";
-	printf("| %d\n", printf(line, format));
-	printf("| %d\n", ft_printf(line, format));
+static int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int	get_move(int a, int b)
+{
+	if ((a > 0 && b > 0) || (a < 0 && b < 0))
+		return (max(abs(a), abs(b)));
+	return (abs(a) + abs(b));
 }

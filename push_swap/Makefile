@@ -15,7 +15,7 @@ OBJS_DIR		= OBJ/
 SRCS			= ins_push.c ins_reverse.c ins_rotate.c ins_swap.c parsing.c sort_index.c split.c utils1.c utils2.c
 OBJS_SRCS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
-SRCS_PS			= push_swap.c solve_radix.c solve_smart_sort.c utils_solve1.c utils_solve2.c
+SRCS_PS			= push_swap.c solve_radix.c solve_smart_sort.c utils_solve1.c utils_solve2.c utils_solve3.c
 OBJS_PS			= $(addprefix ${OBJS_DIR}, $(SRCS_PS:.c=.o))
 NAME			= push_swap
 

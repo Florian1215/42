@@ -45,10 +45,10 @@ int	main(int ac, char **av)
 	{
 		if (stack->len == 3)
 			solve3(stack);
-		else if (stack->len == 6)
-			solve_radix(stack);
-		else
+		else if (stack->len > 6 || stack->len == 5)
 			solve_smart_sort(stack);
+		else
+			solve_radix(stack);
 	}
 	free_stack(stack, ALL);
 }

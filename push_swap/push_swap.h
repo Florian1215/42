@@ -13,12 +13,14 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+// INCLUDE ----------------------------------------------------------
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 
+// MAIN -------------------------------------------------------------
 typedef struct s_stack		t_stack;
 typedef enum e_stacks		t_stacks;
 
@@ -40,10 +42,11 @@ enum e_stacks
 	ALL,
 };
 
-// SOLVE
+// SOLVE ------------------------------------------------------------
 void	solve3(t_stack *stack);
 void	solve_radix(t_stack *stack);
 void	solve_smart_sort(t_stack *stack);
+int		get_move(int a, int b);
 void	efficient_move(t_stack *stack, t_stacks s, int index);
 void	efficient_rr(t_stack *stack, int *a, int *b);
 int		get_side(int i, int len);
@@ -53,7 +56,7 @@ void	get_min_rotate(t_stack *stack, int *a, int *b);
 int		get_max(t_stack *stack);
 int		get_max_index(t_stack *stack);
 
-// UTILS
+// UTILS ------------------------------------------------------------
 char	*get_next_line(int fd);
 void	error_(t_stack *stack);
 t_stack	*parsing(int ac, char **av);
@@ -67,7 +70,7 @@ char	**split_(char const *s);
 char	**free_split(char **split, int i);
 int		ct_word(char const *s);
 
-// INSTRUCTIONS
+// INSTRUCTIONS -----------------------------------------------------
 void	sa(t_stack *stack);
 void	sb(t_stack *stack);
 void	ss(t_stack *stack);
