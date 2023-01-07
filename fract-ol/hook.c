@@ -16,6 +16,8 @@ static int	hook_loop(t_mlx *mlx)
 {
 	if (mlx->c_animate)
 		c_animation(mlx);
+	else if (mlx->reset)
+		reset_animation(mlx);
 	else if (mlx->in_menu && mlx->slide.start)
 		render_slide(mlx);
 	else if (mlx->in_menu && (mlx->hover.pos != POS_ERROR || mlx->prev_hover.pos != POS_ERROR))
@@ -25,22 +27,19 @@ static int	hook_loop(t_mlx *mlx)
 
 static int	key_event(int k, t_mlx *mlx)
 {
-	if (mlx->slide.slide)
+	if (mlx->slide.slide || mlx->reset)
 		return (0);
 	if (k == ESQ)
 		close_mlx(mlx);
 	if (mlx->in_menu)
 		return (0);
 	else if (k == Q && !mlx->c_animate)
-	{
-		mlx->c_animate = 1;
-		set_fractal(mlx, mlx->fractal.set);
-		set_color(mlx, mlx->fractal.color);
-		fractal_render(mlx);
-	}
+		mlx->reset = TRUE;
 	else if (k == TAB)
 		set_menu(mlx);
 	else if (k == W)
+		launch_fractal(mlx, mlx->fractal.set ? --mlx->fractal.set : 11);
+	else if (k == E)
 		launch_fractal(mlx, ++mlx->fractal.set % 12);
 	else if (k >= NUM_0 && k <= NUM_9 && k != 90 && !mlx->c_animate)
 		set_preset(mlx, k - 82 - (k >= NUM_8));
@@ -65,7 +64,7 @@ static void	key_event_fractal(t_mlx *mlx, int k)
 
 static int	key_event_press(int k, t_mlx *mlx)
 {
-	if (mlx->slide.slide)
+	if (mlx->slide.slide || mlx->reset)
 		return (0);
 	if (k == D)
 		toggle_appearance(mlx);

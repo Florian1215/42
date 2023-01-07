@@ -27,18 +27,18 @@ static void	mouse_event_fractal(t_mlx *mlx, int button, int x, int y)
 	else if (button == LEFT_CLICK)
 	{
 		mlx->prev_pos = init_complex(x, y);
-		mlx->moving = 1;
+		mlx->moving = TRUE;
 	}
 	else if (button == RIGHT_CLICK)
 	{
-		mlx->edit_c = 1;
+		mlx->edit_c = TRUE;
 		mouse_event_motion(x, y, mlx);
 	}
 }
 
 int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 {
-	if (mlx->slide.slide)
+	if (mlx->slide.slide || mlx->reset)
 		return (0);
 	if (mlx->in_menu)
 		launch_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
@@ -49,16 +49,16 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 
 int	mouse_event_release(int button, int x, int y, t_mlx *mlx)
 {
-	if (mlx->slide.slide)
+	if (mlx->slide.slide || mlx->reset)
 		return (0);
 	(void)x;
 	(void)y;
 	if (!mlx->in_menu)
 	{
 		if (button == LEFT_CLICK)
-			mlx->moving = 0;
+			mlx->moving = FALSE;
 		else if (button == RIGHT_CLICK)
-			mlx->edit_c = 0;
+			mlx->edit_c = FALSE;
 	}
 	return (1);
 }
@@ -67,7 +67,7 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 {
 	t_pos	current;
 
-	if (mlx->slide.slide)
+	if (mlx->slide.slide || mlx->reset)
 		return (0);
 	if (mlx->in_menu)
 	{

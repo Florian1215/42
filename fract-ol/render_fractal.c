@@ -19,8 +19,7 @@ void	fractal_render(t_mlx *mlx)
 
 	if (mlx->render)
 		return ;
-	mlx->render = 1;
-	mlx_clear_window(mlx->mlx_ptr, mlx->win_ptr);
+	mlx->render = TRUE;
 	i = -1;
 	while (++i < 8)
 	{
@@ -32,7 +31,7 @@ void	fractal_render(t_mlx *mlx)
 	while (++i < 8)
 		pthread_join(t[i].thread, NULL);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
-	mlx->render = 0;
+	mlx->render = FALSE;
 }
 
 void	create_fractal(t_thread	*t)

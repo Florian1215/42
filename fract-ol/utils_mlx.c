@@ -33,16 +33,17 @@ void	init_mlx(t_mlx *mlx)
 {
 	mlx->mlx_ptr = mlx_init();
 	mlx->size = 1000;
-	mlx->in_menu = 1;
-	mlx->c_animate = 0;
 	mlx->offset_color = 0;
 	mlx->appearance = LIGHT;
-	mlx->moving = 0;
-	mlx->render = 0;
-	mlx->slide.slide = 0;
-	mlx->slide.start = 0;
-	mlx->slide.save = 0;
-	mlx->edit_c = 0;
+	mlx->in_menu = TRUE;
+	mlx->reset = FALSE;
+	mlx->c_animate = FALSE;
+	mlx->moving = FALSE;
+	mlx->render = FALSE;
+	mlx->slide.slide = FALSE;
+	mlx->slide.start = FALSE;
+	mlx->slide.save = FALSE;
+	mlx->edit_c = FALSE;
 	init_hover(mlx);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, (int)mlx->size, (int)mlx->size, "Fract-ol");
 	mlx->slide.img.img = mlx_new_image(mlx, (int)mlx->size, (int)mlx->size);

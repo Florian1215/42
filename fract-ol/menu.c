@@ -35,8 +35,8 @@ static t_co	get_coor(t_mlx *mlx, t_fractal frac, t_co i)
 		hover = mlx->hover.value;
 	else if (mlx->prev_hover.pos != POS_ERROR && frac.set == mlx->menu[mlx->prev_hover.pos])
 		hover = mlx->prev_hover.value;
-	co.x = ((i.x - frac.start.x) - (mlx->size / 2) / 4 + frac.offset_coor.x) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
-	co.y = ((i.y - frac.start.y) - (mlx->size / 2) / 4 + frac.offset_coor.y) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
+	co.x = ((i.x - frac.start.x) - (mlx->size / 2) / 4 + (frac.offset_coor.x * mlx->size / 1000)) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
+	co.y = ((i.y - frac.start.y) - (mlx->size / 2) / 4 + (frac.offset_coor.y * mlx->size / 1000)) / ((mlx->size / 2) / 2) * (frac.size_zoom * hover);
 	return (co);
 }
 
@@ -66,8 +66,8 @@ void	set_menu(t_mlx *mlx)
 	int					i;
 	t_preview_thread	t[4];
 
-	mlx->in_menu = 1;
-	mlx->c_animate = 0;
+	mlx->in_menu = TRUE;
+	mlx->c_animate = FALSE;
 	i = -1;
 	while (++i < 4)
 	{
@@ -87,6 +87,5 @@ void	set_menu(t_mlx *mlx)
 	while (++i < 4)
 		pthread_join(t[i].thread, NULL);
 	if (!mlx->slide.slide)
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
-	set_name_fractals(mlx, 0);
+		set_name_fractals(mlx, mlx->img.img, 0);
 }

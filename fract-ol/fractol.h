@@ -19,22 +19,30 @@
 # include <pthread.h>
 
 //TYPEDEF --------------------------------------
+typedef enum e_pos				t_pos;
+typedef enum e_bool				t_bool;
 typedef enum e_colors			t_colors;
-typedef union u_color			t_color;
-typedef enum e_appearance		t_appearance;
 typedef enum e_preset			t_preset;
+typedef enum e_keycode			t_keycode;
+typedef enum e_fractal			t_fractals;
+typedef enum e_appearance		t_appearance;
+typedef union u_color			t_color;
 typedef struct s_co				t_co;
 typedef struct s_mlx			t_mlx;
-typedef struct s_fractal		t_fractal;
-typedef enum e_fractal			t_fractals;
-typedef struct s_thread			t_thread;
-typedef struct s_preview_thread	t_preview_thread;
-typedef enum e_pos				t_pos;
 typedef struct s_img			t_img;
 typedef struct s_slide			t_slide;
-typedef enum e_keycode			t_keycode;
+typedef struct s_hover			t_hover;
+typedef struct s_thread			t_thread;
+typedef struct s_fractal		t_fractal;
+typedef struct s_preview_thread	t_preview_thread;
 
 //UTILS ----------------------------------------
+enum e_bool
+{
+	FALSE,
+	TRUE,
+};
+
 struct	s_img {
 	void	*img;
 	char	*addr;
@@ -129,6 +137,7 @@ enum e_keycode
 	D = 2,
 	Q = 12,
 	W = 13,
+	E = 14,
 	ESQ = 53,
 	TAB = 48,
 	PLUS = 69,
@@ -168,13 +177,13 @@ struct s_slide
 	t_img		img;
 	t_keycode	side;
 	int			i;
-	int			slide;
-	int			start;
-	int			save;
+	t_bool		slide;
+	t_bool		start;
+	t_bool		save;
 };
 
 void		set_menu(t_mlx *mlx);
-void		set_name_fractals(t_mlx *mlx, int x_offset);
+void		set_name_fractals(t_mlx *mlx, void *img, int x_offset);
 t_pos		select_fractal(t_mlx *mlx, t_co co);
 void		init_hover(t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
@@ -218,15 +227,18 @@ struct s_fractal
 {
 	t_fractals	set;
 	t_colors	color;
+	t_co		c;
 	t_co		start;
 	t_co		end;
-	t_co		c;
+	t_co		start_animation;
+	t_co		end_animation;
+	t_co		start_launch;
+	t_co		end_launch;
 	char		*name;
 	int			offset_name;
 	int			max_iter;
+	int			start_max_iter;
 	double		size_zoom;
-	t_co		start_animation;
-	t_co		end_animation;
 	t_co		offset_coor;
 	t_preset	max_preset;
 	t_co		(*preset)(t_preset);
@@ -242,32 +254,33 @@ struct	s_hover
 
 struct s_mlx
 {
-	void				*mlx_ptr;
-	void				*win_ptr;
-	t_img				img;
-	struct s_hover		hover;
-	struct s_hover		prev_hover;
-	t_appearance		appearance;
-	t_fractals			menu[4];
-	t_fractal			fractal;
-	t_colors			color;
-	t_co				prev_pos;
-	int					size;
-	int					c_animate;
-	int					moving;
-	int					in_menu;
-	int					edit_c;
-	int					offset_color;
-	int					add_co;
-	int					page;
-	int					render;
-	t_slide				slide;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	t_img			img;
+	t_hover			hover;
+	t_hover			prev_hover;
+	t_appearance	appearance;
+	t_fractals		menu[4];
+	t_fractal		fractal;
+	t_colors		color;
+	t_co			prev_pos;
+	int				size;
+	int				offset_color;
+	int				page;
+	t_bool			c_animate;
+	t_bool			reset;
+	t_bool			moving;
+	t_bool			in_menu;
+	t_bool			edit_c;
+	t_bool			render;
+	t_slide			slide;
 };
 
 void		fractal_render(t_mlx *mlx);
 void		create_fractal(t_thread	*t);
 void		c_animation(t_mlx *mlx);
 void		launch_fractal(t_mlx *mlx, t_fractals set);
+void		reset_animation(t_mlx *mlx);
 void		zoom(t_mlx *mlx, double scale, t_co co);
 void		set_preset(t_mlx *mlx, t_preset preset);
 void		edit_c(t_mlx *mlx, double j, double *nb);
@@ -319,5 +332,6 @@ struct s_preview_thread
 };
 
 #include <stdio.h>
+#include <unistd.h>
 
 #endif

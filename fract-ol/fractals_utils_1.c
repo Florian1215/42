@@ -14,8 +14,8 @@
 
 void	launch_fractal(t_mlx *mlx, t_fractals set)
 {
-	mlx->in_menu = 0;
-	mlx->c_animate = 1;
+	mlx->in_menu = FALSE;
+	mlx->c_animate = TRUE;
 	set_fractal(mlx, set);
 	set_color(mlx, mlx->fractal.color);
 	set_preset(mlx, PRESET_0);
@@ -36,6 +36,8 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 	if (mlx->c_animate)
 		mlx->fractal.start_animation = init_complex(0, -2);
 	fractals_set[set](mlx);
+	mlx->fractal.start_launch = mlx->fractal.start;
+	mlx->fractal.end_launch = mlx->fractal.end;
 	mlx->fractal.max_iter = 50;
 	if (mlx->c_animate)
 		mlx->fractal.c = mlx->fractal.start_animation;
@@ -54,7 +56,7 @@ void	set_preset(t_mlx *mlx, t_preset preset)
 		mlx->fractal.start_animation = mlx->fractal.c;
 		mlx->fractal.end_animation = mlx->fractal.preset(preset);
 		if (mlx->fractal.start_animation.x != mlx->fractal.end_animation.x && mlx->fractal.start_animation.y != mlx->fractal.end_animation.y)
-			mlx->c_animate = 1;
+			mlx->c_animate = TRUE;
 	}
 }
 
