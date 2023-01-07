@@ -227,6 +227,8 @@ struct s_fractal
 	int			offset_name;
 	int			max_iter;
 	double		size_zoom;
+	double		start_y;
+	double		end_y;
 	t_co		offset_coor;
 	t_preset	max_preset;
 	t_co		(*preset)(t_preset);
@@ -266,6 +268,7 @@ struct s_mlx
 
 void		fractal_render(t_mlx *mlx);
 void		create_fractal(t_thread	*t);
+void		launch_animation(t_mlx *mlx);
 void		zoom(t_mlx *mlx, double scale, t_co co);
 void		set_preset(t_mlx *mlx, t_preset preset);
 void		edit_c(t_mlx *mlx, double j, double *nb);

@@ -76,6 +76,11 @@ void	put_nb_flags(t_env *env, t_llu nb, int unsign, t_bases b)
 	int			len_nb;
 
 	len_nb = nb_len(nb, 10 + (6 * (b > 0))) + (nb == 0) + unsign;
+	if (env->flags[DOT] && env->flags[ZERO] && env->values[ZERO])
+	{
+		env->flags[ZERO] = 0;
+		env->values[LENGTH] = env->values[ZERO];
+	}
 	if (env->values[LENGTH] > 0)
 	{
 		env->values[LENGTH] -= len_nb - (nb == 0 && !env->values[DOT] \

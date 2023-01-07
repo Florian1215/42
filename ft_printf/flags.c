@@ -14,33 +14,29 @@
 
 static int	atoi_(t_env *env, const char *s, t_flags flag)
 {
-	int	res;
+	unsigned long int	res;
 
 	res = 0;
 	while (s[env->i] && is_digit(s[env->i]))
+	{
 		res = res * 10 + s[env->i++] - '0';
+		if (res > INT_MAX)
+			env->len = -1;
+	}
 	if (flag != LENGTH)
 		env->flags[flag] = 1;
-	return (res);
+	if (flag != LENGTH && env->last_flag != flag)
+		env->last_flag = flag;
+	return ((int)res);
 }
 
 static void	set_all_flags(t_env *env, t_flags flag, const char *s)
 {
-	if (flag > 3)
-	{
+	env->i++;
+	if (flag > DOT)
 		env->flags[flag] = 1;
-		env->i++;
-	}
 	else
-	{
-		env->i++;
 		env->values[flag] = atoi_(env, s, flag);
-		if (flag == DOT && env->flags[ZERO] && env->values[ZERO])
-		{
-			env->flags[ZERO] = 0;
-			env->values[LENGTH] = env->values[ZERO];
-		}
-	}
 }
 
 void	set_flags(t_env *env, const char *s)
@@ -54,12 +50,9 @@ void	set_flags(t_env *env, const char *s)
 			set_all_flags(env, flag, s);
 		else
 		{
-			if (env->flags[DASH] && !env->values[DASH])
-				env->values[DASH] = atoi_(env, s, DASH);
-			else if (env->flags[ZERO] && !env->values[ZERO])
-				env->values[ZERO] = atoi_(env, s, ZERO);
-			else if (env->flags[DOT] && !env->values[DOT])
-				env->values[DOT] = atoi_(env, s, DOT);
+			if (env->last_flag != DOT && env->last_flag && \
+					env->flags[env->last_flag] && !env->values[env->last_flag])
+				env->values[env->last_flag] = atoi_(env, s, env->last_flag);
 			else
 				env->values[LENGTH] = atoi_(env, s, LENGTH);
 		}
@@ -68,14 +61,14 @@ void	set_flags(t_env *env, const char *s)
 
 void	init_flags(t_env *env)
 {
-	env->flags[HASHTAG] = 0;
-	env->flags[PLUS] = 0;
-	env->flags[SPACE] = 0;
-	env->flags[ZERO] = 0;
-	env->flags[DASH] = 0;
-	env->flags[DOT] = 0;
+	int	i;
+
+	i = -1;
+	while (++i < ERROR)
+		env->flags[i] = 0;
 	env->values[DASH] = 0;
 	env->values[LENGTH] = 0;
+	env->last_flag = LENGTH;
 }
 
 void	left_jutify(t_env *env)

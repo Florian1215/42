@@ -47,6 +47,8 @@ void	set_julia(t_mlx *mlx)
 {
 	mlx->fractal.set = JULIA;
 	mlx->fractal.sequence = julia;
+	mlx->fractal.start.y = -2;
+	mlx->fractal.end.y = 2;
 	mlx->fractal.offset_coor = init_complex(-125, -125);
 	mlx->fractal.preset = preset_julia;
 	mlx->fractal.max_preset = PRESET_6;

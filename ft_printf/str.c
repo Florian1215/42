@@ -22,21 +22,36 @@ static int	str_len(char *str)
 	return (len);
 }
 
+static void	set_flags_str(t_env *env, char *s)
+{
+	int	len_str;
+
+	len_str = str_len(s);
+	if (env->values[LENGTH])
+	{
+		if (env->flags[DOT] && env->values[DOT] < len_str)
+			env->values[LENGTH] -= env->values[DOT];
+		else if (env->values[LENGTH] > len_str)
+			env->values[LENGTH] -= len_str;
+		else
+			env->values[LENGTH] = 0;
+		if (env->flags[DOT] && env->values[DOT] > len_str)
+			env->values[DOT] = len_str;
+	}
+	if (env->flags[ZERO] && env->flags[DOT] && env->values[DOT] < len_str)
+		len_str = env->values[DOT];
+	if (env->flags[ZERO] && env->values[ZERO] > len_str)
+	{
+		while (env->values[ZERO]-- - len_str)
+			put_char(env, '0', 0);
+	}
+}
+
 void	put_str(t_env *env, char *s)
 {
 	if (s == NULL)
 		s = "(null)";
-	if (env->values[LENGTH])
-	{
-		if (env->flags[DOT] && env->values[DOT] < str_len(s))
-			env->values[LENGTH] -= env->values[DOT];
-		else if (env->values[LENGTH] > str_len(s))
-			env->values[LENGTH] -= str_len(s);
-		else
-			env->values[LENGTH] = 0;
-		if (env->flags[DOT] && env->values[DOT] > str_len(s))
-			env->values[DOT] = str_len(s);
-	}
+	set_flags_str(env, s);
 	if (!*s && env->values[LENGTH])
 	{
 		if (!env->flags[DOT])

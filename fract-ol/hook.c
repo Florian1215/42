@@ -15,19 +15,13 @@
 static int	hook_loop(t_mlx *mlx)
 {
 	if (mlx->launch)
-	{
-		edit_c(mlx, mlx->fractal.c.y < -0.4 ? 0.07 : 0.03, &mlx->fractal.c.y);
-		if (mlx->fractal.c.y > 0)
-		{
-			edit_c(mlx, -mlx->fractal.c.y, &mlx->fractal.c.y);
-			mlx->launch = 0;
-		}
-	}
+		launch_animation(mlx);
 	else if (mlx->in_menu)
 	{
 		if (mlx->slide.start)
 			render_slide(mlx);
-		else if (mlx->hover.pos != POS_ERROR || mlx->prev_hover.pos != POS_ERROR)
+		else if (mlx->hover.pos != POS_ERROR || \
+				mlx->prev_hover.pos != POS_ERROR)
 			hover_animation(mlx);
 	}
 	return (1);

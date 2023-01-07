@@ -17,7 +17,7 @@ static void	mouse_event_menu(t_mlx *mlx, int button, int x, int y)
 	if (button == LEFT_CLICK)
 	{
 		mlx->in_menu = 0;
-//		mlx->launch = 1;
+		mlx->launch = 1;
 		set_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
 		set_color(mlx, mlx->fractal.color);
 	}
@@ -97,7 +97,7 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 	else if (mlx->edit_c)
 	{
 		mlx->fractal.c = init_complex((double)(x - (mlx->size / 2)) / (mlx->size / 4), (double)(y - (mlx->size / 2)) / (mlx->size / 4));
-		printf("%f, %f\n", mlx->fractal.c.x, mlx->fractal.c.y);
+		printf("{%f, %f},\n", mlx->fractal.c.x, mlx->fractal.c.y);
 		fractal_render(mlx);
 	}
 	return (1);

@@ -20,7 +20,7 @@ NAME		= libftprintf.a
 CC			= cc
 RM			= rm -rf
 AR			= ar rc
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -g3
 
 all:		${NAME}
 

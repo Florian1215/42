@@ -24,9 +24,13 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 	mlx->fractal.size_zoom = 1.6;
 	mlx->fractal.start = init_complex(-2, 2);
 	mlx->fractal.end = init_complex(2, -2);
+	if (mlx->launch)
+		mlx->fractal.start_y = -2;
 	fractals_set[set](mlx);
 	set_preset(mlx, PRESET_0);
 	mlx->fractal.max_iter = 50;
+	if (mlx->launch)
+		mlx->fractal.end_y = mlx->fractal.preset(PRESET_0).y;
 }
 
 void	set_preset(t_mlx *mlx, t_preset preset)
@@ -34,8 +38,6 @@ void	set_preset(t_mlx *mlx, t_preset preset)
 	if (mlx->fractal.max_preset < preset)
 		return ;
 	mlx->fractal.c = mlx->fractal.preset(preset);
-	if (mlx->launch)
-		mlx->fractal.c.y -= 2;
 	if (!mlx->in_menu)
 		fractal_render(mlx);
 }
