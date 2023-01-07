@@ -12,17 +12,6 @@
 
 #include "fractol.h"
 
-static void	mouse_event_menu(t_mlx *mlx, int button, int x, int y)
-{
-	if (button == LEFT_CLICK)
-	{
-		mlx->in_menu = 0;
-		mlx->launch = 1;
-		set_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
-		set_color(mlx, mlx->fractal.color);
-	}
-}
-
 static void	mouse_event_fractal(t_mlx *mlx, int button, int x, int y)
 {
 	t_co		co;
@@ -52,7 +41,7 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 	if (mlx->slide.slide)
 		return (0);
 	if (mlx->in_menu)
-		mouse_event_menu(mlx, button, x, y);
+		launch_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
 	else
 		mouse_event_fractal(mlx, button, x, y);
 	return (1);

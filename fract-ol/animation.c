@@ -12,27 +12,29 @@
 
 #include "fractol.h"
 
-void	launch_animation(t_mlx *mlx)
+void	c_animation(t_mlx *mlx)
 {
-	static int	values[30] = {4, 17, 46, 98, 190, 320, 447, 547, 624, 686, 736, 777, 812, 842, 868, 890, 909, 925, 939, 952, 962, 971, 978, 985, 990, 994, 996, 998, 999, 1000};
-	static int	i = 0;
+	static double	values[29] = {0.4, 1.7, 4.6, 9.8, 19, 32, 44.7, 54.7, 62.4, 68.6, 73.6, 77.7, 81.2, 84.2, 86.8, 89, 90.9, 92.5, 93.9, 95.2, 96.2, 97.1, 97.8, 98.5, 99, 99.4, 99.6, 99.8, 99.9};
+	static int		i = 0;
 
-	if (mlx->fractal.start_y > mlx->fractal.end_y)
-	{
-		i--;
-	}
-	else
-	{
-		//printf("val %f\n", (values[i] * (mlx->fractal.end_y - mlx->fractal.start_y) / 100) + mlx->fractal.start_y);
-		mlx->fractal.c.y = (values[i] * (mlx->fractal.end_y - mlx->fractal.start_y) / 100) + mlx->fractal.start_y;
-	}
-	fractal_render(mlx);
-	if (i == 30)
+	if (i == 29)
 	{
 		i = 0;
-		mlx->launch = 0;
+		mlx->c_animate = 0;
+		mlx->fractal.c = mlx->fractal.end_animation;
+		fractal_render(mlx);
 		return ;
 	}
+	if (mlx->fractal.start_animation.y > mlx->fractal.end_animation.y)
+		mlx->fractal.c.y = mlx->fractal.start_animation.y - (values[i] * (mlx->fractal.start_animation.y - mlx->fractal.end_animation.y) / 100);
+	else if (mlx->fractal.start_animation.y < mlx->fractal.end_animation.y)
+		mlx->fractal.c.y = (values[i] * (mlx->fractal.end_animation.y - mlx->fractal.start_animation.y) / 100) + mlx->fractal.start_animation.y;
+	if (mlx->fractal.start_animation.x > mlx->fractal.end_animation.x)
+		mlx->fractal.c.x = mlx->fractal.start_animation.x - (values[i] * (mlx->fractal.start_animation.x - mlx->fractal.end_animation.x) / 100);
+	else if (mlx->fractal.start_animation.x < mlx->fractal.end_animation.x)
+		mlx->fractal.c.x = (values[i] * (mlx->fractal.end_animation.x - mlx->fractal.start_animation.x) / 100) + mlx->fractal.start_animation.x;
+//	printf("% f % f\n", mlx->fractal.c.x, mlx->fractal.c.y);
+	fractal_render(mlx);
 	i++;
 }
 

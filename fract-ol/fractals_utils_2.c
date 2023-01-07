@@ -25,7 +25,7 @@ void	zoom(t_mlx *mlx, double scale, t_co co)
 	if (i > 5)
 	{
 		i = 0;
-		mlx->fractal.max_iter += 5 * (-1 * (scale > 1) + (scale < 1));
+		mlx->fractal.max_iter += 7 * (-1 * (scale > 1) + (scale < 1));
 	}
 	mlx->fractal.start.x = cross_multi(co.x, mlx->fractal.start.x, scale);
 	mlx->fractal.start.y = cross_multi(co.y, mlx->fractal.start.y, scale);
@@ -56,7 +56,7 @@ void	edit_c(t_mlx *mlx, double j, double *nb)
 	if (res < -2 || res > 2)
 		return ;
 	*nb = res;
-	printf("{%f, %f},\n", mlx->fractal.c.x, mlx->fractal.c.y);
+//	printf("{%f, %f},\n", mlx->fractal.c.x, mlx->fractal.c.y);
 	fractal_render(mlx);
 }
 

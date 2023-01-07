@@ -49,6 +49,7 @@ void	set_perpendicular_celtic(t_mlx *mlx)
 	mlx->fractal.set = PERPENDICULAR_CELTIC;
 	mlx->fractal.sequence = perpendicular_celtic;
 	mlx->fractal.offset_coor = init_complex(-130, -130);
+	mlx->fractal.start_animation = init_complex(2, 2);
 	mlx->fractal.preset = preset_perpendicular_celtic;
 	mlx->fractal.max_preset = PRESET_7;
 	mlx->fractal.color = PASTEL_PINK;

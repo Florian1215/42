@@ -158,8 +158,6 @@ enum e_mousecode
 };
 
 void		set_hook(t_mlx *mlx);
-int			key_event(int k, t_mlx *mlx);
-int			key_event_press(int k, t_mlx *mlx);
 int			mouse_event_press(int button, int x, int y, t_mlx *mlx);
 int			mouse_event_release(int button, int x, int y, t_mlx *mlx);
 int			mouse_event_motion(int x, int y, t_mlx *mlx);
@@ -227,8 +225,8 @@ struct s_fractal
 	int			offset_name;
 	int			max_iter;
 	double		size_zoom;
-	double		start_y;
-	double		end_y;
+	t_co		start_animation;
+	t_co		end_animation;
 	t_co		offset_coor;
 	t_preset	max_preset;
 	t_co		(*preset)(t_preset);
@@ -255,7 +253,7 @@ struct s_mlx
 	t_colors			color;
 	t_co				prev_pos;
 	int					size;
-	int					launch;
+	int					c_animate;
 	int					moving;
 	int					in_menu;
 	int					edit_c;
@@ -268,7 +266,8 @@ struct s_mlx
 
 void		fractal_render(t_mlx *mlx);
 void		create_fractal(t_thread	*t);
-void		launch_animation(t_mlx *mlx);
+void		c_animation(t_mlx *mlx);
+void		launch_fractal(t_mlx *mlx, t_fractals set);
 void		zoom(t_mlx *mlx, double scale, t_co co);
 void		set_preset(t_mlx *mlx, t_preset preset);
 void		edit_c(t_mlx *mlx, double j, double *nb);

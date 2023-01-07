@@ -50,6 +50,7 @@ void	set_julia3(t_mlx *mlx)
 	mlx->fractal.set = JULIA3;
 	mlx->fractal.sequence = julia3;
 	mlx->fractal.offset_coor = init_complex(-110, -120);
+	mlx->fractal.start_animation = init_complex(-2, -2);
 	mlx->fractal.preset = preset_julia3;
 	mlx->fractal.max_preset = PRESET_8;
 	mlx->fractal.color = GREEN_BLUE;

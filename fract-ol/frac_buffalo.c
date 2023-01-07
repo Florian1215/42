@@ -65,6 +65,7 @@ void	set_buffalo(t_mlx *mlx)
 	mlx->fractal.end = init_complex(2.1, -2.1);
 	mlx->fractal.sequence = buffalo;
 	mlx->fractal.offset_coor = init_complex(-125, -122);
+	mlx->fractal.start_animation = init_complex(-1, 1);
 	mlx->fractal.preset = preset_buffalo;
 	mlx->fractal.max_preset = PRESET_9;
 	mlx->fractal.color = BLUE_RED;

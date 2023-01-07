@@ -67,7 +67,7 @@ void	set_menu(t_mlx *mlx)
 	t_preview_thread	t[4];
 
 	mlx->in_menu = 1;
-	mlx->launch = 0;
+	mlx->c_animate = 0;
 	i = -1;
 	while (++i < 4)
 	{

@@ -12,6 +12,15 @@
 
 #include "fractol.h"
 
+void	launch_fractal(t_mlx *mlx, t_fractals set)
+{
+	mlx->in_menu = 0;
+	mlx->c_animate = 1;
+	set_fractal(mlx, set);
+	set_color(mlx, mlx->fractal.color);
+	set_preset(mlx, PRESET_0);
+}
+
 void	set_fractal(t_mlx *mlx, t_fractals set)
 {
 	static void	(*fractals_set[12])(t_mlx *) = {set_mandelbrot, set_julia, \
@@ -24,22 +33,29 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 	mlx->fractal.size_zoom = 1.6;
 	mlx->fractal.start = init_complex(-2, 2);
 	mlx->fractal.end = init_complex(2, -2);
-	if (mlx->launch)
-		mlx->fractal.start_y = -2;
+	if (mlx->c_animate)
+		mlx->fractal.start_animation = init_complex(0, -2);
 	fractals_set[set](mlx);
-	set_preset(mlx, PRESET_0);
 	mlx->fractal.max_iter = 50;
-	if (mlx->launch)
-		mlx->fractal.end_y = mlx->fractal.preset(PRESET_0).y;
+	if (mlx->c_animate)
+		mlx->fractal.c = mlx->fractal.start_animation;
+	else
+		set_preset(mlx, PRESET_0);
 }
 
 void	set_preset(t_mlx *mlx, t_preset preset)
 {
 	if (mlx->fractal.max_preset < preset)
 		return ;
-	mlx->fractal.c = mlx->fractal.preset(preset);
-	if (!mlx->in_menu)
-		fractal_render(mlx);
+	if (mlx->in_menu)
+		mlx->fractal.c = mlx->fractal.preset(preset);
+	else
+	{
+		mlx->fractal.start_animation = mlx->fractal.c;
+		mlx->fractal.end_animation = mlx->fractal.preset(preset);
+		if (mlx->fractal.start_animation.x != mlx->fractal.end_animation.x && mlx->fractal.start_animation.y != mlx->fractal.end_animation.y)
+			mlx->c_animate = 1;
+	}
 }
 
 t_co	preset_default(t_preset preset)

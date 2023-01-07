@@ -64,7 +64,7 @@ void	edit_color(t_mlx *mlx)
 void	set_color(t_mlx *mlx, t_colors color)
 {
 	mlx->color = (color + mlx->offset_color) % 12;
-	if (!mlx->in_menu)
+	if (!mlx->in_menu && !mlx->c_animate)
 		fractal_render(mlx);
 }
 

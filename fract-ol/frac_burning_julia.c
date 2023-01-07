@@ -63,6 +63,7 @@ void	set_burning_julia(t_mlx *mlx)
 	mlx->fractal.set = BURNING_JULIA;
 	mlx->fractal.sequence = burning_julia;
 	mlx->fractal.offset_coor = init_complex(-125, -125);
+	mlx->fractal.start_animation = init_complex(2, -2);
 	mlx->fractal.preset = preset_burning_julia;
 	mlx->fractal.max_preset = PRESET_9;
 	mlx->fractal.color = PINK;

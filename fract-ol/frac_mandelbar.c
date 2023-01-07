@@ -50,6 +50,7 @@ void	set_mandelbar(t_mlx *mlx)
 	mlx->fractal.set = MANDELBAR;
 	mlx->fractal.sequence = mandelbar;
 	mlx->fractal.offset_coor = init_complex(-125, -100);
+	mlx->fractal.start_animation = init_complex(-2, 2);
 	mlx->fractal.preset = preset_mandelbar;
 	mlx->fractal.max_preset = PRESET_7;
 	mlx->fractal.color = BLUE;

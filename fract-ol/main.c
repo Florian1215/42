@@ -17,7 +17,7 @@ int	main(void)
 	t_mlx	mlx;
 
 	init_mlx(&mlx);
-	set_page(&mlx, 2);
+	set_page(&mlx, 0);
 	set_hook(&mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

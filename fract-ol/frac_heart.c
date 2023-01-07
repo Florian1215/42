@@ -48,6 +48,7 @@ void	set_heart(t_mlx *mlx)
 	mlx->fractal.set = HEART;
 	mlx->fractal.sequence = heart;
 	mlx->fractal.offset_coor = init_complex(-125, -180);
+	mlx->fractal.start_animation = init_complex(-1, 2);
 	mlx->fractal.preset = preset_heart;
 	mlx->fractal.max_preset = PRESET_5;
 	mlx->fractal.color = NIGHT_BLUE;

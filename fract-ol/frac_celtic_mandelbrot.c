@@ -48,6 +48,7 @@ void	set_celtic_mandelbrot(t_mlx *mlx)
 	mlx->fractal.set = CELTIC_MANDELBROT;
 	mlx->fractal.sequence = celtic_mandelbrot;
 	mlx->fractal.offset_coor = init_complex(-125, -125);
+	mlx->fractal.start_animation = init_complex(-2, 2);
 	mlx->fractal.preset = preset_celtic_mandelbrot;
 	mlx->fractal.max_preset = PRESET_5;
 	mlx->fractal.color = YELLOW;

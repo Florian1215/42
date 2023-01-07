@@ -34,7 +34,7 @@ void	init_mlx(t_mlx *mlx)
 	mlx->mlx_ptr = mlx_init();
 	mlx->size = 1000;
 	mlx->in_menu = 1;
-	mlx->launch = 0;
+	mlx->c_animate = 0;
 	mlx->offset_color = 0;
 	mlx->appearance = LIGHT;
 	mlx->moving = 0;
