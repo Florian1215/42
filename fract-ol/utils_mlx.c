@@ -38,6 +38,7 @@ void	init_mlx(t_mlx *mlx)
 	mlx->in_menu = TRUE;
 	mlx->reset = FALSE;
 	mlx->c_animate = FALSE;
+	mlx->launch = FALSE;
 	mlx->moving = FALSE;
 	mlx->render = FALSE;
 	mlx->slide.slide = FALSE;

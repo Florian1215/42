@@ -40,7 +40,7 @@ void	cpy_read(char *str, int fd)
 	{
 		read_state = read(fd, str + i, 100);
 		if (read_state == -1)
-			return (-1);
+			return ;
 		i += read_state;
 	}
 }

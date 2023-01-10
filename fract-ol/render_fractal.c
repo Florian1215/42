@@ -30,7 +30,8 @@ void	fractal_render(t_mlx *mlx)
 	i = -1;
 	while (++i < 8)
 		pthread_join(t[i].thread, NULL);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
+	if (!mlx->slide.slide)
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 	mlx->render = FALSE;
 }
 
@@ -50,7 +51,10 @@ void	create_fractal(t_thread	*t)
 		while (++i.y < t->mlx->size)
 		{
 			col = t->mlx->fractal.sequence(t->mlx, t->mlx->fractal, init_complex(t->mlx->fractal.start.x + i.x * r.x, t->mlx->fractal.end.y - i.y * r.y));
-			mlx_put_pixel_img(&t->mlx->img, i, col);
+			if (t->mlx->slide.save)
+				mlx_put_pixel_img(&t->mlx->slide.img, i, col);
+			else
+				mlx_put_pixel_img(&t->mlx->img, i, col);
 		}
 	}
 }

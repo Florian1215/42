@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 OBJS_DIR	= OBJS/
-SRCS		= 1_mandelbrot.c 2_julia.c 3_celtic.c 4_burning_ship.c 5_buffalo.c 6_burning_julia.c 7_julia3.c 8_celtic_mandelbar.c 9_perpendicular_celtic.c 10_heart.c 11_mandelbar.c 12_celtic_mandelbrot.c animation.c fractals_utils_1.c fractals_utils_2.c hook.c hook_mouse.c main.c menu.c menu_utils.c render_fractal.c utils_color.c utils_mlx.c
+SRCS		= 1_mandelbrot.c 2_julia.c 3_celtic.c 4_burning_ship.c 5_buffalo.c 6_burning_julia.c 7_julia3.c 8_celtic_mandelbar.c 9_perpendicular_celtic.c 10_heart.c 11_mandelbar.c 12_celtic_mandelbrot.c animation_fractals.c animation_menu.c fractals_utils_1.c fractals_utils_2.c hook.c hook_mouse.c main.c menu.c menu_utils.c render_fractal.c utils_color.c utils_mlx.c
 OBJS_SRC	= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
 NAME		= fractol

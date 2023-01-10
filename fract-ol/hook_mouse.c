@@ -38,7 +38,7 @@ static void	mouse_event_fractal(t_mlx *mlx, int button, int x, int y)
 
 int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 {
-	if (mlx->slide.slide || mlx->reset)
+	if (mlx->slide.slide || mlx->reset || mlx->c_animate)
 		return (0);
 	if (mlx->in_menu)
 		launch_fractal(mlx, mlx->menu[select_fractal(mlx, init_complex(x, y))]);
@@ -49,8 +49,6 @@ int	mouse_event_press(int button, int x, int y, t_mlx *mlx)
 
 int	mouse_event_release(int button, int x, int y, t_mlx *mlx)
 {
-	if (mlx->slide.slide || mlx->reset)
-		return (0);
 	(void)x;
 	(void)y;
 	if (!mlx->in_menu)
@@ -67,7 +65,7 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 {
 	t_pos	current;
 
-	if (mlx->slide.slide || mlx->reset)
+	if (mlx->slide.slide || mlx->reset || mlx->c_animate)
 		return (0);
 	if (mlx->in_menu)
 	{
@@ -86,7 +84,6 @@ int	mouse_event_motion(int x, int y, t_mlx *mlx)
 	else if (mlx->edit_c)
 	{
 		mlx->fractal.c = init_complex((double)(x - (mlx->size / 2)) / (mlx->size / 4), (double)(y - (mlx->size / 2)) / (mlx->size / 4));
-		printf("{%f, %f},\n", mlx->fractal.c.x, mlx->fractal.c.y);
 		fractal_render(mlx);
 	}
 	return (1);

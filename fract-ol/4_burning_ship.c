@@ -47,8 +47,6 @@ void	set_burning_shipe(t_mlx *mlx)
 	mlx->fractal.end = init_complex(1.6, -2.4);
 	mlx->fractal.sequence = burning_shipe;
 	mlx->fractal.offset_coor = init_complex(-200, -167);
-//	mlx->fractal.start_animation = init_complex(-2, -2);
-	mlx->fractal.preset = preset_default;
 	mlx->fractal.max_preset = PRESET_0;
 	mlx->fractal.color = RED;
 	mlx->fractal.name = "Burning Ship";

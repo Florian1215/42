@@ -140,6 +140,7 @@ enum e_keycode
 	E = 14,
 	ESQ = 53,
 	TAB = 48,
+	SPACE = 49,
 	PLUS = 69,
 	MINUS = 78,
 	LEFT = 123,
@@ -237,7 +238,6 @@ struct s_fractal
 	char		*name;
 	int			offset_name;
 	int			max_iter;
-	int			start_max_iter;
 	double		size_zoom;
 	t_co		offset_coor;
 	t_preset	max_preset;
@@ -268,6 +268,7 @@ struct s_mlx
 	int				offset_color;
 	int				page;
 	t_bool			c_animate;
+	t_bool			launch;
 	t_bool			reset;
 	t_bool			moving;
 	t_bool			in_menu;
@@ -313,8 +314,6 @@ void		set_perpendicular_celtic(t_mlx *mlx);
 void		set_heart(t_mlx *mlx);
 void		set_mandelbar(t_mlx *mlx);
 void		set_celtic_mandelbrot(t_mlx *mlx);
-
-t_co		preset_default(t_preset preset);
 
 // THREAD --------------------------------------
 struct s_thread

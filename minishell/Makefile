@@ -1,23 +1,35 @@
-OBJS_DIR		= OBJ/
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: fguirama <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/01/08 11:03:03 by fguirama          #+#    #+#              #
+#    Updated: 2023/01/08 11:03:05 by fguirama         ###   ########lyon.fr    #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS			= main.c
+OBJS_DIR		= OBJS/
+
+SRCS			= exec.c free_pipes.c init.c main.c parsing.c split.c utils_str.c
 OBJS_SRCS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
 
-HEAD			= push_swap.h
+NAME			= minishell
+HEAD			= minishell.h
+
 CC				= cc
 RM				= rm -rf
-FLAGS			= -Wall -Wextra -Werror
+FLAGS			= -Wall -Wextra -Werror -g3
 
 all:			${NAME}
 
-$(OBJS_DIR)%.o: %.c ${HEAD}
+$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
+				@mkdir -p ${OBJS_DIR}
 				${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
 
-${NAME}:		dir ${OBJS_SRCS}
+${NAME}:		${OBJS_SRCS}
 				${CC} ${FLAGS} ${OBJS_SRCS} -o ${NAME}
-
-dir:
-				mkdir -p ${OBJS_DIR}
 
 clean:
 				${RM} ${OBJS_DIR}
@@ -27,4 +39,4 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re bonus dir
+.PHONY:			all clean fclean re

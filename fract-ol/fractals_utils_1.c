@@ -16,9 +16,16 @@ void	launch_fractal(t_mlx *mlx, t_fractals set)
 {
 	mlx->in_menu = FALSE;
 	mlx->c_animate = TRUE;
+	mlx->launch = (set == MANDELBROT || set == BURNING_SHIP);
 	set_fractal(mlx, set);
 	set_color(mlx, mlx->fractal.color);
 	set_preset(mlx, PRESET_0);
+}
+
+static t_co	preset_default(t_preset preset)
+{
+	(void)preset;
+	return (init_complex(0, 0));
 }
 
 void	set_fractal(t_mlx *mlx, t_fractals set)
@@ -35,6 +42,7 @@ void	set_fractal(t_mlx *mlx, t_fractals set)
 	mlx->fractal.end = init_complex(2, -2);
 	if (mlx->c_animate)
 		mlx->fractal.start_animation = init_complex(0, -2);
+	mlx->fractal.preset = preset_default;
 	fractals_set[set](mlx);
 	mlx->fractal.start_launch = mlx->fractal.start;
 	mlx->fractal.end_launch = mlx->fractal.end;
@@ -49,7 +57,7 @@ void	set_preset(t_mlx *mlx, t_preset preset)
 {
 	if (mlx->fractal.max_preset < preset)
 		return ;
-	if (mlx->in_menu)
+	if (mlx->in_menu || mlx->slide.slide)
 		mlx->fractal.c = mlx->fractal.preset(preset);
 	else
 	{
@@ -58,10 +66,4 @@ void	set_preset(t_mlx *mlx, t_preset preset)
 		if (mlx->fractal.start_animation.x != mlx->fractal.end_animation.x && mlx->fractal.start_animation.y != mlx->fractal.end_animation.y)
 			mlx->c_animate = TRUE;
 	}
-}
-
-t_co	preset_default(t_preset preset)
-{
-	(void)preset;
-	return (init_complex(0, 0));
 }
