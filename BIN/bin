@@ -40,49 +40,33 @@ enum e_bool
 	SUCCESS = 1,
 };
 
+struct s_dict
+{
+	char	*key;
+	char	*values;
+	t_dict	*next;
+};
+
 char	**split(char const *s, int sep);
 void	free_split(char **split, int i);
 int		str_cmp(char *s1, char *s2);
 int		str_n_cmp(const char *s1, const char *s2, int n);
-int		str_len(const char *s);
-int		find_char(char *s, int c);
-void	put_str(char *s, int fd);
+char	*join_path(char const *s1, char const *s2);
+void	put_char(char c, int fd);
 void	put_str_nl(char *str, int fd);
-char	*join_char(char *s1, char *s2, int c);
-int		size_tab(char **tab);
-
-// DICT -------------------------------------------------------------
-struct s_dict
-{
-	char	*key;
-	char	*value;
-	t_dict	*next;
-};
-
-t_bool	split_once(char *str, char **s1, char **s2, int sep);
-t_dict	*init_env(char **envp);
-t_bool	add_item(t_dict **dict, char *key, char *value);
-char	*get_value(t_dict *dict, char *key);
-t_bool	check_key(t_dict *dict, char *key);
-char	**get_env(t_dict *env);
-void	free_dict(t_dict **dict);
 
 // BUILTINS ---------------------------------------------------------
 enum e_builtins
 {
-	ENV,
-	EXPORT,
-	CD,
-	UNSET,
-	EXIT,
-	PWD,
 	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
 	NONE,
 };
-
-t_bool	bt_pwd(char **args);
-t_bool	bt_echo(char **args);
-t_bool	bt_cd(char **args);
 
 // EXEC -------------------------------------------------------------
 struct s_cmd
@@ -96,27 +80,23 @@ struct s_cmd
 struct s_data
 {
 	t_cmd	*cmd;
-	t_dict	*env;
-	t_dict	*var;
 	int		fd_in;
 	int		fd_out;
-	int		std_in;
-	int		std_out;
+
 	int		*pids;
 	int		**pipes;
 	int		n_pipes;
+	char	**envp;
 };
 
-void	init_forks(t_data *data);
-void	init_pids(t_data *data);
-void	init_pipes(t_data *data);
-void	execute(t_data *data, int i);
+void	init_forks(t_env *env);
+void	init_pids(t_env *data);
+void	init_pipes(t_env *env);
+void	execute(t_env *env, int i);
 void	free_pipes(int **pipes, int n);
-void	execute_bt(t_cmd *cmd);
 
 // PARSING ----------------------------------------------------------
-t_bool	parsing(t_data *data, char *line);
-t_bool	add_back(t_cmd **cmd, char *line, char **paths);
+t_bool	parsing(t_env *env, char *line, char **paths);
 void	free_cmds(t_cmd **cmd);
 
 #endif

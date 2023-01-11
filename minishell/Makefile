@@ -10,33 +10,46 @@
 #                                                                              #
 # **************************************************************************** #
 
-OBJS_DIR		= OBJS/
+OBJS_DIR		=	.OBJS/
 
-SRCS			= exec.c free_pipes.c init.c main.c parsing.c split.c utils_str.c
-OBJS_SRCS		= $(addprefix ${OBJS_DIR}, $(SRCS:.c=.o))
+SRCS			=	BUILTINS/cd.c BUILTINS/echo.c BUILTINS/pwd.c \
+					EXEC/exec.c EXEC/init.c \
+					FREE/free.c \
+					PARSING/parsing.c PARSING/cmd.c \
+					UTILS/split.c UTILS/io.c UTILS/str.c UTILS/str2.c UTILS/dict.c UTILS/env.c \
+					main.c
 
-NAME			= minishell
-HEAD			= minishell.h
+OBJS_SRCS		=	$(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
-CC				= cc
-RM				= rm -rf
-FLAGS			= -Wall -Wextra -Werror -g3
+NAME			=	minishell
+HEAD			=	minishell.h
 
-all:			${NAME}
+CC				=	cc
+RM				=	rm -rf
+FLAGS			=	-Wall -Wextra -Werror -g3
 
-$(OBJS_DIR)%.o: %.c ${HEAD} Makefile
-				@mkdir -p ${OBJS_DIR}
-				${CC} ${FLAGS} -I ${HEAD} -c $< -o $@
+all:				$(NAME)
 
-${NAME}:		${OBJS_SRCS}
-				${CC} ${FLAGS} ${OBJS_SRCS} -o ${NAME}
+$(OBJS_DIR)%.o:		%.c $(HEAD) Makefile
+					$(CC) $(FLAGS) -I $(HEAD) -c $< -o $@
+
+dir:
+					@mkdir -p $(OBJS_DIR)
+					@mkdir -p $(OBJS_DIR)BUILTINS
+					@mkdir -p $(OBJS_DIR)EXEC
+					@mkdir -p $(OBJS_DIR)FREE
+					@mkdir -p $(OBJS_DIR)PARSING
+					@mkdir -p $(OBJS_DIR)UTILS
+
+$(NAME):			dir $(OBJS_SRCS)
+					$(CC) -lreadline $(FLAGS) $(OBJS_SRCS) -o $(NAME)
 
 clean:
-				${RM} ${OBJS_DIR}
+					$(RM) $(OBJS_DIR)
 
-fclean:			clean
-				${RM} ${NAME}
+fclean:				clean
+					$(RM) $(NAME)
 
-re:				fclean all
+re:					fclean all
 
-.PHONY:			all clean fclean re
+.PHONY:				all clean fclean re

@@ -33,19 +33,19 @@ void	put_char(t_env *env, int c, int preci)
 
 static void	format_str(t_env *env, char c, va_list	args)
 {
-	if (c == STRING)
+	if (c == 's')
 		return (put_str(env, va_arg(args, char *)));
-	if (c == POINTER)
+	if (c == 'p')
 		return (put_hexa(env, va_arg(args, t_llu), 2));
-	if (c == UNSIGNED)
+	if (c == 'u')
 		return (put_u(env, va_arg(args, unsigned int)));
-	if (c == INTEGER || c == DIGIT)
+	if (c == 'd' || c == 'i')
 		return (put_nbr_base(env, va_arg(args, int)));
-	if (to_upper(c) == HEXA)
+	if (to_upper(c) == 'X')
 		return (put_hexa(env, va_arg(args, unsigned int), is_upper(c)));
 	env->values[LENGTH]--;
 	env->values[DOT] = 1;
-	if (c == CHAR)
+	if (c == 'c')
 		return (put_char(env, va_arg(args, int), 1));
 	put_char(env, c, 1);
 }

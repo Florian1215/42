@@ -46,12 +46,13 @@ static void	put_nb_flags_zero_dot(t_env *env, t_llu nb, int unsign, int len_nb)
 
 static void	put_nb_flags_one_c(t_env *env, t_llu nb, int unsign, t_bases *b)
 {
-	if ((env->flags[HASHTAG] || *b == 3) && *b && (nb || *b == 3))
+	if ((env->flags[HASHTAG] || *b == HEX_POINTER) && *b && \
+		(nb || *b == HEX_POINTER))
 	{
 		env->values[LENGTH] -= 2;
 		env->values[ZERO] -= 2;
-		if (*b == 3)
-			*b = 1;
+		if (*b == HEX_POINTER)
+			*b = HEX;
 		put_char(env, '0', 0);
 		put_char(env, "xX"[--*b], 0);
 	}

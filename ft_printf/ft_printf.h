@@ -26,17 +26,6 @@ typedef struct s_base			t_base;
 typedef struct s_env			t_env;
 
 // FLAGS ----------------------------------------------------
-enum e_conversions
-{
-	CHAR = 'c',
-	STRING = 's',
-	POINTER = 'p',
-	DIGIT = 'd',
-	INTEGER = 'i',
-	UNSIGNED = 'u',
-	HEXA = 'X',
-};
-
 enum e_flags
 {
 	LENGTH,
@@ -76,6 +65,8 @@ enum e_bases
 {
 	DEC,
 	HEX,
+	HEX_UPPER,
+	HEX_POINTER,
 };
 
 struct s_base
