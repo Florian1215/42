@@ -38,7 +38,7 @@ t_bool	add_item(t_dict **dict, char *key, char *value)
 
 char	*get_value(t_dict *dict, char *key)
 {
-	while (dict && dict->next)
+	while (dict)
 	{
 		if (!str_cmp(dict->key, key))
 			return (dict->value);

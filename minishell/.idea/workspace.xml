@@ -19,14 +19,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7065f20d-330b-454f-b031-027f963b1136" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BIN/split2.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PARSING/cmd.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UTILS/dict.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UTILS/env.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UTILS/str2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BIN/error.c" beforeDir="false" afterPath="$PROJECT_DIR$/BIN/error.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BIN/pipex.c" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/PARSING/var.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BIN/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BIN/split2.c" beforeDir="false" afterPath="$PROJECT_DIR$/BIN/split2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILTINS/cd.c" beforeDir="false" afterPath="$PROJECT_DIR$/BUILTINS/cd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BUILTINS/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/BUILTINS/exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EXEC/exec.c" beforeDir="false" afterPath="$PROJECT_DIR$/EXEC/exec.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FREE/free.c" beforeDir="false" afterPath="$PROJECT_DIR$/FREE/free.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OBJS/error.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/OBJS/exec.o" beforeDir="false" />
@@ -37,7 +38,12 @@
       <change beforePath="$PROJECT_DIR$/OBJS/split.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/OBJS/utils_cmd.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/OBJS/utils_str.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PARSING/cmd.c" beforeDir="false" afterPath="$PROJECT_DIR$/PARSING/cmd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PARSING/parsing.c" beforeDir="false" afterPath="$PROJECT_DIR$/PARSING/parsing.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UTILS/dict.c" beforeDir="false" afterPath="$PROJECT_DIR$/UTILS/dict.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UTILS/digit.c" beforeDir="false" afterPath="$PROJECT_DIR$/UTILS/digit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UTILS/split.c" beforeDir="false" afterPath="$PROJECT_DIR$/UTILS/split.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UTILS/str.c" beforeDir="false" afterPath="$PROJECT_DIR$/UTILS/str.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cd.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/echo.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/error.c" beforeDir="false" />
@@ -55,9 +61,7 @@
       <change beforePath="$PROJECT_DIR$/utils_cmd.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/utils_str.c" beforeDir="false" />
     </list>
-    <list id="ca5ef252-28eb-4cd8-a4d1-f6e1bb02feb9" name="Changes by lbourniq" comment="">
-      <change beforePath="$PROJECT_DIR$/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/minishell.h" afterDir="false" />
-    </list>
+    <list id="ca5ef252-28eb-4cd8-a4d1-f6e1bb02feb9" name="Changes by lbourniq" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,28 +78,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/minishell.h">
-      <ranges>
-        <range start1="28" end1="29" start2="28" end2="30" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="37" end1="37" start2="38" end2="40" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="43" end1="45" start2="46" end2="48" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="47" end1="47" start2="50" end2="68" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="51" end1="54" start2="72" end2="73" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="55" end1="55" start2="74" end2="75" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="56" end1="57" start2="76" end2="76" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="58" end1="58" start2="77" end2="79" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="63" end1="63" start2="84" end2="85" changelist="ca5ef252-28eb-4cd8-a4d1-f6e1bb02feb9" />
-        <range start1="64" end1="65" start2="86" end2="86" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="74" end1="75" start2="95" end2="96" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="77" end1="77" start2="98" end2="100" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="79" end1="81" start2="102" end2="104" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="84" end1="85" start2="107" end2="107" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="87" end1="91" start2="109" end2="113" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-        <range start1="92" end1="92" start2="114" end2="115" changelist="ca5ef252-28eb-4cd8-a4d1-f6e1bb02feb9" />
-        <range start1="94" end1="95" start2="117" end2="119" changelist="7065f20d-330b-454f-b031-027f963b1136" />
-      </ranges>
-    </file>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
@@ -146,7 +135,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/UTILS" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="settings.editor.selected.configurable" value="MakefileSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -162,7 +151,7 @@
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/minishell">
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishell" TARGET_NAME="minishell" CONFIG_NAME="minishell" version="1" RUN_PATH="$PROJECT_DIR$/minishell">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
@@ -187,6 +176,12 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration name="re" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="re" workingDirectory="" arguments="">
         <envs />
@@ -200,9 +195,12 @@
       <item itemvalue="Makefile Application.dir" />
       <item itemvalue="Makefile Application.minishell" />
       <item itemvalue="Makefile Target.re" />
+      <item itemvalue="Makefile Target.all" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile Target.all" />
+        <item itemvalue="Makefile Target.all" />
         <item itemvalue="Makefile Target.re" />
       </list>
     </recent_temporary>
@@ -215,7 +213,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673445204601</updated>
-      <workItem from="1673445205743" duration="1919000" />
+      <workItem from="1673445205743" duration="3958000" />
+      <workItem from="1673452790483" duration="394000" />
+      <workItem from="1673454016261" duration="4237000" />
+      <workItem from="1673510211980" duration="288000" />
+      <workItem from="1673510537446" duration="10398000" />
     </task>
     <servers />
   </component>
@@ -234,9 +236,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/minishell.h</url>
-          <line>44</line>
-          <option name="timeStamp" value="2" />
+          <url>file://$PROJECT_DIR$/PARSING/var.c</url>
+          <line>92</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

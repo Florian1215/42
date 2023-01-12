@@ -16,6 +16,7 @@
 // INCLUDE ----------------------------------------------------------
 # include <errno.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -40,16 +41,16 @@ enum e_bool
 	SUCCESS = 1,
 };
 
+t_bool	split_once(char *str, char **s1, char **s2, int sep);
 char	**split(char const *s, int sep);
-void	free_split(char **split, int i);
 int		str_cmp(char *s1, char *s2);
-int		str_n_cmp(const char *s1, const char *s2, int n);
 int		str_len(const char *s);
 int		find_char(char *s, int c);
 void	put_str(char *s, int fd);
 void	put_str_nl(char *str, int fd);
 char	*join_char(char *s1, char *s2, int c);
 int		size_tab(char **tab);
+int		atoi_(char *nb, unsigned char *var);
 
 // DICT -------------------------------------------------------------
 struct s_dict
@@ -59,13 +60,11 @@ struct s_dict
 	t_dict	*next;
 };
 
-t_bool	split_once(char *str, char **s1, char **s2, int sep);
 t_dict	*init_env(char **envp);
-t_bool	add_item(t_dict **dict, char *key, char *value);
-char	*get_value(t_dict *dict, char *key);
-t_bool	check_key(t_dict *dict, char *key);
 char	**get_env(t_dict *env);
-void	free_dict(t_dict **dict);
+t_bool	add_item(t_dict **dict, char *key, char *value);
+t_bool	check_key(t_dict *dict, char *key);
+char	*get_value(t_dict *dict, char *key);
 
 // BUILTINS ---------------------------------------------------------
 enum e_builtins
@@ -80,9 +79,9 @@ enum e_builtins
 	NONE,
 };
 
-t_bool	bt_pwd(char **args);
-t_bool	bt_echo(char **args);
-t_bool	bt_cd(char **args);
+t_bool	bt_pwd(t_data *data);
+t_bool	bt_echo(t_data *data);
+t_bool	bt_cd(t_data *data);
 
 // EXEC -------------------------------------------------------------
 struct s_cmd
@@ -93,15 +92,19 @@ struct s_cmd
 	t_cmd		*next;
 };
 
+enum e_io
+{
+	IN,
+	OUT,
+};
+
 struct s_data
 {
 	t_cmd	*cmd;
 	t_dict	*env;
 	t_dict	*var;
-	int		fd_in;
-	int		fd_out;
-	int		std_in;
-	int		std_out;
+	int		fd[2];
+	int		std[2];
 	int		*pids;
 	int		**pipes;
 	int		n_pipes;
@@ -111,12 +114,18 @@ void	init_forks(t_data *data);
 void	init_pids(t_data *data);
 void	init_pipes(t_data *data);
 void	execute(t_data *data, int i);
-void	free_pipes(int **pipes, int n);
-void	execute_bt(t_cmd *cmd);
+void	execute_bt(t_data *data);
 
 // PARSING ----------------------------------------------------------
 t_bool	parsing(t_data *data, char *line);
-t_bool	add_back(t_cmd **cmd, char *line, char **paths);
+t_bool	add_back(t_data *data, char *line, char **paths);
+t_bool	get_var(t_data *data, char *line);
+char	**replace_var(t_data *data, char **split);
+
+// FREE -------------------------------------------------------------
+void	free_split(char **split, int i);
+void	free_pipes(int **pipes, int n);
+void	free_dict(t_dict **dict);
 void	free_cmds(t_cmd **cmd);
 
 #endif

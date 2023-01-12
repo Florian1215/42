@@ -12,11 +12,11 @@
 
 #include "../minishell.h"
 
-t_bool	bt_pwd(char **args)
+t_bool	bt_pwd(t_data *data)
 {
 	char	*path;
 
-	(void)args;
+	(void)data;
 	path = NULL;
 	path = getcwd(path, 42);
 	printf("%s\n", path);

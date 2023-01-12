@@ -12,20 +12,20 @@
 
 #include "../minishell.h"
 
-t_bool	bt_echo(char **args)
+t_bool	bt_echo(t_data *data)
 {
 	int		i;
 	t_bool	new_line;
 
-	if (str_cmp(args[1], "-n") == 0)
+	if (str_cmp(data->cmd->args[1], "-n") == 0)
 		new_line = FALSE;
 	else
 		new_line = TRUE;
-	i = 2;
-	while (args[i])
+	i = 2 - new_line;
+	while (data->cmd->args[i])
 	{
-		put_str(args[i], STDOUT_FILENO);
-		if (args[i + 1] != NULL)
+		put_str(data->cmd->args[i], STDOUT_FILENO);
+		if (data->cmd->args[i + 1] != NULL)
 			put_str(" ", STDOUT_FILENO);
 		i++;
 	}

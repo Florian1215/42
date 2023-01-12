@@ -57,14 +57,14 @@ static char	*get_binary(char *cmd, char **paths)
 	return (NULL);
 }
 
-t_bool	add_back(t_cmd **cmd, char *line, char **paths)
+t_bool	add_back(t_data *data, char *line, char **paths)
 {
 	t_cmd	*new;
 
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return (ERROR);
-	new->args = split(line, ' ');
+	new->args = replace_var(data, split(line, ' '));
 	if (!new->args)
 		return ((void)"Error", ERROR); // ERROR
 	new->built_in = get_builtin(new->args[0]);
@@ -73,9 +73,9 @@ t_bool	add_back(t_cmd **cmd, char *line, char **paths)
 	else
 		new->cmd_path = NULL;
 	new->next = NULL;
-	if (!*cmd)
-		*cmd = new;
+	if (!data->cmd)
+		data->cmd = new;
 	else
-		cmd_last(*cmd)->next = new;
+		cmd_last(data->cmd)->next = new;
 	return (SUCCESS);
 }

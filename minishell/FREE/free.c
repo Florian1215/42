@@ -52,3 +52,19 @@ void	free_pipes(int **pipes, int n)
 	}
 	free(pipes);
 }
+
+void	free_split(char **split, int i)
+{
+	if (!split)
+		return ;
+	if (i == -1)
+	{
+		i = 0;
+		while (split[i])
+			i++;
+		i--;
+	}
+	while (i >= 0)
+		free(split[i--]);
+	free(split);
+}

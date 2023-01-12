@@ -23,29 +23,30 @@ static void	close_all(t_data *data)
 		close(data->pipes[i][1]);
 		i++;
 	}
-	if (data->fd_in != -1)
-		close(data->fd_in);
-	if (data->fd_out != -1)
-		close(data->fd_out);
+	if (data->fd[IN] != -1)
+		close(data->fd[IN]);
+	if (data->fd[OUT] != -1)
+		close(data->fd[OUT]);
 }
 
-void	execute_bt(t_cmd *cmd)
+void	execute_bt(t_data *data)
 {
-	static t_bool	(*bt_func[8])(char **args) = {NULL, NULL, bt_cd, NULL, NULL, bt_echo, bt_pwd, NULL};
+	static t_bool	(*bt_func[8])(t_data *data) = {NULL, NULL, \
+		bt_cd, NULL, NULL, bt_echo, bt_pwd, NULL};
 
-	bt_func[cmd->built_in](cmd->args);
+	bt_func[data->cmd->built_in](data);
 }
 
 void	execute(t_data *data, int i)
 {
 	char	**envp;
 
-	if (i == 0 && data->fd_in != -1)
-		dup2(data->fd_in, STDIN_FILENO);
+	if (i == 0 && data->fd[IN] != -1)
+		dup2(data->fd[IN], STDIN_FILENO);
 	else if (i != 0)
 		dup2(data->pipes[i - 1][0], STDIN_FILENO);
-	if (i == data->n_pipes && data->fd_out != -1)
-		dup2(data->fd_out, STDOUT_FILENO);
+	if (i == data->n_pipes && data->fd[OUT] != -1)
+		dup2(data->fd[OUT], STDOUT_FILENO);
 	else if (i != data->n_pipes)
 		dup2(data->pipes[i][1], STDOUT_FILENO);
 	close_all(data);
@@ -56,6 +57,6 @@ void	execute(t_data *data, int i)
 		free_split(envp, -1);
 	}
 	if (data->cmd->built_in != NONE)
-		execute_bt(data->cmd);
+		execute_bt(data);
 	exit(0);
 }

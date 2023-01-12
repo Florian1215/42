@@ -76,7 +76,7 @@ void	init_forks(t_data *data)
 		}
 		else
 		{
-			execute_bt(data->cmd);
+			execute_bt(data);
 		}
 		k++;
 		data->cmd = data->cmd->next;

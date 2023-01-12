@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   digit.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fguirama <fguirama@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/08 10:50:00 by fguirama          #+#    #+#             */
-/*   Updated: 2023/01/08 10:50:00 by fguirama         ###   ########lyon.fr   */
+/*   Created: 2023/01/11 18:07:00 by fguirama          #+#    #+#             */
+/*   Updated: 2023/01/11 18:07:00 by fguirama         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_bool	parsing(t_data *data, char *line)
+t_bool	atoi(char *nb, unsigned char *var)
 {
-	char	**pipes;
-	char	**paths;
-	int		i;
+	int	res;
+	int	i;
 
-	if (get_var(data, line))
-		return (SUCCESS);
-	pipes = split(line, '|');
-	if (!pipes)
+	res = 0;
+	i = 0;
+	while (nb[i] >= '0' && nb[i] <= '9')
+	{
+		res = res * 10 + nb[i++] - '0';
+		if (res > UCHAR_MAX)
+			return (ERROR);
+	}
+	if (!i || str_len(nb) != i)
 		return (ERROR);
-	paths = split(get_value(data->env, "PATH"), ':');
-	i = -1;
-	while (pipes[++i])
-		if (!add_back(data, pipes[i], paths))
-			return (free_split(paths, -1), free_cmds(&data->cmd), FALSE);
-	data->n_pipes = --i;
-	free_split(paths, -1);
+	*var = (unsigned char)res;
 	return (SUCCESS);
 }
